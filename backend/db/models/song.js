@@ -6,10 +6,16 @@ module.exports = (sequelize, DataTypes) => {
     songUrl: DataTypes.STRING,
     userId: DataTypes.INTEGER
   }, {});
+
   Song.associate = function (models) {
     Song.belongsTo(models.User, {
       foreignKey: 'userId'
     });
+
+    Song.hasMany(models.Comment, {
+      foreignKey: 'songId'
+    });
   };
+  
   return Song;
 };
