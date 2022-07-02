@@ -16,7 +16,7 @@ const validateSong = [
     check('description')
         .exists({ checkFalsy: true })
         .isLength({ min: 10, max: 300 })
-        .withMessage('Description must be at least 6 characters and less than 300 characters.'),
+        .withMessage('Description must be at least 10 characters and less than 300 characters.'),
     handleValidationErrors
 ];
 
@@ -47,7 +47,7 @@ router.get('/:id', asyncHandler(async(req, res) => {
 }));
 
 // Edit Song
-router.patch('/:id', singleMulterUpload("image"), validateSong, asyncHandler(async(req, res) => {
+router.patch('/:id', singleMulterUpload("song"), validateSong, asyncHandler(async(req, res) => {
     const song = await Song.findByPk(req.params.id);
     const { title, description, userId, songUrl } = req.body;
     const newSongUrl = req.file ? await singlePublicFileUpload(req.file) : songUrl;
@@ -61,9 +61,11 @@ router.patch('/:id', singleMulterUpload("image"), validateSong, asyncHandler(asy
 
 // Delete Song
 router.delete('/:id', asyncHandler(async(req, res) => {
-    const song = Song.findByPk(req.params.id);
+    const song = await Song.findByPk(req.params.id);
 
     await song.destroy();
 
     return res.json({message: "success", song});
 }));
+
+module.exports = router;

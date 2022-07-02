@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
 import LandingPage from './components/Landing';
+import Songs from './components/Songs';
+import SingleSong from './components/SingleSong';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +21,12 @@ function App() {
       <Switch>
         <Route exact path="/">
           <LandingPage />
+        </Route>
+        <Route path="/songs/:id">
+          <SingleSong />
+        </Route>
+        <Route path="/songs">
+          <Songs />
         </Route>
       </Switch>
     </>

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadSong } from '../../store/songs';
+import { editSong } from '../../store/songs';
 
-export default function UploadSongForm(props) {
+export default function EditSongForm(props) {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [song, setSong] = useState(null);
+    const [title, setTitle] = useState(props.song.title);
+    const [description, setDescription] = useState(props.song.description);
+    const [song, setSong] = useState(props.song.song);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const currentUser = useSelector(state => state.session.user);
@@ -33,7 +33,7 @@ export default function UploadSongForm(props) {
                 song
             }
 
-            await dispatch(uploadSong(data));
+            await dispatch(editSong(data, props.song.id));
 
             setTitle('');
             setDescription('');
@@ -52,7 +52,7 @@ export default function UploadSongForm(props) {
 
     return (
         <div>
-            <h2>Upload Song Form</h2>
+            <h2>Edit Song Form</h2>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
             <form
                 style={{ display: "flex", flexFlow: "column" }}
@@ -77,7 +77,7 @@ export default function UploadSongForm(props) {
                 <label>
                     <input type="file" onChange={updateFile} />
                 </label>
-                <button type="submit">Upload Song</button>
+                <button type="submit">Edit Song</button>
             </form>
         </div>
 

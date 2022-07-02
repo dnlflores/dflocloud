@@ -34,6 +34,7 @@ function Navigation({ isLoaded }) {
                 <h2 onClick={() => history.push("/")}>DFloCloud</h2>
                 <div>
                     {isLoaded && sessionLinks}
+                    <NavLink to="/songs">Explore All Songs</NavLink>
                 </div>
             </nav>
         </>
