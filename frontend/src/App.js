@@ -2,8 +2,8 @@ import React, { useEffect, useState} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from './store/session';
-import SignupFormPage from './components/SignUpFormPage';
 import Navigation from './components/Navigation';
+import LandingPage from './components/Landing';
 
 function App() {
   const dispatch = useDispatch();
@@ -17,8 +17,8 @@ function App() {
     <>
     <Navigation isLoaded={isLoaded} />
       <Switch>
-        <Route path="/signup">
-          <SignupFormPage />
+        <Route exact path="/">
+          <LandingPage />
         </Route>
       </Switch>
     </>
