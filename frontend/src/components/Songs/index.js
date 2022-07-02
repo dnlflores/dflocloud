@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSongs, removeSong } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 export default function Songs(props) {
     const dispatch = useDispatch();
@@ -24,7 +26,11 @@ export default function Songs(props) {
                 <div key={song.id}>
                     <h2>{song.id}</h2>
                     <h2>{song.title}</h2>
-                    <h2>{song.songUrl}</h2>
+                    <AudioPlayer
+                        src={song.songUrl}
+                        onPlay={e => console.log("onPlay")}
+                        // other props here
+                    />
                     {currentUser && +currentUser.id === +song.userId && (
                         <>
                             <button onClick={handleDelete} value={song.id}>Delete</button>
