@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/">
           <LandingPage />
         </Route>
-        <Route path="/songs/:id">
+        <Route path="/songs/:songId">
           <SingleSong />
         </Route>
         <Route path="/songs">

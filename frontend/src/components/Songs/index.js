@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, NavLink } from 'react-router-dom';
 import { getSongs, removeSong } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
 import AudioPlayer from 'react-h5-audio-player';
@@ -7,6 +8,7 @@ import 'react-h5-audio-player/lib/styles.css';
 
 export default function Songs(props) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const songs = useSelector(state => state.songs);
     const currentUser = useSelector(state => state.session.user);
     const songsArr = Object.values(songs || {});
@@ -24,8 +26,7 @@ export default function Songs(props) {
             <h2>Songs component!</h2>
             {songs && songsArr.map(song => (
                 <div key={song.id}>
-                    <h2>{song.id}</h2>
-                    <h2>{song.title}</h2>
+                    <NavLink to={`/songs/${song.id}`}>{song.title}</NavLink>
                     <AudioPlayer
                         src={song.songUrl}
                         onPlay={e => console.log("onPlay")}
@@ -33,7 +34,7 @@ export default function Songs(props) {
                     />
                     {currentUser && +currentUser.id === +song.userId && (
                         <>
-                            <button onClick={handleDelete} value={song.id}>Delete</button>
+                            <button onClick={handleDelete} value={song.id}>Delete Song</button>
                             <EditSongModal song={song}/>
                         </>
                     )}

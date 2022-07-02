@@ -4,23 +4,24 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const { Comment } = require('../../db/models');
-const { Op } = require('sequelize/types');
+// const { Op } = require('sequelize');
 
 const router = express.Router();
 
 const validateComment = [
     check('content')
         .exists({ checkFalsy: true })
-        .isLength({ min: 10, max: 300 })
-        .withMessage('Content must be at least 10 characters and less than 300 characters.'),
+        .isLength({ min: 10, max: 100 })
+        .withMessage('Content must be at least 10 characters and less than 100 characters.'),
     handleValidationErrors
 ];
 
 // Get comments for a song
-router.get('/:id', asyncHandler(async (req, res) => {
+router.get('/:songId', asyncHandler(async (req, res) => {
+    const { songId } = req.params;
     const comments = await Comment.findAll({
         where: {
-            songId: { [Op.eq]: req.params.id }
+            songId
         }
     });
 
