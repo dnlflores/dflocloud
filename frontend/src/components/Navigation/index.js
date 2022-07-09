@@ -19,6 +19,8 @@ function Navigation({ isLoaded }) {
                 <ProfileButton user={sessionUser} />
                 <UploadSongModal />
                 <CreateAlbumFormModal />
+                <NavLink to="/songs/my">Explore Your Songs</NavLink>
+                <NavLink to="/albums/my">Explore Your Albums</NavLink>
             </>
         );
     } else {
@@ -36,8 +38,6 @@ function Navigation({ isLoaded }) {
                 <h2 onClick={() => history.push("/")}>DFloCloud</h2>
                 <div>
                     {isLoaded && sessionLinks}
-                    <NavLink to="/songs/my">Explore Your Songs</NavLink>
-                    <NavLink to="/albums/my">Explore Your Albums</NavLink>
                 </div>
             </nav>
         </>
