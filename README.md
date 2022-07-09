@@ -836,7 +836,7 @@ Returns all the comments that belong to a song specified by id.
           "id": 1,
           "userId": 1,
           "songId": 1,
-          "body": "I love this song!",
+          "content": "I love this song!",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36" ,
           "User": {
@@ -875,7 +875,7 @@ Create and return a new comment for a song specified by id.
 
     ```json
     {
-      "body": "I love this song!"
+      "content": "I love this song!"
     }
     ```
 
@@ -890,7 +890,7 @@ Create and return a new comment for a song specified by id.
       "id": 1,
       "userId": 1,
       "songId": 1,
-      "body": "I love this song!",
+      "content": "I love this song!",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36" ,
     }
@@ -940,7 +940,7 @@ Update and return an existing comment.
 
     ```json
     {
-      "body": "I love this song!"
+      "content": "I love this song!"
     }
     ```
 
@@ -955,7 +955,7 @@ Update and return an existing comment.
       "id": 1,
       "userId": 1,
       "songId": 1,
-      "body": "I love this song!",
+      "content": "I love this song!",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 20:00:00"
     }
@@ -972,7 +972,7 @@ Update and return an existing comment.
       "message": "Validation error",
       "statusCode": 400,
       "errors": {
-        "body": "Comment body text is required",
+        "content": "Comment body text is required",
       }
     }
     ```

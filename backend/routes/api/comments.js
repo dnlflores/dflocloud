@@ -2,9 +2,8 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-
-const { Comment } = require('../../db/models');
-// const { Op } = require('sequelize');
+const { Comment, User, Song } = require('../../db/models');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -20,8 +19,9 @@ const validateComment = [
 router.get('/:songId', asyncHandler(async (req, res) => {
     const comments = await Comment.findAll({
         where: {
-            songId: req.params.songId
-        }
+            songId: {[Op.eq]: req.params.songId}
+        },
+        include: User
     });
 
     return res.json(comments);
