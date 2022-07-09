@@ -6,7 +6,6 @@ const { requireAuth } = require('../../utils/auth');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 const { Op } = require('sequelize');
 const { Song, Album, User, Playlist, PlaylistSong } = require('../../db/models');
-const playlist = require('../../db/models/playlist');
 
 const router = express.Router();
 
@@ -59,6 +58,27 @@ router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
     });
 
     res.json({ id: addSong.id, songId, playlistId });
+}));
+
+// Remove a song to a playlist
+router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
+    const songId = req.body.songId;
+    const playlistId = req.params.id;
+
+    const removeSong = await PlaylistSong.findOne({
+        where: {
+            songId: {
+                [Op.eq]: songId
+            },
+            playlistId: {
+                [Op.eq]: playlistId
+            }
+        }
+    });
+
+    await removeSong.destroy();
+
+    res.json({ message: "Song removed from playlist", statusCode: 200 });
 }));
 
 // Edit a playlist

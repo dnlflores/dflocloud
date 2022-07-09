@@ -1313,6 +1313,64 @@ Add a song to a playlist specified by the playlist's id.
     }
     ```
 
+## Remove a Song from a Playlist based on the Playlists's id
+
+Remove a song from a playlist specified by the playlist's id.
+
+* Require Authentication: true
+* Require proper authorization: Playlist must belong to the current user
+* Request
+  * Method: DELETE
+  * URL: /api/playlists/:playlistId
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "songId": 1
+    }
+    ```
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Song removed from playlist",
+      "statusCode": 200
+    }
+    ```
+
+* Error response: Couldn't find a Playlist with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Playlist couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
+* Error response: Couldn't find a Song with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Song couldn't be found",
+      "statusCode": 404
+    }
+    ```
+
 ## Get details of a Playlist from an id
 
 Returns the details of a playlist specified by its id.
