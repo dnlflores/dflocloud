@@ -95,7 +95,7 @@ router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
         playlistId
     });
 
-    return res.json({ id: addSong.id, songId, playlistId });
+    return res.json({ id: addSong.id, songId, playlistId, song });
 }));
 
 // Remove a song to a playlist

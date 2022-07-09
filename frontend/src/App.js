@@ -44,6 +44,9 @@ function App() {
         <Route path="/albums">
           <Albums my={false} />
         </Route>
+        <Route path="/playlists/my">
+          
+        </Route>
       </Switch>
       <AudioPlayer
           src={`https://www.mfiles.co.uk/mp3-downloads/beethoven-symphony7-2-liszt-piano.mp3`}

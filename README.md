@@ -1278,7 +1278,18 @@ Add a song to a playlist specified by the playlist's id.
     {
       "id": 1,
       "playlistId": 1,
-      "songId": 1
+      "songId": 1,
+      "song": {
+          "id": 1,
+          "userId": 1,
+          "albumId": 1,
+          "title": "Yesterday",
+          "description": "A song about the past.",
+          "url": "audio url",
+          "createdAt": "2021-11-19 20:39:36",
+          "updatedAt": "2021-11-19 20:39:36",
+          "previewImage": "image url"
+      }
     }
     ```
 

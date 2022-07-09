@@ -32,11 +32,10 @@ const deleteAlbum = albumId => ({
 });
 
 export const buildAlbum = (data) => async dispatch => {
-    const { userId, title, description, image } = data;
+    const { title, description, image } = data;
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("userId", userId);
     formData.append("description", description);
 
     if (image) formData.append("image", image);
@@ -87,11 +86,10 @@ export const getAlbum = (id) => async dispatch => {
 };
 
 export const editAlbum = (data, id) => async dispatch => {
-    const { userId, title, description, image } = data;
+    const { title, description, image } = data;
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("userId", userId);
     formData.append("description", description);
 
     if (image) formData.append("image", image);
