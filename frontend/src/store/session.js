@@ -13,7 +13,6 @@ const removeUser = () => ({
 });
 
 export const signup = (user) => async (dispatch) => {
-    console.log("this is the user from the thunk => ", user);
     const { username, email, password, profilePicture } = user;
 
     const formData = new FormData();
