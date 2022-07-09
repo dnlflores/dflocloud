@@ -2,7 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Song, Album } = require('../../db/models');
+const { User, Song, Album, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
@@ -63,6 +63,12 @@ router.get('/:id/songs', asyncHandler(async (req, res) => {
 router.get('/:id/albums', asyncHandler(async (req, res) => {
     const albums = await Album.findAll({ where: { userId: { [Op.eq]: req.params.id } } })
     res.json(albums);
+}));
+
+// Get user playlists
+router.get('/:id/playlists', asyncHandler(async (req, res) => {
+    const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.params.id } } })
+    res.json(playlists);
 }));
 
 module.exports = router;

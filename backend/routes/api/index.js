@@ -7,6 +7,7 @@ const usersRouter = require('./users.js');
 const songsRouter = require('./songs.js');
 const commentsRouter = require('./comments.js');
 const albumsRouter = require('./albums.js');
+const playlistsRouter = require('./playlists.js')
 const { restoreUser } = require('../../utils/auth.js');
 
 router.use(restoreUser);
@@ -15,6 +16,7 @@ router.use('/users', usersRouter);
 router.use('/songs', songsRouter);
 router.use('/comments', commentsRouter);
 router.use('/albums', albumsRouter);
+router.use('/playlists', playlistsRouter);
 
 // this is a test route to set the cookie!
 router.get('/csrf/restore', function (req, res) {
