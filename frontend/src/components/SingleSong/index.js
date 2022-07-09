@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getSong, removeSong } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
 import AudioPlayer from 'react-h5-audio-player';
@@ -10,6 +10,7 @@ import Comments from '../Comments';
 export default function SingleSong(props) {
     const { songId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
     const song = useSelector(state => state.songs[songId]);
     const currentUser = useSelector(state => state.session.user);
 
@@ -19,6 +20,7 @@ export default function SingleSong(props) {
 
     const handleDelete = async event => {
         await dispatch(removeSong(event.target.value))
+        history.push('/songs');
     };
 
     if(!song) return null;
