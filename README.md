@@ -820,7 +820,7 @@ Returns all the comments that belong to a song specified by id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/songs/:songId/comments
+  * URL: /api/comments/:songId
   * Body: none
 
 * Successful Response
@@ -868,7 +868,7 @@ Create and return a new comment for a song specified by id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /api/songs/:songId/comments
+  * URL: /api/comments/:songId
   * Headers:
     * Content-Type: application/json
   * Body:
