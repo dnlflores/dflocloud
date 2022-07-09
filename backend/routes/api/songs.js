@@ -3,8 +3,9 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
+const { Op } = require('sequelize');
 
-const { Song } = require('../../db/models');
+const { Song, Album, User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -21,51 +22,60 @@ const validateSong = [
 ];
 
 // Upload Song
-router.post('/', singleMulterUpload("song"), validateSong, asyncHandler(async(req, res) => {
-    const {title, description, userId } = req.body;
-    const songUrl = await singlePublicFileUpload(req.file);
+router.post('/', singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
+    const { title, description, url, imageUrl, albumId } = req.body;
+    const songUrl = url ? url : await singlePublicFileUpload(req.files[0]);
+    const picUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.files[1]);
 
     const newSong = await Song.create({
-        title, description, userId, songUrl
+        title, description, userId: req.user.id, songUrl, previewImage: picUrl, albumId
     });
 
     return res.json(newSong);
 }));
 
 // Get Songs
-router.get('/', asyncHandler(async(req, res) => {
-    const songs = await Song.findAll();
+router.get('/', asyncHandler(async (req, res) => {
+    const songs = await Song.findAll({include: [{model: User, as: 'Artist'}, Album]});
 
     return res.json(songs);
 }));
 
+// Get All User Songs
+router.get('/me', asyncHandler(async (req, res) => {
+    const mySongs = await Song.findAll({include: [{model: User, as: 'Artist'}, Album], where: {userId: {[Op.eq]: req.user.id}}});
+
+    return res.json(mySongs);
+}));
+
 // Get Single Song
-router.get('/:id', asyncHandler(async(req, res) => {
-    const song = await Song.findByPk(req.params.id);
+router.get('/:id', asyncHandler(async (req, res) => {
+    const song = await Song.findByPk(req.params.id, {include: [{model: User, as: 'Artist'}, Album.scope('song')]});
 
     return res.json(song);
 }));
 
 // Edit Song
-router.patch('/:id', singleMulterUpload("song"), validateSong, asyncHandler(async(req, res) => {
+router.patch('/:id', singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id);
-    const { title, description, userId, songUrl } = req.body;
-    const newSongUrl = req.file ? await singlePublicFileUpload(req.file) : songUrl;
+    const { title, description, songUrl, imageUrl } = req.body;
+    const newSongUrl = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
+    const newImageUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.files[1]);
 
     await song.update({
-        title, description, userId, songUrl: newSongUrl
+        title, description, userId: req.user.id, songUrl: newSongUrl, previewImage: newImageUrl
     })
 
     return res.json(song);
 }));
 
 // Delete Song
-router.delete('/:id', asyncHandler(async(req, res) => {
+router.delete('/:id', asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id);
 
     await song.destroy();
 
-    return res.json({message: "success", song});
+    return res.json({ message: "success", statusCode: 200 });
 }));
 
 module.exports = router;

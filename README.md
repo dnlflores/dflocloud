@@ -49,8 +49,8 @@ Returns the information about the current user that is logged in.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/users/me
   * Body: none
 
 * Successful Response
@@ -76,8 +76,8 @@ information.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -143,8 +143,8 @@ user's information.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/users
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -233,8 +233,8 @@ Returns all the songs.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/songs
   * Body: none
 
 * Successful Response
@@ -245,7 +245,7 @@ Returns all the songs.
 
     ```json
     {
-      "Songs":[
+      [
         {
           "id": 1,
           "userId": 1,
@@ -267,8 +267,8 @@ Returns all the songs created by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/songs/me
   * Body: none
 
 * Successful Response
@@ -279,7 +279,7 @@ Returns all the songs created by the current user.
 
     ```json
     {
-      "Songs": [
+      [
         {
           "id": 1,
           "userId": 1,
@@ -301,8 +301,8 @@ Returns the details of a song specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/songs/:songId
   * Body: none
 
 * Successful Response
@@ -355,8 +355,8 @@ Creates and returns a new song.
 * Require Authentication: true
 * Require proper authorization: Album must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/songs
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -365,8 +365,9 @@ Creates and returns a new song.
     {
       "title": "Yesterday",
       "description": "A song about the past.",
-      "url": "audio url",
-      "imageUrl": "image url"
+      "songUrl": "audio url",
+      "previewImage": "image url",
+      "albumId": 1
     }
     ```
 
@@ -427,8 +428,8 @@ Updates and returns an existing song.
 * Require Authentication: true
 * Require proper authorization: Song must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PATCH
+  * URL: /api/songs/:songId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -437,8 +438,9 @@ Updates and returns an existing song.
     {
       "title": "Yesterday",
       "description": "A song about the past.",
-      "url": "audio url",
-      "imageUrl": "image url"
+      "songUrl": "audio url",
+      "imageUrl": "image url",
+      "albumId": 1
     }
     ```
 
@@ -499,8 +501,8 @@ Deletes an existing song.
 * Require Authentication: true
 * Require proper authorization: Song must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/songs/:songId
   * Body: none
 
 * Successful Response
@@ -535,8 +537,8 @@ Returns all the Albums.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/albums
   * Body: none
 
 * Successful Response
@@ -547,7 +549,7 @@ Returns all the Albums.
 
     ```json
     {
-      "Albums": [
+      [
         {
           "id": 1,
           "userId": 1,
@@ -567,8 +569,8 @@ Returns all the Albums created by the current user.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/albums/me
   * Body: none
 
 * Successful Response
@@ -579,7 +581,7 @@ Returns all the Albums created by the current user.
 
     ```json
     {
-      "Albums":[
+      [
         {
           "id": 1,
           "userId": 1,
@@ -599,8 +601,8 @@ Returns the details of an album specified by its id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/albums/:albumId
   * Body: none
 
 * Successful Response
@@ -658,8 +660,8 @@ Creates and returns a new album.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/albums
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -713,8 +715,8 @@ Updates and returns an existing album.
 * Require Authentication: true
 * Require proper authorization: Album must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PATCH
+  * URL: /api/albums/:albumId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -781,8 +783,8 @@ Deletes an existing album.
 * Require Authentication: true
 * Require proper authorization: Album must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/albums/:albumId
   * Body: none
 
 * Successful Response

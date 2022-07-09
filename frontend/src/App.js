@@ -6,6 +6,8 @@ import Navigation from './components/Navigation';
 import LandingPage from './components/Landing';
 import Songs from './components/Songs';
 import SingleSong from './components/SingleSong';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +31,11 @@ function App() {
           <Songs />
         </Route>
       </Switch>
+      <AudioPlayer
+          src={`https://www.mfiles.co.uk/mp3-downloads/beethoven-symphony7-2-liszt-piano.mp3`}
+          onPlay={e => console.log("onPlay")}
+          // other props here
+      />
     </>
   );
 }
