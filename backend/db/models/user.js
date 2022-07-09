@@ -1,6 +1,7 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const { Validator } = require('sequelize');
+const { singlePublicFileUpload } = require('../../awsS3');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -79,13 +80,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ username, email, password, profilePicture }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
       email,
       hashedPassword,
-      profilePicUrl
+      profilePicUrl: profilePicture
     });
     return await User.scope('currentUser').findByPk(user.id);
   };

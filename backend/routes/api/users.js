@@ -6,6 +6,7 @@ const { User, Song, Album, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const router = express.Router();
 
@@ -33,10 +34,14 @@ const validateSignup = [
 // Sign up
 router.post(
     '/',
+    singleMulterUpload("image"),
     validateSignup,
     asyncHandler(async (req, res) => {
         const { email, password, username } = req.body;
-        const user = await User.signup({ email, username, password });
+        console.log("IIIIIIIINNNNNNNNNNFFFFFFFFFFOOOOOOOOOO -----> ", req.file);
+        console.log("email ", email, " password ", password, " username ", username);
+        const profilePicUrl = await singlePublicFileUpload(req.file);
+        const user = await User.signup({ email, username, password, profilePicture: profilePicUrl });
 
         await setTokenCookie(res, user);
 

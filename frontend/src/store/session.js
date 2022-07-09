@@ -13,14 +13,22 @@ const removeUser = () => ({
 });
 
 export const signup = (user) => async (dispatch) => {
-    const { username, email, password } = user;
+    console.log("this is the user from the thunk => ", user);
+    const { username, email, password, profilePicture } = user;
+
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+
+    if (profilePicture) formData.append("image", profilePicture);
+
     const response = await csrfFetch("/api/users", {
         method: "POST",
-        body: JSON.stringify({
-            username,
-            email,
-            password,
-        }),
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        body: formData
     });
     const data = await response.json();
     dispatch(setUser(data.user));
