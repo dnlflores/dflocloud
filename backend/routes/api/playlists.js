@@ -58,7 +58,31 @@ router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
         playlistId
     });
 
-    res.json({id: addSong.id, songId, playlistId});
+    res.json({ id: addSong.id, songId, playlistId });
+}));
+
+// Edit a playlist
+router.patch('/:id', requireAuth, singleMulterUpload("image"), validatePlaylist, asyncHandler(async (req, res) => {
+    const { name, imageUrl } = req.body;
+    const picUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.file);
+
+    const playlist = await Playlist.findByPk(req.params.id);
+
+    await playlist.update({
+        name,
+        previewImage: picUrl
+    })
+
+    res.json(playlist);
+}));
+
+// Delete a playlist
+router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
+    const playlist = await Playlist.findByPk(req.params.id);
+
+    await playlist.destroy();
+
+    res.json({ message: "Deleted successfully", statusCode: 200 });
 }));
 
 module.exports = router;
