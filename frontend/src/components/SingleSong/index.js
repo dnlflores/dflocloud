@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import { getSong, removeSong } from '../../store/songs';
@@ -16,7 +16,7 @@ export default function SingleSong(props) {
 
     useEffect(() => {
         dispatch(getSong(songId));
-    }, [dispatch]);
+    }, [dispatch, songId]);
 
     const handleDelete = async event => {
         await dispatch(removeSong(event.target.value))

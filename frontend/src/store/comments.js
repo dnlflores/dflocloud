@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const CREATE_COMMENT = 'comments/CREATE_COMMENT';
 const READ_COMMENTS = 'comments/READ_COMMENTS';
+const UPDATE_COMMENT = 'comments/UPDATE_COMMENT';
 const DELETE_COMMENT = 'comments/DELETE_COMMENT';
 
 const createComment = comment => ({
@@ -13,6 +14,11 @@ const readComments = comments => ({
     type: READ_COMMENTS,
     comments
 });
+
+const updateComment = comment => ({
+    type: UPDATE_COMMENT,
+    comment
+})
 
 const deleteComment = commentId => ({
     type: DELETE_COMMENT,
@@ -53,6 +59,19 @@ export const removeComment = commentId => async dispatch => {
     }
 };
 
+export const editComment = (comment, id) => async dispatch => {
+    const response = await csrfFetch(`/api/comments/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(comment)
+    });
+
+    if(response.ok) {
+        const comment = await response.json();
+        dispatch(updateComment(comment));
+        return comment;
+    }
+};
+
 export default function commentsReducer(state = {}, action) {
     switch(action.type) {
         case CREATE_COMMENT: {
@@ -63,6 +82,11 @@ export default function commentsReducer(state = {}, action) {
         case READ_COMMENTS: {
             const newState = {...state};
             action.comments.forEach(comment => newState[comment.id] = comment);
+            return newState;
+        }
+        case UPDATE_COMMENT: {
+            const newState = {...state};
+            newState[action.comment.id] = action.comment;
             return newState;
         }
         case DELETE_COMMENT: {

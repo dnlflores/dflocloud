@@ -32,7 +32,7 @@ export default function EditSongForm(props) {
 
         setErrors(newErrors);
 
-    }, [title, description])
+    }, [title, description, album])
 
     const handleSubmit = async event => {
         event.preventDefault();
