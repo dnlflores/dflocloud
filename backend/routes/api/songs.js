@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
-const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
+const { singleMulterUpload, singlePublicFileUpload, multipleMulterUpload } = require('../../awsS3');
 const { Op } = require('sequelize');
 const { Song, Album, User } = require('../../db/models');
 
@@ -25,7 +25,7 @@ const validateSong = [
 // song url and image url naming convention is a work in progress. 
 // these url's need 2 different names for each to check if a user has used a computer file upload (AWS frontend)
 // or if they are providing an actual link to a picture (mostly for testing)
-router.post('/', requireAuth, singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
+router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, asyncHandler(async (req, res) => {
     const { title, description, songUrl, imageUrl, albumId } = req.body;
 
     const album = await Album.findByPk(albumId);
@@ -35,8 +35,13 @@ router.post('/', requireAuth, singleMulterUpload("song"), singleMulterUpload("im
         return res.json({ message: "Album cannot be found.", statusCode: 404 });
     }
 
+    console.log("MADE IT, HERE ARE THE REQ FILES ==========> ", req.files);
+
     const url = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
-    const picUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.files[1]);
+    
+    let picUrl;
+    if(req.files.length > 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[1]);
+    else picUrl = imageUrl ? imageUrl : "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD-ROM.png";
 
     const newSong = await Song.create({
         title, description, userId: req.user.id, songUrl: url, previewImage: picUrl, albumId

@@ -32,14 +32,18 @@ const deleteSong = songId => ({
 });
 
 export const uploadSong = (data) => async dispatch => {
-    const { userId, title, description, song } = data;
+    const { userId, title, description, song, image, albumId } = data;
+
+    console.log("heres the data from the thunk => ", data);
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("userId", userId);
     formData.append("description", description);
+    formData.append("albumId", albumId);
 
-    if (song) formData.append("song", song);
+    if (song) formData.append("files", song);
+    if (image) formData.append("files", image);
 
     const response = await csrfFetch(`/api/songs/`, {
         method: "POST",

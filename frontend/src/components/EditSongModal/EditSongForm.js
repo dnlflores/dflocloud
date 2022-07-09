@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editSong } from '../../store/songs';
+import { getMyAlbums } from '../../store/albums';
 
 export default function EditSongForm(props) {
     const dispatch = useDispatch();
     const [title, setTitle] = useState(props.song.title);
     const [description, setDescription] = useState(props.song.description);
     const [song, setSong] = useState(props.song.song);
+    const [image, setImage] = useState(props.song.image);
+    const [album, setAlbum] = useState(props.song.album);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const currentUser = useSelector(state => state.session.user);
+    const albums = useSelector(state => state.albums);
+
 
     useEffect(() => {
         const newErrors = [];
