@@ -831,7 +831,7 @@ Returns all the comments that belong to a song specified by id.
 
     ```json
     {
-      "Comments": [
+      [
         {
           "id": 1,
           "userId": 1,

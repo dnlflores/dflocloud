@@ -18,10 +18,9 @@ const validateComment = [
 
 // Get comments for a song
 router.get('/:songId', asyncHandler(async (req, res) => {
-    const { songId } = req.params;
     const comments = await Comment.findAll({
         where: {
-            songId
+            songId: req.params.songId
         }
     });
 
@@ -29,13 +28,13 @@ router.get('/:songId', asyncHandler(async (req, res) => {
 }));
 
 // Create comment for a song
-router.post('/:id', validateComment, asyncHandler(async(req, res) => {
+router.post('/:songId', validateComment, asyncHandler(async(req, res) => {
     const { content, userId } = req.body;
 
     const newComment = await Comment.create({
         userId,
         content,
-        songId: req.params.id
+        songId: req.params.songId
     });
 
     return res.json(newComment);
