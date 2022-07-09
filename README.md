@@ -62,10 +62,9 @@ Returns the information about the current user that is logged in.
     ```json
     {
       "id": 1,
-      "firstName": "John",
-      "lastName": "Smith",
       "email": "john.smith@gmail.com",
-      "username": "JohnSmith"
+      "username": "JohnSmith",
+      "profilePicUrl": "profile image"
     }
     ```
 
@@ -84,8 +83,8 @@ information.
 
     ```json
     {
-      "email": "john.smith@gmail.com",
-      "password": "secret password"
+      "credential": "Demo-lition",
+      "password": "password"
     }
     ```
 
@@ -98,8 +97,6 @@ information.
     ```json
     {
       "id": 1,
-      "firstName": "John",
-      "lastName": "Smith",
       "email": "john.smith@gmail.com",
       "username": "JohnSmith",
       "token": ""
@@ -151,11 +148,10 @@ user's information.
 
     ```json
     {
-      "firstName": "John",
-      "lastName": "Smith",
       "username": "JohnSmith",
       "email": "john.smith@gmail.com",
-      "password": "secret password"
+      "password": "secret password",
+      "profilePicUrl": "profile image url"
     }
     ```
 
@@ -168,10 +164,9 @@ user's information.
     ```json
     {
       "id": 1,
-      "firstName": "John",
-      "lastName": "Smith",
       "username": "JohnSmith",
       "email": "john.smith@gmail.com",
+      "profilePicUrl": "profile image url",
       "token": ""
     }
     ```

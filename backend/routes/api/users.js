@@ -49,7 +49,7 @@ router.post(
 // Get user details
 router.get('/:id', asyncHandler(async (req, res) => {
     const user = await User.scope('currentUser').findByPk(req.params.id, { include: [Song, Album] });
-    const result = { id: user.id, username: user.username, totalSongs: user.Songs.length, totalAlbums: user.Albums.length }
+    const result = { id: user.id, username: user.username, totalSongs: user.Songs.length, totalAlbums: user.Albums.length, profilePicUrl: user.profilePicUrl }
     res.json(result);
 }));
 
