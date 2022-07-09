@@ -12,7 +12,6 @@ export default function UploadSongForm(props) {
     const [album, setAlbum] = useState(0);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
-    const currentUser = useSelector(state => state.session.user);
     const albums = useSelector(state => state.albums);
     const albumsArr = Object.values(albums || {});
 
@@ -110,11 +109,11 @@ export default function UploadSongForm(props) {
                 </label>
                 <label>
                     Choose an mp3/mp4:
-                    <input type="file" onChange={updateSongFile} required />
+                    <input type="file" accept=".mp3,.mp4" onChange={updateSongFile} required />
                 </label>
                 <label>
                     Choose an image for this song:
-                    <input type="file" onChange={updateImageFile} />
+                    <input type="file" accept="image/jpeg, image/png" onChange={updateImageFile} />
                 </label>
                 <button type="submit">Upload Song</button>
             </form>

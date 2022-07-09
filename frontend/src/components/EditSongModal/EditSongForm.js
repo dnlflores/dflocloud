@@ -109,11 +109,11 @@ export default function EditSongForm(props) {
                 </label>
                 <label>
                     Choose an mp3/mp4:
-                    <input type="file" onChange={updateSongFile} />
+                    <input type="file" accept=".mp3,.mp4" onChange={updateSongFile} />
                 </label>
                 <label>
                     Choose an image for this song:
-                    <input type="file" onChange={updateImageFile} />
+                    <input type="file" accept="image/jpeg, image/png" onChange={updateImageFile} />
                 </label>
                 <button type="submit">Edit Song</button>
             </form>

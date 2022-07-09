@@ -59,7 +59,7 @@ function SignupForm() {
             </label>
             <label>
                 Upload a Profile Picture: 
-                <input type="file" onChange={updateFile} />
+                <input type="file" accept="image/jpeg, image/png" onChange={updateFile} />
             </label>
             <label>
                 Password

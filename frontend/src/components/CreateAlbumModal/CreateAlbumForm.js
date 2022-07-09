@@ -79,7 +79,7 @@ export default function CreateAlbumForm(props) {
                 </label>
                 <label>
                     Choose an Album Cover:
-                    <input type="file" onChange={updateFile} />
+                    <input type="file" accept="image/jpeg, image/png" onChange={updateFile} />
                 </label>
                 <button type="submit">Create Album</button>
             </form>
