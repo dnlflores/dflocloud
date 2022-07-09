@@ -19,7 +19,7 @@ const validatePlaylist = [
 
 // Get playlists by the current user
 router.get('/me', requireAuth, asyncHandler(async (req, res) => {
-    const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.user.id } } })
+    const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.user.id } }, include: [Song] })
 
     return res.json(playlists);
 }));

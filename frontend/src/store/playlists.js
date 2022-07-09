@@ -79,7 +79,7 @@ export const getUserPlaylists = (userId) => async dispatch => {
 };
 
 export const getMyPlaylists = () => async dispatch => {
-    const response = csrfFetch("/api/playlists/me");
+    const response = await csrfFetch("/api/playlists/me");
 
     if(response.ok) {
         const playlists = await response.json();

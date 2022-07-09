@@ -8,6 +8,7 @@ import Songs from './components/Songs';
 import SingleSong from './components/SingleSong';
 import Albums from './components/Albums';
 import SingleAlbum from './components/SingleAlbum';
+import Playlists from './components/Playlists';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -45,7 +46,7 @@ function App() {
           <Albums my={false} />
         </Route>
         <Route path="/playlists/my">
-          
+          <Playlists />
         </Route>
       </Switch>
       <AudioPlayer
