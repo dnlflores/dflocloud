@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import UploadSongModal from '../UploadSongModal';
+import CreateAlbumFormModal from '../CreateAlbumModal';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -17,6 +18,7 @@ function Navigation({ isLoaded }) {
             <>
                 <ProfileButton user={sessionUser} />
                 <UploadSongModal />
+                <CreateAlbumFormModal />
             </>
         );
     } else {
@@ -34,7 +36,8 @@ function Navigation({ isLoaded }) {
                 <h2 onClick={() => history.push("/")}>DFloCloud</h2>
                 <div>
                     {isLoaded && sessionLinks}
-                    <NavLink to="/songs">Explore All Songs</NavLink>
+                    <NavLink to="/songs/my">Explore Your Songs</NavLink>
+                    <NavLink to="/albums/my">Explore Your Albums</NavLink>
                 </div>
             </nav>
         </>

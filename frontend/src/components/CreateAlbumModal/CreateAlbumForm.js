@@ -1,24 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { uploadSong } from '../../store/songs';
-import { getMyAlbums } from '../../store/albums';
+import { useDispatch } from 'react-redux';
+import { buildAlbum } from '../../store/albums';
 
-export default function UploadSongForm(props) {
+export default function CreateAlbumForm(props) {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [song, setSong] = useState(null);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
     const [image, setImage] = useState(null);
-    const [album, setAlbum] = useState(0);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
-    const currentUser = useSelector(state => state.session.user);
-    const albums = useSelector(state => state.albums);
-    const albumsArr = Object.values(albums || {});
-
-    useEffect(() => {
-        dispatch(getMyAlbums());
-    }, [dispatch])
 
     useEffect(() => {
         const newErrors = [];
@@ -27,30 +17,25 @@ export default function UploadSongForm(props) {
         if (title.length > 50) newErrors.push("Song title must be less than 50 characters.");
         if (description.length < 10) newErrors.push("Description must be longer than 10 characters.");
         if (description.length > 300) newErrors.push("Description must be less than 300 characters.");
-        if (album === 0) newErrors.push("Please select an album");
 
         setErrors(newErrors);
 
-    }, [title, description, album]);
+    }, [title, description]);
 
     const handleSubmit = async event => {
         event.preventDefault();
-        
-        if (!errors.length) {
+
+        if(!errors.length) {
             const data = {
-                title,
+                title, 
                 description,
-                albumId: album,
-                song,
                 image
             }
 
-            await dispatch(uploadSong(data));
+            await dispatch(buildAlbum(data));
 
             setTitle('');
             setDescription('');
-            setSong(null);
-            setAlbum(0);
             setImage(null);
             setHasSubmitted(false);
             setErrors([]);
@@ -59,21 +44,14 @@ export default function UploadSongForm(props) {
         setHasSubmitted(true);
     };
 
-    const updateSongFile = (e) => {
-        const file = e.target.files[0];
-        if (file) setSong(file);
-    };
-
-    const updateImageFile = e => {
-        const file = e.target.files[0];
+    const updateFile = event => {
+        const file = event.target.files[0];
         if (file) setImage(file);
     };
 
-    if (!albums) return null;
-
     return (
         <div>
-            <h2>Upload Song Form</h2>
+            <h2>Create Album Form</h2>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
             <form
                 style={{ display: "flex", flexFlow: "column" }}
@@ -100,23 +78,10 @@ export default function UploadSongForm(props) {
                     />
                 </label>
                 <label>
-                    Choose an Album:
-                    <select defaultValue={0} onChange={(e) => setAlbum(e.target.value)} required>
-                        <option disabled value={0}>Please Select an Album</option>
-                        {albumsArr.map(album => (
-                            <option key={album.id} value={album.id}>{album.title}</option>
-                        ))}
-                    </select>
+                    Choose an Album Cover:
+                    <input type="file" onChange={updateFile} />
                 </label>
-                <label>
-                    Choose an mp3/mp4:
-                    <input type="file" onChange={updateSongFile} required />
-                </label>
-                <label>
-                    Choose an image for this song:
-                    <input type="file" onChange={updateImageFile} />
-                </label>
-                <button type="submit">Upload Song</button>
+                <button type="submit">Create Album</button>
             </form>
         </div>
 

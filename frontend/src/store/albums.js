@@ -129,7 +129,7 @@ export default function albumsReducer(state = {}, action) {
             return newState;
         }
         case READ_ALBUMS: {
-            const newState = {...state};
+            const newState = {};
             action.albums.forEach(album => newState[album.id] = album);
             return newState;
         }

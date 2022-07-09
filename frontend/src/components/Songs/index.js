@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, NavLink } from 'react-router-dom';
-import { getSongs, removeSong } from '../../store/songs';
+import { NavLink } from 'react-router-dom';
+import { getSongs, removeSong, getMySongs } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 export default function Songs(props) {
+    console.log("these are the props -> ", props);
     const dispatch = useDispatch();
-    const history = useHistory();
     const songs = useSelector(state => state.songs);
     const currentUser = useSelector(state => state.session.user);
     const songsArr = Object.values(songs || {});
 
     useEffect(() => {
-        dispatch(getSongs());
-    }, [dispatch]);
+        if(props.my) dispatch(getMySongs());
+        else dispatch(getSongs());
+    }, [dispatch, props.my]);
 
     const handleDelete = async event => {
         await dispatch(removeSong(event.target.value))

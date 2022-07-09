@@ -34,6 +34,7 @@ export default function SingleSong(props) {
                 onPlay={e => console.log("onPlay")}
                 // other props here
             />
+            <img src={song.previewImage} alt={song.title} style={{width: "20vw"}} />
             {currentUser && +currentUser.id === +song.userId && (
                 <>
                     <button onClick={handleDelete} value={song.id}>Delete Song</button>

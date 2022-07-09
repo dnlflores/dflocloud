@@ -68,6 +68,16 @@ export const getSongs = () => async dispatch => {
     }
 };
 
+export const getMySongs = () => async dispatch => {
+    const response = await csrfFetch('/api/songs/me');
+
+    if (response.ok) {
+        const songs = await response.json();
+        dispatch(readSongs(songs));
+        return songs;
+    }
+};
+
 export const getSong = (id) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${id}`);
 
@@ -128,7 +138,7 @@ export default function songsReducer(state = {}, action) {
             return newState;
         }
         case READ_SONGS: {
-            const newState = {...state};
+            const newState = {};
             action.songs.forEach(song => newState[song.id] = song);
             return newState;
         }
