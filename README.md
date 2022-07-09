@@ -819,8 +819,8 @@ Returns all the comments that belong to a song specified by id.
 
 * Require Authentication: false
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: GET
+  * URL: /api/songs/:songId/comments
   * Body: none
 
 * Successful Response
@@ -867,8 +867,8 @@ Create and return a new comment for a song specified by id.
 
 * Require Authentication: true
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: POST
+  * URL: /api/songs/:songId/comments
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -932,8 +932,8 @@ Update and return an existing comment.
 * Require Authentication: true
 * Require proper authorization: Comment must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: PATCH
+  * URL: /api/comments/:commentId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -997,8 +997,8 @@ Delete an existing comment.
 * Require Authentication: true
 * Require proper authorization: Comment must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: DELETE
+  * URL: /api/comments/:commentId
   * Body: none
 
 * Successful Response

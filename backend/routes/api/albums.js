@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { requireAuth } = require('../../utils/auth');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 const { Album, User, Song } = require('../../db/models');
 const { Op } = require("sequelize");
@@ -21,12 +22,12 @@ const validateAlbum = [
 ];
 
 // Create Album
-router.post('/', singleMulterUpload("image"), validateAlbum, asyncHandler(async (req, res) => {
-    const { title, description } = req.body;
-    const imageUrl = await singlePublicFileUpload(req.file);
+router.post('/', requireAuth, singleMulterUpload("image"), validateAlbum, asyncHandler(async (req, res) => {
+    const { title, description, imageUrl } = req.body;
+    const picUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.file);
 
     const newAlbum = await Album.create({
-        title, description, userId: req.user.id, previewImage: imageUrl
+        title, description, userId: req.user.id, previewImage: picUrl
     });
 
     return res.json(newAlbum);
@@ -40,7 +41,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // Get All Albums from current user
-router.get('/me', asyncHandler(async (req, res) => {
+router.get('/me', requireAuth, asyncHandler(async (req, res) => {
     const albums = await Album.findAll({include: [{model: User, as: 'Artist'}, Song], where: {userId: {[Op.eq]: req.user.id}}});
 
     return res.json(albums);
@@ -54,10 +55,10 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 // Edit Album
-router.patch('/:id', singleMulterUpload("image"), validateAlbum, asyncHandler(async (req, res) => {
+router.patch('/:id', requireAuth, singleMulterUpload("image"), validateAlbum, asyncHandler(async (req, res) => {
     const album = await Album.findByPk(req.params.id);
     const { title, description, imageUrl } = req.body;
-    const newImageUrl = req.file ? await singlePublicFileUpload(req.file) : imageUrl;
+    const newImageUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.file);
 
     await album.update({
         title, description, previewImage: newImageUrl
@@ -67,7 +68,7 @@ router.patch('/:id', singleMulterUpload("image"), validateAlbum, asyncHandler(as
 }));
 
 // Delete Album
-router.delete('/:id', asyncHandler(async (req, res) => {
+router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
     const album = await Album.findByPk(req.params.id);
 
     await album.destroy();

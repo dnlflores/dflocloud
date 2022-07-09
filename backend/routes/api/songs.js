@@ -2,9 +2,9 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { requireAuth } = require('../../utils/auth');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 const { Op } = require('sequelize');
-
 const { Song, Album, User } = require('../../db/models');
 
 const router = express.Router();
@@ -22,7 +22,7 @@ const validateSong = [
 ];
 
 // Upload Song
-router.post('/', singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
+router.post('/', requireAuth, singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
     const { title, description, url, imageUrl, albumId } = req.body;
     const songUrl = url ? url : await singlePublicFileUpload(req.files[0]);
     const picUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.files[1]);
@@ -42,7 +42,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // Get All User Songs
-router.get('/me', asyncHandler(async (req, res) => {
+router.get('/me', requireAuth, asyncHandler(async (req, res) => {
     const mySongs = await Song.findAll({include: [{model: User, as: 'Artist'}, Album], where: {userId: {[Op.eq]: req.user.id}}});
 
     return res.json(mySongs);
@@ -56,7 +56,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 // Edit Song
-router.patch('/:id', singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
+router.patch('/:id', requireAuth, singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id);
     const { title, description, songUrl, imageUrl } = req.body;
     const newSongUrl = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
@@ -70,7 +70,7 @@ router.patch('/:id', singleMulterUpload("song"), singleMulterUpload("image"), va
 }));
 
 // Delete Song
-router.delete('/:id', asyncHandler(async (req, res) => {
+router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id);
 
     await song.destroy();
