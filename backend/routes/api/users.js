@@ -5,6 +5,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Song, Album } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -47,9 +48,21 @@ router.post(
 
 // Get user details
 router.get('/:id', asyncHandler(async (req, res) => {
-    const user = await User.scope('currentUser').findByPk(req.params.id, {include: [Song, Album]});
-    const result = {id: user.id, username: user.username, totalSongs: user.Songs.length, totalAlbums: user.Albums.length}
+    const user = await User.scope('currentUser').findByPk(req.params.id, { include: [Song, Album] });
+    const result = { id: user.id, username: user.username, totalSongs: user.Songs.length, totalAlbums: user.Albums.length }
     res.json(result);
+}));
+
+// Get user songs
+router.get('/:id/songs', asyncHandler(async (req, res) => {
+    const songs = await Song.findAll({ where: { userId: { [Op.eq]: req.params.id } } })
+    res.json(songs);
+}));
+
+// Get user albums
+router.get('/:id/albums', asyncHandler(async (req, res) => {
+    const albums = await Album.findAll({ where: { userId: { [Op.eq]: req.params.id } } })
+    res.json(albums);
 }));
 
 module.exports = router;
