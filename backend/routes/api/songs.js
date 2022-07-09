@@ -35,8 +35,6 @@ router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, async
         return res.json({ message: "Album cannot be found.", statusCode: 404 });
     }
 
-    console.log("MADE IT, HERE ARE THE REQ FILES ==========> ", req.files);
-
     const url = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
     
     let picUrl;
@@ -77,7 +75,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 }));
 
 // Edit Song
-router.patch('/:id', requireAuth, singleMulterUpload("song"), singleMulterUpload("image"), validateSong, asyncHandler(async (req, res) => {
+router.patch('/:id', requireAuth, multipleMulterUpload("files"), validateSong, asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id);
     const { title, description, songUrl, imageUrl } = req.body;
 
@@ -91,11 +89,16 @@ router.patch('/:id', requireAuth, singleMulterUpload("song"), singleMulterUpload
         return res.json({ message: "Only the owner of this song can edit this song.", statusCode: 403 })
     }
 
-    const newSongUrl = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
-    const newImageUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.files[1]);
+    console.log("MADE IT, HERE ARE THE REQ FILES =========> ", req.files);
+
+    const url = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
+    
+    let picUrl;
+    if(req.files.length > 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[1]);
+    else picUrl = imageUrl ? imageUrl : "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD-ROM.png";
 
     await song.update({
-        title, description, userId: req.user.id, songUrl: newSongUrl, previewImage: newImageUrl
+        title, description, userId: req.user.id, songUrl: url, previewImage: picUrl
     })
 
     return res.json(song);

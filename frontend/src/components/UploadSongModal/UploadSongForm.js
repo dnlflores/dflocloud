@@ -69,7 +69,7 @@ export default function UploadSongForm(props) {
         if (file) setImage(file);
     };
 
-    if(!albums) return null;
+    if (!albums) return null;
 
     return (
         <div>
