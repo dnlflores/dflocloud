@@ -1316,7 +1316,7 @@ Remove a song from a playlist specified by the playlist's id.
 * Require proper authorization: Playlist must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /api/playlists/:playlistId
+  * URL: /api/playlists/:playlistId/song
   * Headers:
     * Content-Type: application/json
   * Body:

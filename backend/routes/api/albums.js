@@ -35,7 +35,7 @@ router.post('/', requireAuth, singleMulterUpload("image"), validateAlbum, asyncH
 
 // Get Albums
 router.get('/', asyncHandler(async (req, res) => {
-    const albums = await Album.findAll({ include: [User, Song] });
+    const albums = await Album.findAll({ include: [{model: User, as: 'Artist'}, Song] });
 
     return res.json(albums);
 }));
@@ -49,15 +49,30 @@ router.get('/me', requireAuth, asyncHandler(async (req, res) => {
 
 // Get Single Album
 router.get('/:id', asyncHandler(async (req, res) => {
-    const myAlbums = await Album.findByPk(req.params.id, {include: [{model: User, as: 'Artist'}, Song]});
+    const album = await Album.findByPk(req.params.id, {include: [{model: User, as: 'Artist'}, Song]});
 
-    return res.json(myAlbums);
+    if (!album) {
+        res.status(404);
+        return res.json({ message: "Album can't be found", statusCode: 404 })
+    }
+
+    return res.json(album);
 }));
 
 // Edit Album
 router.patch('/:id', requireAuth, singleMulterUpload("image"), validateAlbum, asyncHandler(async (req, res) => {
     const album = await Album.findByPk(req.params.id);
     const { title, description, imageUrl } = req.body;
+
+    if (!album) {
+        res.status(404);
+        return res.json({ message: "Album can't be found", statusCode: 404 })
+    }
+
+    if (req.user.id !== album.userId) {
+        res.status(403);
+        return res.json({ message: "Only the owner of this album can edit this album", statusCode: 403 })
+    }
     const newImageUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.file);
 
     await album.update({
@@ -70,6 +85,16 @@ router.patch('/:id', requireAuth, singleMulterUpload("image"), validateAlbum, as
 // Delete Album
 router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
     const album = await Album.findByPk(req.params.id);
+
+    if (!album) {
+        res.status(404);
+        return res.json({ message: "Album can't be found", statusCode: 404 })
+    }
+
+    if (req.user.id !== album.userId) {
+        res.status(403);
+        return res.json({ message: "Only the owner of this album can delete this album", statusCode: 403 })
+    }
 
     await album.destroy();
 

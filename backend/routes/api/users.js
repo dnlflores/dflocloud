@@ -46,29 +46,61 @@ router.post(
     }),
 );
 
+router.get("/me", requireAuth, asyncHandler(async (req, res) => {
+
+    res.json(req.user);
+}));
+
 // Get user details
 router.get('/:id', asyncHandler(async (req, res) => {
-    const user = await User.scope('currentUser').findByPk(req.params.id, { include: [Song, Album] });
+    const user = await User.findByPk(req.params.id, { include: [Song, Album] });
+
+    if(!user) {
+        res.status(404);
+        return res.json({ message: "Artist not found.", statusCode: 404 });
+    }
+
     const result = { id: user.id, username: user.username, totalSongs: user.Songs.length, totalAlbums: user.Albums.length, profilePicUrl: user.profilePicUrl }
-    res.json(result);
+    return res.json(result);
 }));
 
 // Get user songs
 router.get('/:id/songs', asyncHandler(async (req, res) => {
-    const songs = await Song.findAll({ where: { userId: { [Op.eq]: req.params.id } } })
-    res.json(songs);
+    const songs = await Song.findAll({ where: { userId: { [Op.eq]: req.params.id } } });
+    const user = await User.findByPk(req.params.id);
+
+    if(!user) {
+        res.status(404);
+        return res.json({ message: "Artist not found.", statusCode: 404 });
+    }
+
+    return res.json(songs);
 }));
 
 // Get user albums
 router.get('/:id/albums', asyncHandler(async (req, res) => {
-    const albums = await Album.findAll({ where: { userId: { [Op.eq]: req.params.id } } })
-    res.json(albums);
+    const albums = await Album.findAll({ where: { userId: { [Op.eq]: req.params.id } } });
+    const user = await User.findByPk(req.params.id);
+
+    if(!user) {
+        res.status(404);
+        return res.json({ message: "Artist not found.", statusCode: 404 });
+    }
+
+    return res.json(albums);
 }));
 
 // Get user playlists
 router.get('/:id/playlists', asyncHandler(async (req, res) => {
-    const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.params.id } } })
-    res.json(playlists);
+    const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.params.id } } });
+    const user = await User.findByPk(req.params.id);
+
+    if(!user) {
+        res.status(404);
+        return res.json({ message: "Artist not found.", statusCode: 404 });
+    }
+
+    return res.json(playlists);
 }));
 
 module.exports = router;

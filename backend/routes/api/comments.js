@@ -18,6 +18,13 @@ const validateComment = [
 
 // Get comments for a song
 router.get('/:songId', asyncHandler(async (req, res) => {
+    const song = await Song.findByPk(req.params.songId);
+
+    if(!song) {
+        res.status(404);
+        return res.json({ message: "Song cannot be found.", statusCode: 404 });
+    }
+
     const comments = await Comment.findAll({
         where: {
             songId: { [Op.eq]: req.params.songId }
@@ -31,6 +38,12 @@ router.get('/:songId', asyncHandler(async (req, res) => {
 // Create comment for a song
 router.post('/:songId', requireAuth, validateComment, asyncHandler(async (req, res) => {
     const { content } = req.body;
+    const song = await Song.findByPk(req.params.songId);
+
+    if(!song) {
+        res.status(404);
+        return res.json({ message: "Song cannot be found.", statusCode: 404 });
+    }
 
     const newComment = await Comment.create({
         userId: req.user.id,
@@ -46,6 +59,16 @@ router.patch('/:id', requireAuth, asyncHandler(async (req, res) => {
     const comment = await Comment.findByPk(req.params.id);
     const { content } = req.body;
 
+    if(!comment) {
+        res.status(404);
+        return res.json({ message: "Comment cannot be found.", statusCode: 404 });
+    }
+
+    if(req.user.id !== comment.userId) {
+        res.status(403);
+        return res.json({ message: "Only the user who created this comment can edit it.", statusCode: 403 })
+    }
+
     await comment.update({ content });
 
     return res.json(comment);
@@ -55,9 +78,19 @@ router.patch('/:id', requireAuth, asyncHandler(async (req, res) => {
 router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
     const comment = await Comment.findByPk(req.params.id);
 
+    if(!comment) {
+        res.status(404);
+        return res.json({ message: "Comment cannot be found.", statusCode: 404 });
+    }
+
+    if(req.user.id !== comment.userId) {
+        res.status(403);
+        return res.json({ message: "Only the user who created this comment can delete it.", statusCode: 403 })
+    }
+
     await comment.destroy();
 
-    return res.json({ message: "Success" });
+    return res.json({ message: "Deleted successfully", statusCode: 200 });
 }));
 
 module.exports = router;
