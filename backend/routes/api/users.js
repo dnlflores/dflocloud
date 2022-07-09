@@ -2,7 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Song, Album } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -44,5 +44,12 @@ router.post(
         });
     }),
 );
+
+// Get user details
+router.get('/:id', asyncHandler(async (req, res) => {
+    const user = await User.scope('currentUser').findByPk(req.params.id, {include: [Song, Album]});
+    const result = {id: user.id, username: user.username, totalSongs: user.Songs.length, totalAlbums: user.Albums.length}
+    res.json(result);
+}));
 
 module.exports = router;
