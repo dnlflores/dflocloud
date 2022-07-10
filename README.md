@@ -720,7 +720,7 @@ Updates and returns an existing album.
     {
       "title": "Time",
       "description": "An album about time.",
-      "imageUrl": "image url"
+      "image": "image url"
     }
     ```
 
@@ -1459,7 +1459,7 @@ Updates and returns an existing playlist.
     ```json
     {
       "name": "Current Favorites",
-      "imageUrl": "image url"
+      "image": "image url"
     }
     ```
 

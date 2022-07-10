@@ -49,7 +49,7 @@ router.post('/', requireAuth, singleMulterUpload("image"), validatePlaylist, asy
         previewImage: picUrl
     });
 
-    const createdPlaylist = await Playlist.findByPk(playlist.id, {include: [Song]});
+    const createdPlaylist = await Playlist.findByPk(playlist.id, { include: [Song] });
 
     return res.json(createdPlaylist);
 }));
@@ -145,8 +145,8 @@ router.delete('/:id/song', requireAuth, asyncHandler(async (req, res) => {
 
 // Edit a playlist
 router.patch('/:id', requireAuth, singleMulterUpload("image"), validatePlaylist, asyncHandler(async (req, res) => {
-    const { name, imageUrl } = req.body;
-    const playlist = await Playlist.findByPk(req.params.id);
+    const { name, image } = req.body;
+    const playlist = await Playlist.findByPk(req.params.id, { include: [Song] });
 
     if (!playlist) {
         res.status(404);
@@ -158,7 +158,7 @@ router.patch('/:id', requireAuth, singleMulterUpload("image"), validatePlaylist,
         return res.json({ message: "Only the owner of the playlist can edit the playlist.", statusCode: 403 });
     }
 
-    const picUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.file);
+    const picUrl = image ? image : await singlePublicFileUpload(req.file);
 
     await playlist.update({
         name,

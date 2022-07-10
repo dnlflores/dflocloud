@@ -1,17 +1,23 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMyPlaylists } from '../../store/playlists';
+import { getMyPlaylists, removePlaylist } from '../../store/playlists';
 import CreatePlaylistModal from '../CreatePlaylistModal';
 import AudioPlayer from 'react-h5-audio-player'
+import EditPlaylistModal from '../EditPlaylistModal';
 
 export default function Playlists(props) {
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.session.user);
     const playlists = useSelector(state => state.playlists);
     const playlistsArr = Object.values(playlists || {});
 
     useEffect(() => {
         dispatch(getMyPlaylists());
     }, [dispatch]);
+
+    const handleDelete = async e => {
+        await dispatch(removePlaylist(e.target.value));
+    };
     
     if(!playlists) return null;
 
@@ -29,6 +35,12 @@ export default function Playlists(props) {
                             <AudioPlayer src={song.songUrl} />
                         </div>
                     ))}
+                    {currentUser.id === playlist.userId && (
+                        <>
+                            <button onClick={handleDelete} value={playlist.id}>Delete Playlist</button>
+                            <EditPlaylistModal playlist={playlist} />
+                        </>
+                    )}
                 </div>
             ))}
         </>

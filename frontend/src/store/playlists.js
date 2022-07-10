@@ -104,7 +104,8 @@ export const editPlaylist = (data, id) => async dispatch => {
     const formData = new FormData();
     formData.append("name", name);
 
-    if (image) formData.append("image", image);
+    if (typeof image !== "string") formData.append("image", image);
+    else formData.append("image", image);
 
     const response = await csrfFetch(`/api/playlists/${id}`, {
         method: "PATCH",
