@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { buildAlbum } from '../../store/albums';
+import { editAlbum } from '../../store/albums';
 
 export default function CreateAlbumForm(props) {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [image, setImage] = useState(null);
+    const [title, setTitle] = useState(props.album.title);
+    const [description, setDescription] = useState(props.album.description);
+    const [image, setImage] = useState(props.album.previewImage);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -32,7 +32,7 @@ export default function CreateAlbumForm(props) {
                 image
             }
 
-            await dispatch(buildAlbum(data));
+            await dispatch(editAlbum(data, props.album.id));
 
             setTitle('');
             setDescription('');
@@ -51,7 +51,7 @@ export default function CreateAlbumForm(props) {
 
     return (
         <div>
-            <h2>Create Album Form</h2>
+            <h2>Edit Album Form</h2>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
             <form
                 style={{ display: "flex", flexFlow: "column" }}
@@ -81,7 +81,7 @@ export default function CreateAlbumForm(props) {
                     Choose an Album Cover:
                     <input type="file" accept="image/jpeg, image/png" onChange={updateFile} />
                 </label>
-                <button type="submit">Create Album</button>
+                <button type="submit">Edit Album</button>
             </form>
         </div>
 

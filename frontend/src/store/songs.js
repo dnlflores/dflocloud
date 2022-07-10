@@ -90,8 +90,6 @@ export const getSong = (id) => async dispatch => {
 export const editSong = (data, id) => async dispatch => {
     const { title, description, song, image, albumId } = data;
 
-    console.log("this is the data from the edit thunk => ", data);
-
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);

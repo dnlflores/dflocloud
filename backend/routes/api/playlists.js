@@ -47,9 +47,11 @@ router.post('/', requireAuth, singleMulterUpload("image"), validatePlaylist, asy
         userId: req.user.id,
         name,
         previewImage: picUrl
-    })
+    });
 
-    return res.json(playlist);
+    const createdPlaylist = await Playlist.findByPk(playlist.id, {include: [Song]});
+
+    return res.json(createdPlaylist);
 }));
 
 // Add a song to a playlist

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { editComment } from "../../store/comments";
 
 export default function EditCommentForm(props) {
-    console.log("these are the props => ", props);
     const { songId } = useParams();
     const dispatch = useDispatch();
     const [content, setContent] = useState(props.comment.content);

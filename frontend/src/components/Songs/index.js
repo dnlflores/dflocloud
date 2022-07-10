@@ -7,7 +7,6 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 export default function Songs(props) {
-    console.log("these are the props -> ", props);
     const dispatch = useDispatch();
     const songs = useSelector(state => state.songs);
     const currentUser = useSelector(state => state.session.user);

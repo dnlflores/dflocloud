@@ -35,21 +35,21 @@ router.post('/', requireAuth, singleMulterUpload("image"), validateAlbum, asyncH
 
 // Get Albums
 router.get('/', asyncHandler(async (req, res) => {
-    const albums = await Album.findAll({ include: [{model: User, as: 'Artist'}, Song] });
+    const albums = await Album.findAll({ include: [{ model: User, as: 'Artist' }, Song] });
 
     return res.json(albums);
 }));
 
 // Get All Albums from current user
 router.get('/me', requireAuth, asyncHandler(async (req, res) => {
-    const albums = await Album.findAll({include: [{model: User, as: 'Artist'}, Song], where: {userId: {[Op.eq]: req.user.id}}});
+    const albums = await Album.findAll({ include: [{ model: User, as: 'Artist' }, Song], where: { userId: { [Op.eq]: req.user.id } } });
 
     return res.json(albums);
 }));
 
 // Get Single Album
 router.get('/:id', asyncHandler(async (req, res) => {
-    const album = await Album.findByPk(req.params.id, {include: [{model: User, as: 'Artist'}, Song]});
+    const album = await Album.findByPk(req.params.id, { include: [{ model: User, as: 'Artist' }, Song] });
 
     if (!album) {
         res.status(404);
@@ -61,8 +61,8 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 // Edit Album
 router.patch('/:id', requireAuth, singleMulterUpload("image"), validateAlbum, asyncHandler(async (req, res) => {
-    const album = await Album.findByPk(req.params.id);
-    const { title, description, imageUrl } = req.body;
+    const album = await Album.findByPk(req.params.id, { include: { model: User, as: "Artist" } });
+    const { title, description, image } = req.body;
 
     if (!album) {
         res.status(404);
@@ -73,7 +73,7 @@ router.patch('/:id', requireAuth, singleMulterUpload("image"), validateAlbum, as
         res.status(403);
         return res.json({ message: "Only the owner of this album can edit this album", statusCode: 403 })
     }
-    const newImageUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.file);
+    const newImageUrl = image ? image : await singlePublicFileUpload(req.file);
 
     await album.update({
         title, description, previewImage: newImageUrl

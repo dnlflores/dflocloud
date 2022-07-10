@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMyPlaylists, buildPlaylist, editPlaylist, removePlaylist } from '../../store/playlists';
+import { getMyPlaylists } from '../../store/playlists';
+import CreatePlaylistModal from '../CreatePlaylistModal';
 import AudioPlayer from 'react-h5-audio-player'
 
 export default function Playlists(props) {
     const dispatch = useDispatch();
     const playlists = useSelector(state => state.playlists);
     const playlistsArr = Object.values(playlists || {});
-
-    console.log(playlistsArr)
 
     useEffect(() => {
         dispatch(getMyPlaylists());
@@ -19,6 +18,7 @@ export default function Playlists(props) {
     return (
         <>
             <h2>This is the playlists component</h2>
+            <CreatePlaylistModal />
             {playlistsArr.map(playlist => (
                 <div key={playlist.id}>
                     <h3>{playlist.name}</h3>

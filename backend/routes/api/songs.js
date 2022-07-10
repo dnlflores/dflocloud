@@ -89,8 +89,6 @@ router.patch('/:id', requireAuth, multipleMulterUpload("files"), validateSong, a
         return res.json({ message: "Only the owner of this song can edit this song.", statusCode: 403 })
     }
 
-    console.log("MADE IT, HERE ARE THE REQ FILES =========> ", req.files);
-
     const url = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
     
     let picUrl;

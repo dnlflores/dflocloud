@@ -4,7 +4,6 @@ import { editSong } from '../../store/songs';
 import { getMyAlbums } from '../../store/albums';
 
 export default function EditSongForm(props) {
-    console.log("these are the edit form props ==> ", props);
     const dispatch = useDispatch();
     const [title, setTitle] = useState(props.song.title);
     const [description, setDescription] = useState(props.song.description);

@@ -738,7 +738,20 @@ Updates and returns an existing album.
       "description": "An album about time.",
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 20:00:00",
-      "previewImage": "image url"
+      "previewImage": "image url",
+      "Songs": [
+        {
+          "id": 1,
+          "userId": 1,
+          "albumId": 1,
+          "title": "Yesterday",
+          "description": "A song about the past.",
+          "url": "audio url",
+          "createdAt": "2021-11-19 20:39:36",
+          "updatedAt": "2021-11-19 20:39:36",
+          "previewImage": "image url"
+        }
+      ]
     }
     ```
 

@@ -19,8 +19,8 @@ function Navigation({ isLoaded }) {
                 <ProfileButton user={sessionUser} />
                 <UploadSongModal />
                 <CreateAlbumFormModal />
-                <NavLink to="/songs/my">Explore Your Songs</NavLink>
-                <NavLink to="/albums/my">Explore Your Albums</NavLink>
+                <NavLink to="/songs/my">Your Songs</NavLink>
+                <NavLink to="/albums/my">Your Albums</NavLink>
                 <NavLink to="/playlists/my">Playlists</NavLink>
             </>
         );

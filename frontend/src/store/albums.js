@@ -92,7 +92,8 @@ export const editAlbum = (data, id) => async dispatch => {
     formData.append("title", title);
     formData.append("description", description);
 
-    if (image) formData.append("image", image);
+    if (typeof image !== "string") formData.append("image", image);
+    else formData.append("image", image);
 
     const response = await csrfFetch(`/api/albums/${id}`, {
         method: "PATCH",
@@ -138,7 +139,7 @@ export default function albumsReducer(state = {}, action) {
         }
         case UPDATE_ALBUM: {
             const newState = {...state};
-            newState[action.album.id] = action.album
+            newState[action.album.id] = action.album;
             return newState;
         }
         case DELETE_ALBUM: {
