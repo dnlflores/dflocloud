@@ -133,6 +133,7 @@ export const removePlaylist = id => async dispatch => {
 };
 
 export const addSongToPlaylist = (songId, playlistId) => async dispatch => {
+    console.log("here are the ids => ", songId, playlistId)
     const response = await csrfFetch(`/api/playlists/${playlistId}`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -147,7 +148,7 @@ export const addSongToPlaylist = (songId, playlistId) => async dispatch => {
 };
 
 export const removeSongFromPlaylist = (songId, playlistId) => async dispatch => {
-    const response = await csrfFetch(`/api/playlists/${playlistId}`, {
+    const response = await csrfFetch(`/api/playlists/${playlistId}/song`, {
         method: "DELETE",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ songId })
@@ -193,12 +194,12 @@ export default function playlistsReducer(state = {}, action) {
             return newState;
         }
         case REMOVE_FROM_PLAYLIST: {
-            const newState = {...state};
+            const newState = JSON.parse(JSON.stringify(state));
             const songs = newState[action.playlistId].Songs;
             const newSongs = [];
             for(let i = 0; i < songs.length; i++) {
                 const song = songs[i];
-                if(song.id !== action.songId) newSongs.push(song);
+                if(song.id !== +action.songId) newSongs.push(song);
             }
             newState[action.playlistId].Songs = newSongs;
             return newState;

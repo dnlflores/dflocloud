@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getSongs, removeSong, getMySongs } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
+import AddToPlaylistModal from '../AddToPlaylistModal';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -32,6 +33,7 @@ export default function Songs(props) {
                         onPlay={e => console.log("onPlay")}
                         // other props here
                     />
+                    <AddToPlaylistModal songId={song.id} />
                     {currentUser && +currentUser.id === +song.userId && (
                         <>
                             <button onClick={handleDelete} value={song.id}>Delete Song</button>
