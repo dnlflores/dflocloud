@@ -34,7 +34,7 @@ export default function Comments(props) {
             {comments && comments.map(comment => (
                 <div key={comment.id}>
                     <p>{comment.content}</p>
-                    <p>{comment.userId}</p>
+                    <p>{comment.User.username}</p>
                     {+currentUser.id === +comment.userId && (
                         <>
                             <button onClick={handleDelete} value={comment.id}>Delete Comment</button>

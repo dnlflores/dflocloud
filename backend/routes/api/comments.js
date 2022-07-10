@@ -20,7 +20,7 @@ const validateComment = [
 router.get('/:songId', asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.songId);
 
-    if(!song) {
+    if (!song) {
         res.status(404);
         return res.json({ message: "Song cannot be found.", statusCode: 404 });
     }
@@ -40,7 +40,7 @@ router.post('/:songId', requireAuth, validateComment, asyncHandler(async (req, r
     const { content } = req.body;
     const song = await Song.findByPk(req.params.songId);
 
-    if(!song) {
+    if (!song) {
         res.status(404);
         return res.json({ message: "Song cannot be found.", statusCode: 404 });
     }
@@ -51,20 +51,22 @@ router.post('/:songId', requireAuth, validateComment, asyncHandler(async (req, r
         songId: req.params.songId
     });
 
-    return res.json(newComment);
+    const comment = await Comment.findByPk(newComment.id, { include: [User] });
+
+    return res.json(comment);
 }));
 
 // Edit a comment
 router.patch('/:id', requireAuth, asyncHandler(async (req, res) => {
-    const comment = await Comment.findByPk(req.params.id);
+    const comment = await Comment.findByPk(req.params.id, {include: [User]});
     const { content } = req.body;
 
-    if(!comment) {
+    if (!comment) {
         res.status(404);
         return res.json({ message: "Comment cannot be found.", statusCode: 404 });
     }
 
-    if(req.user.id !== comment.userId) {
+    if (req.user.id !== comment.userId) {
         res.status(403);
         return res.json({ message: "Only the user who created this comment can edit it.", statusCode: 403 })
     }
@@ -78,12 +80,12 @@ router.patch('/:id', requireAuth, asyncHandler(async (req, res) => {
 router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
     const comment = await Comment.findByPk(req.params.id);
 
-    if(!comment) {
+    if (!comment) {
         res.status(404);
         return res.json({ message: "Comment cannot be found.", statusCode: 404 });
     }
 
-    if(req.user.id !== comment.userId) {
+    if (req.user.id !== comment.userId) {
         res.status(403);
         return res.json({ message: "Only the user who created this comment can delete it.", statusCode: 403 })
     }
