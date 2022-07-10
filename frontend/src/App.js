@@ -10,7 +10,6 @@ import Albums from './components/Albums';
 import SingleAlbum from './components/SingleAlbum';
 import Playlists from './components/Playlists';
 import SinglePlaylist from './components/SinglePlaylist';
-import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 function App() {
@@ -53,11 +52,6 @@ function App() {
           <SinglePlaylist />
         </Route>
       </Switch>
-      <AudioPlayer
-          src={`https://www.mfiles.co.uk/mp3-downloads/beethoven-symphony7-2-liszt-piano.mp3`}
-          onPlay={e => console.log("onPlay")}
-          // other props here
-      />
     </>
   );
 }
