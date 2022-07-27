@@ -7,7 +7,6 @@
     width: 85vw;
     flex-direction: row;
     color: white;
-    position: fixed;
     top: 2rem;
     z-index: 100;
 }

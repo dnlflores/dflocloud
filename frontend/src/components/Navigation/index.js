@@ -41,7 +41,7 @@ function Navigation({ isLoaded }) {
 
     return (
         <>
-            <nav className="nav-bar" style={sessionUser ? {} : {backgroundColor: "transparent"}}>
+            <nav className="nav-bar" style={sessionUser ? {position: "fixed"} : {backgroundColor: "transparent", position: "absolute"}}>
                 <h2 onClick={() => history.push("/")}>DFloCloud</h2>
                 {isLoaded && sessionLinks}
             </nav>
