@@ -12,6 +12,12 @@ function Navigation({ isLoaded }) {
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
 
+    const sessionLinksStyle = {
+        display: "flex", 
+        justifyContent: "space-around", 
+        width: "16rem"
+    }
+
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
@@ -26,20 +32,18 @@ function Navigation({ isLoaded }) {
         );
     } else {
         sessionLinks = (
-            <>
+            <div style={sessionLinksStyle}>
                 <LoginFormModal />
                 <SignUpFormModal />
-            </>
+            </div>
         );
     }
 
     return (
         <>
-            <nav className="nav-bar">
+            <nav className="nav-bar" style={sessionUser ? {} : {backgroundColor: "transparent"}}>
                 <h2 onClick={() => history.push("/")}>DFloCloud</h2>
-                <div>
-                    {isLoaded && sessionLinks}
-                </div>
+                {isLoaded && sessionLinks}
             </nav>
         </>
     );

@@ -1,6 +1,13 @@
 .nav-bar {
-    border-bottom: solid black 2px;
+    background-color: gray;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 7vh;
+    width: 85vw;
+    flex-direction: row;
+    color: white;
+    position: fixed;
+    top: 2rem;
+    z-index: 100;
 }
