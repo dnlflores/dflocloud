@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
@@ -14,10 +14,14 @@ import 'react-h5-audio-player/lib/styles.css';
 
 function App() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser()).then(() =>{
+      setIsLoaded(true);
+      history.push("/songs");
+    });
   }, [dispatch]);
 
   return isLoaded && (

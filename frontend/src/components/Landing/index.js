@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'; 
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, Redirect, useHistory } from "react-router-dom";
 import { getSongs } from '../../store/songs';
 
 export default function LandingPage(props) {
     const dispatch = useDispatch();
     const history = useHistory();
     const songsObj = useSelector(state => state.songs);
+    const loggedIn = useSelector(state => state.session.user);
     const songs = Object.values(songsObj || {});
 
     console.log("these are the songs -> ", songs);
@@ -14,6 +15,8 @@ export default function LandingPage(props) {
     useEffect(() => {
         dispatch(getSongs());
     }, [dispatch])
+
+    if(loggedIn) return <Redirect to="/songs" />
 
     return (
         <div style={{display: "flex", alignItems: "center", flexDirection: "column", color: "white", backgroundColor: "white"}}>
