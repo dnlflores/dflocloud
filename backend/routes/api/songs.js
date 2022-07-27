@@ -41,9 +41,11 @@ router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, async
     if(req.files.length > 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[1]);
     else picUrl = imageUrl ? imageUrl : "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD-ROM.png";
 
-    const newSong = await Song.create({
+    const song = await Song.create({
         title, description, userId: req.user.id, songUrl: url, previewImage: picUrl, albumId
     });
+
+    const newSong = await Song.findByPk(song.id, {include: [{ model: User, as: 'Artist' }]})
 
     return res.json(newSong);
 }));
@@ -76,7 +78,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 // Edit Song
 router.patch('/:id', requireAuth, multipleMulterUpload("files"), validateSong, asyncHandler(async (req, res) => {
-    const song = await Song.findByPk(req.params.id);
+    const song = await Song.findByPk(req.params.id, {include: [{ model: User, as: 'Artist' }]});
     const { title, description, songUrl, imageUrl } = req.body;
 
     if (!song) {
@@ -92,7 +94,9 @@ router.patch('/:id', requireAuth, multipleMulterUpload("files"), validateSong, a
     const url = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
     
     let picUrl;
+    console.log("this the request files ===========> ", req.files);
     if(req.files.length > 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[1]);
+    else if(req.files.length === 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[0]);
     else picUrl = imageUrl ? imageUrl : "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD-ROM.png";
 
     await song.update({
