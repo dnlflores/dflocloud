@@ -14,6 +14,8 @@ export default function Comments(props) {
     const currentUser = useSelector(state => state.session.user);
     const comments = Object.values(commentsObj || {});
 
+    console.log("comments", comments);
+
     useEffect(() => {
         dispatch(getComments(songId));
     }, [dispatch, songId]);
@@ -31,11 +33,11 @@ export default function Comments(props) {
             {oldComment && (
                 <EditCommentForm setTrigger={setOldComment} comment={oldComment}/>
             )}
-            {comments && comments.map(comment => (
-                <div key={comment.id}>
+            {!!comments.length && comments.map(comment => (
+                <div>
                     <p>{comment.content}</p>
                     <p>{comment.User.username}</p>
-                    {+currentUser.id === +comment.userId && (
+                    {currentUser && +currentUser.id === +comment.userId && (
                         <>
                             <button onClick={handleDelete} value={comment.id}>Delete Comment</button>
                             <button onClick={e => setOldComment(comment)} value={comment}>Edit Comment</button>
