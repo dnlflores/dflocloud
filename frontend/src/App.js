@@ -49,10 +49,13 @@ function App() {
           <Albums my={false} />
         </Route>
         <Route path="/playlists/my">
-          <Playlists />
+          <Playlists my={true} />
         </Route>
         <Route path="/playlists/:playlistId">
           <SinglePlaylist />
+        </Route>
+        <Route path="/playlists">
+          <Playlists my={false} />
         </Route>
       </Switch>
     </>

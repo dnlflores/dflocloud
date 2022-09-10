@@ -11,8 +11,9 @@
 }
 
 .trending-container {
+    height: 30rem;
     width: 90vw;
-    display: flex;
+    justify-content: flex-start;
 }
 
 .page-container {
@@ -25,11 +26,8 @@
 }
 
 .explore-songs-button {
-    background-color: #ff5501;
-    border: solid 1px #ff5501;
     width: 12rem;
-    height: 2.5rem;
-    border-radius: 5px;
+    height: 2rem;
     cursor: pointer;
 }
 
@@ -38,4 +36,22 @@
     height: 70vh;
     object-fit: cover;
     border-top: solid 5px #ff5501;
+}
+
+.explore-playlists-button {
+    height: 2rem;
+    width: 15rem;
+    position: relative;
+    top: 3rem;
+}
+
+.continue-listening {
+    width: 52vw;
+    height: 26rem;
+}
+
+.continue-listening-container {
+    width: 90vw;
+    background-color: #f2f2f2;
+    padding: 1rem;
 }

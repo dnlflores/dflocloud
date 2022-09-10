@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getMyPlaylists, removePlaylist } from '../../store/playlists';
+import { getAllPlaylists, getMyPlaylists, removePlaylist } from '../../store/playlists';
 import CreatePlaylistModal from '../CreatePlaylistModal';
 import AudioPlayer from 'react-h5-audio-player'
 import EditPlaylistModal from '../EditPlaylistModal';
@@ -13,14 +13,17 @@ export default function Playlists(props) {
     const playlistsArr = Object.values(playlists || {});
 
     useEffect(() => {
-        dispatch(getMyPlaylists());
+        if (props.my) dispatch(getMyPlaylists());
+        else dispatch(getAllPlaylists());
     }, [dispatch]);
 
     const handleDelete = async e => {
         await dispatch(removePlaylist(e.target.value));
     };
-    
-    if(!playlists) return null;
+
+    console.log("heres the requested info => ", playlistsArr)
+
+    if (!playlists) return null;
 
     return (
         <>
@@ -30,20 +33,21 @@ export default function Playlists(props) {
                 <div key={playlist.id}>
                     <NavLink to={`/playlists/${playlist.id}`}>{playlist.name}</NavLink>
                     <h2>Songs</h2>
-                    {playlist.Songs.map(song => (
-                        <div key={song.id}>
+                    {playlist.Songs.map((song, i) => (
+                        < div key={song.id} >
                             <h3>{song.title}</h3>
                             <AudioPlayer src={song.songUrl} />
                         </div>
                     ))}
-                    {currentUser.id === playlist.userId && (
+                    {currentUser && currentUser.id === playlist.userId && (
                         <>
                             <button onClick={handleDelete} value={playlist.id}>Delete Playlist</button>
                             <EditPlaylistModal playlist={playlist} />
                         </>
                     )}
                 </div>
-            ))}
+            ))
+            }
         </>
     )
 }

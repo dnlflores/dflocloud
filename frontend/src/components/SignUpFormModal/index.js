@@ -7,7 +7,7 @@ function SignUpFormModal() {
 
     return (
         <>
-            <button onClick={() => setShowModal(true)} style={{border: "solid 1px #ff5501", color: "white", borderRadius: "5px", padding: "5px", backgroundColor: "#ff5501", width: "8rem", textAlign: "center", cursor: "pointer"}}>Create Account</button>
+            <button className="txt-algn-ctr org-btn" onClick={() => setShowModal(true)} style={{ width: "8rem", cursor: "pointer" }}>Create Account</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <SignUpForm />
