@@ -1,0 +1,41 @@
+.song-artist {
+    color: gray;
+    font-size: 12px;
+    margin-left: 1rem;
+}
+
+.song-name {
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+    margin-left: 1rem;
+}
+
+.trending-container {
+    width: 90vw;
+    display: flex;
+}
+
+.page-container {
+    color: white;
+    background-color: white;
+}
+
+.exploring-container {
+    top: 10rem;
+}
+
+.explore-songs-button {
+    background-color: #ff5501;
+    border: solid 1px #ff5501;
+    width: 12rem;
+    height: 2.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.landing-banner {
+    width: 90vw;
+    height: 70vh;
+    object-fit: cover;
+    border-top: solid 5px #ff5501;
+}
