@@ -13,8 +13,8 @@ function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
     const sessionLinksStyle = {
-        display: "flex", 
-        justifyContent: "space-around", 
+        display: "flex",
+        justifyContent: "space-around",
         width: "16rem"
     }
 
@@ -41,9 +41,11 @@ function Navigation({ isLoaded }) {
 
     return (
         <>
-            <nav className="nav-bar" style={sessionUser ? {position: "fixed"} : {backgroundColor: "transparent", position: "absolute"}}>
-                <h2 onClick={() => history.push("/")}>DFloCloud</h2>
-                {isLoaded && sessionLinks}
+            <nav className="nav-bar flx-ctr flx-col" style={sessionUser ? { position: "fixed" } : { backgroundColor: "transparent", position: "absolute" }}>
+                <div className="nav-container flx-ctr flx-jst-spc-btwn">
+                    <h2 onClick={() => history.push("/")}>DFloCloud</h2>
+                    {isLoaded && sessionLinks}
+                </div>
             </nav>
         </>
     );

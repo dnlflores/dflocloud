@@ -12,13 +12,14 @@
 
 .trending-container {
     height: 30rem;
-    width: 90vw;
+    width: inherit;
     justify-content: flex-start;
 }
 
 .page-container {
     color: white;
     background-color: white;
+    width: 50vw;
 }
 
 .exploring-container {
@@ -32,8 +33,8 @@
 }
 
 .landing-banner {
-    width: 90vw;
-    height: 70vh;
+    width: inherit;
+    height: 35vh;
     object-fit: cover;
     border-top: solid 5px #ff5501;
 }
@@ -46,12 +47,12 @@
 }
 
 .continue-listening {
-    width: 52vw;
+    width: inherit;
     height: 26rem;
 }
 
 .continue-listening-container {
-    width: 90vw;
+    width: 50vw;
     background-color: #f2f2f2;
     padding: 1rem;
 }

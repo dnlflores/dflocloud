@@ -30,6 +30,16 @@ body {
     flex-direction: column;
 }
 
+.flx-jst-spc-arnd {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flx-jst-spc-btwn {
+    display: flex;
+    justify-content: space-between;
+}
+
 .txt-algn-lft {
     text-align: left;
 }

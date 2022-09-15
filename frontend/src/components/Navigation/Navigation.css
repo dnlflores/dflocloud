@@ -1,12 +1,13 @@
 .nav-bar {
     background-color: gray;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
     height: 7vh;
     width: 85vw;
-    flex-direction: row;
     color: white;
     top: 1rem;
     z-index: 100;
+}
+
+.nav-container {
+    width: 45vw;
 }
