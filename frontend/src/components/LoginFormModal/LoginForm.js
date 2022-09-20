@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import './LoginForm.css'
 
 function LoginForm() {
     const dispatch = useDispatch();
@@ -25,32 +26,31 @@ function LoginForm() {
     }; 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="login-signup-form flx-ctr flx-col">
+            <h2>Login!</h2>
             <ul>
                 {errors.map((error, idx) => (
                     <li key={idx}>{error}</li>
                 ))}
             </ul>
-            <label>
-                Username or Email
-                <input
-                    type="text"
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Password
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <button type="submit">Log In</button>
-            <button onClick={handleDemo}>Demo</button>
+            <input
+                className="input-forms"
+                type="text"
+                value={credential}
+                onChange={(e) => setCredential(e.target.value)}
+                required
+                placeholder="Your Username or E-mail"
+            />
+            <input
+                className="input-forms"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Your Password"
+            />
+            <button className="org-btn login-signup-btns" type="submit">Log In</button>
+            <button className="org-btn login-signup-btns" onClick={handleDemo}>Demo</button>
         </form>
     );
 }

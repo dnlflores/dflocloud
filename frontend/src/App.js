@@ -14,51 +14,48 @@ import 'react-h5-audio-player/lib/styles.css';
 
 function App() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() =>{
-      setIsLoaded(true);
-    });
+    dispatch(sessionActions.restoreUser())
   }, [dispatch]);
 
-  return isLoaded && (
+  return (
     <>
-    <Navigation isLoaded={isLoaded} />
-      <Switch>
-        <Route exact path="/">
-          <LandingPage />
-        </Route>
-        <Route path="/songs/my">
-          <Songs my={true} />
-        </Route>
-        <Route path="/songs/:songId">
-          <SingleSong />
-        </Route>
-        <Route path="/songs">
-          <Songs my={false}/>
-        </Route>
-        <Route path="/albums/my">
-          <Albums my={true} />
-        </Route>
-        <Route path="/albums/:albumId">
-          <SingleAlbum />
-        </Route>
-        <Route path="/albums">
-          <Albums my={false} />
-        </Route>
-        <Route path="/playlists/my">
-          <Playlists my={true} />
-        </Route>
-        <Route path="/playlists/:playlistId">
-          <SinglePlaylist />
-        </Route>
-        <Route path="/playlists">
-          <Playlists my={false} />
-        </Route>
-      </Switch>
-    </>
+      <Navigation isLoaded={isLoaded} />
+        <Switch>
+          <Route exact path="/">
+            <LandingPage setIsLoaded={setIsLoaded} />
+          </Route>
+          <Route path="/songs/my">
+            <Songs my={true} />
+          </Route>
+          <Route path="/songs/:songId">
+            <SingleSong />
+          </Route>
+          <Route path="/songs">
+            <Songs my={false}/>
+          </Route>
+          <Route path="/albums/my">
+            <Albums my={true} />
+          </Route>
+          <Route path="/albums/:albumId">
+            <SingleAlbum />
+          </Route>
+          <Route path="/albums">
+            <Albums my={false} />
+          </Route>
+          <Route path="/playlists/my">
+            <Playlists my={true} />
+          </Route>
+          <Route path="/playlists/:playlistId">
+            <SinglePlaylist />
+          </Route>
+          <Route path="/playlists">
+            <Playlists my={false} />
+          </Route>
+        </Switch>
+      </>
   );
 }
 

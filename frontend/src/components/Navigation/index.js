@@ -39,12 +39,12 @@ function Navigation({ isLoaded }) {
         );
     }
 
-    return (
+    return isLoaded && (
         <>
-            <nav className="nav-bar flx-ctr flx-col" style={sessionUser ? { position: "fixed" } : { backgroundColor: "transparent", position: "absolute" }}>
+            <nav className="nav-bar flx-ctr flx-col" style={{ position: "fixed" }}>
                 <div className="nav-container flx-ctr flx-jst-spc-btwn">
                     <h2 onClick={() => history.push("/")}>DFloCloud</h2>
-                    {isLoaded && sessionLinks}
+                    {sessionLinks}
                 </div>
             </nav>
         </>

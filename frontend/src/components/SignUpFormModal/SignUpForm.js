@@ -14,6 +14,23 @@ function SignupForm() {
     const [profilePicture, setProfilePicture] = useState(null);
     const [errors, setErrors] = useState([]);
 
+
+
+    const handlePicture = event => {
+        const realBtn = document.getElementById('real-file-button');
+        const fileName = document.getElementById('file-name');
+        realBtn.click();
+
+        realBtn.addEventListener('change', () => {
+
+            if (realBtn.value) {
+                const name = realBtn.value.split("\\")[2];
+                fileName.innerHTML = name;
+            }
+            else fileName.innerHTML = 'No picture chosen!"'
+        });
+    };
+
     if (sessionUser) return <Redirect to="/" />;
 
     const handleSubmit = (e) => {
@@ -35,51 +52,59 @@ function SignupForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="signup-form">
+        <form onSubmit={handleSubmit} className="login-signup-form flx-ctr flx-col">
+            <h2>Sign Up!</h2>
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
-            <label>
-                Email
-                <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Username
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Upload a Profile Picture: 
-                <input type="file" accept="image/jpeg, image/png" onChange={updateFile} />
-            </label>
-            <label>
-                Password
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Confirm Password
-                <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <button type="submit">Sign Up</button>
+            <input
+                className="input-forms"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Your E-mail"
+            />
+            <input
+                className="input-forms"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                placeholder="Your Username"
+            />
+            <input
+                className="input-forms"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Your Password"
+            />
+            <input
+                className="input-forms"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                placeholder="Confirm Your Password"
+            />
+            <input 
+                type="file" 
+                accept="image/jpeg, image/png" 
+                onChange={updateFile}
+                id="real-file-button"
+                hidden
+            />
+            <div className="fake-file-input">
+                <span id="file-name">No picture chosen!</span>
+                <button
+                    className="org-btn login-signup-btns fake-file-button"
+                    type="button"
+                    onClick={handlePicture}
+                >Choose a Picture!</button>
+            </div>
+            <button className="org-btn login-signup-btns" type="submit">Sign Up</button>
         </form>
     );
 }

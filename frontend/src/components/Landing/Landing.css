@@ -19,7 +19,7 @@
 .page-container {
     color: white;
     background-color: white;
-    width: 50vw;
+    width: 85vw;
 }
 
 .exploring-container {
@@ -34,7 +34,7 @@
 
 .landing-banner {
     width: inherit;
-    height: 35vh;
+    height: 68vh;
     object-fit: cover;
     border-top: solid 5px #ff5501;
 }
@@ -48,11 +48,41 @@
 
 .continue-listening {
     width: inherit;
-    height: 26rem;
+    height: 25rem;
 }
 
 .continue-listening-container {
-    width: 50vw;
+    width: 75vw;
     background-color: #f2f2f2;
-    padding: 1rem;
+    padding-top: 4rem;
+}
+
+.mobile-text {
+    align-items: center;
+    padding-left: 3rem;
+}
+
+.create-acct-btn {
+  height: 2rem;
+  width: 10rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.signin-btn { 
+    border: 1px lightgray solid;
+    border-radius: 5px;
+    width: 5rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.landing-nav {
+    position: absolute;
+    top: 0;
+    width: 75vw;
+}
+
+.landing-nav-btns {
+    width: 15rem;
 }

@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, Redirect, useHistory } from "react-router-dom";
 import { getSongs } from '../../store/songs';
-import { getAllPlaylists } from '../../store/playlists';
+import LoginFormModal from '../LoginFormModal';
+import SignUpFormModal from '../SignUpFormModal';
 import './Landing.css';
 
-export default function LandingPage(props) {
+export default function LandingPage({ setIsLoaded }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const songsObj = useSelector(state => state.songs);
@@ -15,6 +16,7 @@ export default function LandingPage(props) {
     const continueBanner = "https://a-v2.sndcdn.com/assets/images/never_stop_listening@2x-ae7903ca.jpg";
 
     useEffect(() => {
+        setIsLoaded(false)
         dispatch(getSongs());
     }, [dispatch])
 
@@ -23,6 +25,13 @@ export default function LandingPage(props) {
     return (
         <>
             <div className="page-container flx-ctr flx-col">
+                <div className="landing-nav flx-ctr flx-jst-spc-btwn">
+                    <h2 onClick={() => history.push("/")}>DFloCloud</h2>
+                    <div className='landing-nav-btns flx-jst-spc-arnd'>
+                        <LoginFormModal />
+                        <SignUpFormModal />
+                    </div>
+                </div>
                 <img src={landingBanner} alt="banner" className="landing-banner" />
                 <div className="exploring-container pos-abs txt-algn-ctr flx-ctr flx-col">
                     <h2>Start Exploring Today!</h2>
@@ -46,18 +55,18 @@ export default function LandingPage(props) {
             </div>
             <div className="flx-jst-strt continue-listening-container">
                 <img src={continueBanner} alt="continue-listening" className="continue-listening" />
-                <div className="flx-col">
+                <div className="flx-col mobile-text">
                     <h2>Coming Soon</h2>
-                    <h3>Soon you will be able to explore the website on mobile devices!</h3>                            
+                    <h3 style={{ textAlign: 'center' }}>Soon you will be able to explore the website on mobile devices!</h3>                            
                 </div>
             </div>
-            <div className="flx-ctr flx-col" style={{ backgroundColor: 'white', width: '100vw' }}>
+            <div className="flx-ctr flx-col" style={{ backgroundColor: 'white', width: '85vw', height: '30rem' }}>
                 <h2>Thank you for listening! Now's the time to join us!</h2>
                 <h3>Save tracks, follow artists and build playlists. All for free.</h3>
-                <button className="org-btn">Create account</button>
+                <button className="org-btn create-acct-btn">Create account</button>
                 <div className="flx-ctr">
-                    <p>Already have an account?</p>
-                    <button className='txt-algn-ctr' style={{ border: '1px lightgray solid', borderRadius: '5px', width: '5rem', height: '2rem' }}>Sign In</button>
+                    <p style={{ fontSize: '12px', padding: '1rem' }}>Already have an account?</p>
+                    <button className='txt-algn-ctr signin-btn'>Sign In</button>
                 </div>
             </div>
         </>
