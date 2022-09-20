@@ -23,13 +23,14 @@
 }
 
 .exploring-container {
-    top: 10rem;
+    width: inherit;
 }
 
 .explore-songs-button {
     width: 12rem;
     height: 2rem;
     cursor: pointer;
+    top: 45vh;
 }
 
 .landing-banner {
@@ -81,6 +82,7 @@
     position: absolute;
     top: 0;
     width: 75vw;
+    z-index: 1000;
 }
 
 .landing-nav-btns {
@@ -91,9 +93,9 @@
     color: #757575;
     font-weight: bold;
     position: absolute;
-    top: 3.6rem;
+    top: 4rem;
     font-size: 29px;
-    right: 18rem;
+    right: 17rem;
 }
 
 .search-container {
