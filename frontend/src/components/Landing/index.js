@@ -71,10 +71,10 @@ export default function LandingPage({ setIsLoaded }) {
             <div className="flx-ctr flx-col" style={{ backgroundColor: 'white', width: '85vw', height: '30rem' }}>
                 <h2>Thank you for listening! Now's the time to join us!</h2>
                 <h3>Save tracks, follow artists and build playlists. All for free.</h3>
-                <button className="org-btn create-acct-btn">Create account</button>
+                <SignUpFormModal styling={{ height: "2rem", width: "10rem", textAlign: "center", cursor: "pointer" }}/>
                 <div className="flx-ctr">
                     <p style={{ fontSize: '12px', padding: '1rem' }}>Already have an account?</p>
-                    <button className='txt-algn-ctr signin-btn'>Sign In</button>
+                    <LoginFormModal styling={{ height: "2rem", width: "5rem", border: "1px lightgray solid", borderRadius: "5px", textAlign: "center", cursor: "pointer" }} />
                 </div>
             </div>
         </>
