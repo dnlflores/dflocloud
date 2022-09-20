@@ -8,10 +8,7 @@ export default function Slider() {
     const landingBanner = "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8";
 
     useEffect(() => {
-        const changeSlide = setInterval(() => {
-            console.log("i ran")
-            setSlideIndex(prevIdx => prevIdx === 0 ? 1 : 0)
-        }, 10000);
+        const changeSlide = setInterval(() => setSlideIndex(prevIdx => prevIdx === 0 ? 1 : 0), 15000);
 
         return () => clearInterval(changeSlide);
     }, [])
