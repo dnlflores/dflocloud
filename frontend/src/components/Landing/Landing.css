@@ -11,7 +11,7 @@
 }
 
 .trending-container {
-    height: 30rem;
+    height: 32rem;
     width: inherit;
     justify-content: flex-start;
 }
@@ -85,4 +85,34 @@
 
 .landing-nav-btns {
     width: 15rem;
+}
+
+.search-btn {
+    color: #757575;
+    font-weight: bold;
+    position: absolute;
+    top: 3.6rem;
+    font-size: 29px;
+    right: 18rem;
+}
+
+.search-container {
+    position: relative;
+    width: 65vw;
+    height: 10rem;
+}
+
+.search-bar {
+    background-color: lightgray;
+    border: none;
+    width: 40rem;
+    height: 2rem;
+    font-size: 18px;
+    padding: 1rem;
+}
+
+.upld-btn {
+    height: 2.5rem;
+    width: 10rem;
+    text-align: center;
 }

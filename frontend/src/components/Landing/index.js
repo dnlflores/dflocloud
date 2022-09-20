@@ -40,6 +40,14 @@ export default function LandingPage({ setIsLoaded }) {
                 </div>
                 <NavLink to="/albums">Explore All Albums</NavLink>
                 <div className="trending-container flx-ctr flx-col">
+                    <div className="flx-ctr flx-jst-spc-arnd search-container">
+                        <form>
+                            <input className="search-bar" type="text" placeholder="Search for artists, bands, tracks, podcasts"></input>
+                            <span className="material-symbols-outlined search-btn" type="submit">search</span>
+                        </form>
+                        <p style={{ color: "black" }}>or</p>
+                        <button className="org-btn upld-btn">Upload your own</button>
+                    </div>
                     <h2 style={{ color: "black" }}>Here's What's Trending!</h2>
                     <div className="flx-ctr flx-wrp" style={{ color: "black" }}>
                         {songsObj && songs.map(song => (
@@ -57,7 +65,7 @@ export default function LandingPage({ setIsLoaded }) {
                 <img src={continueBanner} alt="continue-listening" className="continue-listening" />
                 <div className="flx-col mobile-text">
                     <h2>Coming Soon</h2>
-                    <h3 style={{ textAlign: 'center' }}>Soon you will be able to explore the website on mobile devices!</h3>                            
+                    <h3 style={{ textAlign: 'center' }}>Soon you will be able to explore the website on mobile devices!</h3>
                 </div>
             </div>
             <div className="flx-ctr flx-col" style={{ backgroundColor: 'white', width: '85vw', height: '30rem' }}>
