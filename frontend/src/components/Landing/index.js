@@ -5,6 +5,7 @@ import { getSongs } from '../../store/songs';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import Slider from '../Slider';
+import SongBox from '../Songs/SongBox';
 import './Landing.css';
 
 export default function LandingPage({ setIsLoaded }) {
@@ -46,11 +47,7 @@ export default function LandingPage({ setIsLoaded }) {
                         <h2 className="trending-title">Here's What's Trending!</h2>
                         <div className="flx-ctr flx-wrp song-wrapper">
                             {songsObj && songs.map(song => (
-                                <div key={song.id} className="flx-col ind-song" onClick={() => history.push(`/songs/${song.id}`)}>
-                                    <img src={song.previewImage} style={{ margin: "1rem", height: "180px", width: "180px", objectFit: "cover" }} alt="song" />
-                                    <p className="song-name mrgn-tp-0 txt-algn-lft">{song.title}</p>
-                                    <p className="song-artist mrgn-tp-0 txt-algn-lft">{song.Artist.username}</p>
-                                </div>
+                                <SongBox key={song.id} song={song} />
                             ))}
                         </div>
                     </div>
