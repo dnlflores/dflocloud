@@ -66,6 +66,7 @@
     transform: translateX(-50%);
     display: flex;
 }
+
 .dot {
     width: .5rem;
     height: .5rem;
@@ -75,6 +76,7 @@
     background: #f1f1f1;
     cursor: pointer;
 }
+
 .dot.active {
     background: rgb(32, 32, 32);
 }

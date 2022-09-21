@@ -57,8 +57,8 @@ export const uploadSong = (data) => async dispatch => {
     }
 };
 
-export const getSongs = () => async dispatch => {
-    const response = await csrfFetch('/api/songs');
+export const getSongs = (size = 0) => async dispatch => {
+    const response = size > 0 ? await csrfFetch(`/api/songs?size=${size}`) : await csrfFetch(`/api/songs`);
 
     if (response.ok) {
         const songs = await response.json();

@@ -17,7 +17,7 @@ export default function LandingPage({ setIsLoaded }) {
 
     useEffect(() => {
         setIsLoaded(false)
-        dispatch(getSongs());
+        dispatch(getSongs(12));
     }, [dispatch])
 
     if (loggedIn) return <Redirect to="/songs" />
@@ -42,15 +42,17 @@ export default function LandingPage({ setIsLoaded }) {
                         <p style={{ color: "black" }}>or</p>
                         <button className="org-btn upld-btn">Upload your own</button>
                     </div>
-                    <h2 style={{ color: "black", margin: '0' }}>Here's What's Trending!</h2>
-                    <div className="flx-ctr flx-wrp" style={{ color: "black" }}>
-                        {songsObj && songs.map(song => (
-                            <div key={song.id} className="flx-col" style={{ cursor: "pointer" }} onClick={() => history.push(`/songs/${song.id}`)}>
-                                <img src={song.previewImage} style={{ margin: "1rem", height: "180px", width: "180px", objectFit: "cover" }} alt="song" />
-                                <p className="song-name mrgn-tp-0 txt-algn-lft">{song.title}</p>
-                                <p className="song-artist mrgn-tp-0 txt-algn-lft">{song.Artist.username}</p>
-                            </div>
-                        ))}
+                    <div className="music-container flx-col flx-ctr">
+                        <h2 className="trending-title">Here's What's Trending!</h2>
+                        <div className="flx-ctr flx-wrp song-wrapper">
+                            {songsObj && songs.map(song => (
+                                <div key={song.id} className="flx-col ind-song" onClick={() => history.push(`/songs/${song.id}`)}>
+                                    <img src={song.previewImage} style={{ margin: "1rem", height: "180px", width: "180px", objectFit: "cover" }} alt="song" />
+                                    <p className="song-name mrgn-tp-0 txt-algn-lft">{song.title}</p>
+                                    <p className="song-artist mrgn-tp-0 txt-algn-lft">{song.Artist.username}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     <button onClick={() => history.push("/playlists")} className="explore-playlists-button org-btn flx-ctr">Explore Trending Playlists</button>
                 </div>

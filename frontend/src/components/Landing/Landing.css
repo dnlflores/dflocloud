@@ -16,15 +16,25 @@
     justify-content: flex-start;
 }
 
+@media (min-width: 1240px) {
+    .trending-container {
+        position: relative;
+        top: 50px
+    }
+}
+
 .page-container {
     color: white;
     background-color: white;
     width: 85vw;
+    position: relative;
+    justify-content: flex-start;
 }
 
 @media (min-width: 1240px) {
     .page-container {
         width: 1240px;
+        height: 1350px;
     }
 }
 
@@ -125,6 +135,7 @@
 @media (min-width: 1240px) {
     .search-btn {
         right: 250px;
+        top: 15px;
     }
 }
 
@@ -180,5 +191,29 @@
 @media (min-width: 1240px) {
     .landing-footer {
         width: 1240px;
+    }
+}
+
+.ind-song {
+    cursor: pointer;
+}
+
+@media (min-width: 1240px) {
+    /* .music-container {
+        position: relative;
+        top: 10px;
+    } */
+
+    .trending-title {
+        color: black;
+    }
+
+    .song-wrapper {
+        color: black;
+        width: 1275px;
+    }
+
+    .ind-song {
+        width: 200px;
     }
 }

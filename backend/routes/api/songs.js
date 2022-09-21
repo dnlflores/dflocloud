@@ -1,6 +1,7 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
+const { query } = require('express-validator/check');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 const { singleMulterUpload, singlePublicFileUpload, multipleMulterUpload } = require('../../awsS3');
@@ -20,6 +21,12 @@ const validateSong = [
         .withMessage('Description must be at least 10 characters and less than 300 characters.'),
     handleValidationErrors
 ];
+
+const validateQuery = [
+    query('size')
+        .isInt({ max: 20 }).withMessage('Size must be less than or equal 20'),
+    handleValidationErrors
+]
 
 // Upload Song
 // song url and image url naming convention is a work in progress. 
@@ -51,8 +58,9 @@ router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, async
 }));
 
 // Get Songs
-router.get('/', asyncHandler(async (req, res) => {
-    const songs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album] });
+router.get('/', validateQuery, asyncHandler(async (req, res) => {
+    const size = parseInt(req.query.size, 10);
+    const songs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album], limit: !isNaN(size) ? size : 0 });
 
     return res.json(songs);
 }));
