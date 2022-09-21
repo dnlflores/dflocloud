@@ -99,6 +99,14 @@ module.exports = {
         albumId: null,
         title: "Whip",
         description: "Know who made this?"
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/08/08/audio_0627597b4f.mp3",
+        previewImage: "https://cdn.pixabay.com/audio/2022/08/08/09-06-17-761_200x200.jpg",
+        userId: 3,
+        albumId: null,
+        title: "Relaxing Light Background",
+        description: "You know some light background music."
       }
      ], {})
   },
