@@ -33,7 +33,6 @@ export default function LandingPage({ setIsLoaded }) {
                     </div>
                 </div>
                 <Slider />
-                <NavLink to="/albums">Explore All Albums</NavLink>
                 <div className="trending-container flx-ctr flx-col">
                     <div className="flx-ctr flx-jst-spc-arnd search-container">
                         <form>
@@ -43,11 +42,11 @@ export default function LandingPage({ setIsLoaded }) {
                         <p style={{ color: "black" }}>or</p>
                         <button className="org-btn upld-btn">Upload your own</button>
                     </div>
-                    <h2 style={{ color: "black" }}>Here's What's Trending!</h2>
+                    <h2 style={{ color: "black", margin: '0' }}>Here's What's Trending!</h2>
                     <div className="flx-ctr flx-wrp" style={{ color: "black" }}>
                         {songsObj && songs.map(song => (
                             <div key={song.id} className="flx-col" style={{ cursor: "pointer" }} onClick={() => history.push(`/songs/${song.id}`)}>
-                                <img src={song.previewImage} style={{ margin: "1rem", height: "10.75rem", width: "10.75rem", objectFit: "cover" }} alt="song" />
+                                <img src={song.previewImage} style={{ margin: "1rem", height: "180px", width: "180px", objectFit: "cover" }} alt="song" />
                                 <p className="song-name mrgn-tp-0 txt-algn-lft">{song.title}</p>
                                 <p className="song-artist mrgn-tp-0 txt-algn-lft">{song.Artist.username}</p>
                             </div>
@@ -63,7 +62,7 @@ export default function LandingPage({ setIsLoaded }) {
                     <h3 style={{ textAlign: 'center' }}>Soon you will be able to explore the website on mobile devices!</h3>
                 </div>
             </div>
-            <div className="flx-ctr flx-col" style={{ backgroundColor: 'white', width: '85vw', height: '30rem' }}>
+            <div className="flx-ctr flx-col landing-footer">
                 <h2>Thank you for listening! Now's the time to join us!</h2>
                 <h3>Save tracks, follow artists and build playlists. All for free.</h3>
                 <SignUpFormModal styling={{ height: "2rem", width: "10rem", textAlign: "center", cursor: "pointer" }} />

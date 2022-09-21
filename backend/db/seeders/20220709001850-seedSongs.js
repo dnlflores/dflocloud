@@ -35,6 +35,14 @@ module.exports = {
         description: 'Another Banger',
         songUrl: 'https://dflocloud.s3.us-west-1.amazonaws.com/06+Skyfall+(ft.+Young+Thug).mp3',
         previewImage: 'https://i1.sndcdn.com/artworks-000341661411-tvgbu4-t500x500.jpg'
+      },
+      {
+        userId: 1,
+        albumId: null,
+        title: 'The Blackest Bouqet',
+        songUrl: 'https://cdn.pixabay.com/audio/2022/08/31/audio_419263fc12.mp3',
+        previewImage: 'https://cdn.pixabay.com/audio/2022/08/31/19-48-37-847_200x200.jpg',
+        description: 'Beats for days'
       }
      ], {})
   },

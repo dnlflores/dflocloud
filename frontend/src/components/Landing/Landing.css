@@ -22,20 +22,38 @@
     width: 85vw;
 }
 
+@media (min-width: 1240px) {
+    .page-container {
+        width: 1240px;
+    }
+}
+
 .exploring-container {
     width: inherit;
+    height: inherit;
 }
 
 .explore-songs-button {
     width: 12rem;
-    height: 2rem;
+    height: 30px;
     cursor: pointer;
-    top: 45vh;
+    top: 300px;
+    position: absolute;
+}
+
+@media (min-width: 1240px) {
+    .explore-songs-button {
+        width: 12rem;
+        height: 30px;
+        cursor: pointer;
+        top: 300px;
+        position: absolute;
+    }
 }
 
 .landing-banner {
     width: inherit;
-    height: 68vh;
+    height: 545px;
     object-fit: cover;
     border-top: solid 5px #ff5501;
 }
@@ -56,6 +74,12 @@
     width: 75vw;
     background-color: #f2f2f2;
     padding-top: 4rem;
+}
+
+@media (min-width: 1240px) {
+    .continue-listening-container {
+        width: 1100px;
+    }
 }
 
 .mobile-text {
@@ -81,7 +105,7 @@
 .landing-nav {
     position: absolute;
     top: 0;
-    width: 75vw;
+    width: 1100px;
     z-index: 1000;
 }
 
@@ -95,8 +119,13 @@
     position: absolute;
     top: 4rem;
     font-size: 29px;
-    right: 17rem;
     cursor: pointer;
+}
+
+@media (min-width: 1240px) {
+    .search-btn {
+        right: 250px;
+    }
 }
 
 .search-container {
@@ -105,8 +134,15 @@
     height: 10rem;
 }
 
+@media (min-width: 1240px) {
+    .search-container {
+        width: 850px;
+        height: 10rem;
+    }
+}
+
 .search-bar {
-    background-color: lightgray;
+    background-color: #F2F2F2;
     border: none;
     width: 40rem;
     height: 2rem;
@@ -114,9 +150,35 @@
     padding: 1rem;
 }
 
+.search-bar::placeholder {
+    color: #999999;
+    padding-left: 20px
+}
+
+@media (min-width: 1240px) {
+    .search-bar {
+        width: 600px;
+        height: 46px;
+        padding: 0;
+        font-size: 14px;
+    }
+}
+
 .upld-btn {
     height: 2.5rem;
     width: 10rem;
     text-align: center;
     cursor: pointer;
+}
+
+.landing-footer {
+    background-color: white;
+    width: 85vw;
+    height: 30rem;
+}
+
+@media (min-width: 1240px) {
+    .landing-footer {
+        width: 1240px;
+    }
 }

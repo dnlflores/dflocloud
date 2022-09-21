@@ -1,7 +1,14 @@
 .container-slider {
-    width: 85vw;
-    height: 75vh;
+    width: 500px;
+    height: 700px;
     position: relative;
+}
+
+@media (min-width: 1240px) {
+    .container-slider {
+        width: 1240px;
+        height: 454px;
+    }
 }
 
 .slide {
@@ -54,7 +61,7 @@
 
 .container-dots {
     position: absolute;
-    bottom: 10px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
