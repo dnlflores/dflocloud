@@ -13,7 +13,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer }) {
     const history = useHistory();
     const songsObj = useSelector(state => state.songs);
     const loggedIn = useSelector(state => state.session.user);
-    const songs = Object.values(songsObj || {});
+    const songs = Object.values(songsObj).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     const continueBanner = "https://a-v2.sndcdn.com/assets/images/never_stop_listening@2x-ae7903ca.jpg";
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer }) {
                     <div className="music-container flx-col flx-ctr">
                         <h2 className="trending-title">Here's What's Trending!</h2>
                         <div className="flx-ctr flx-wrp song-wrapper">
-                            {songsObj && songs.map(song => (
+                            {!!songs.length && songs.map(song => (
                                 <SongBox key={song.id} song={song} audioPlayer={audioPlayer} />
                             ))}
                         </div>

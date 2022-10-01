@@ -72,6 +72,14 @@ router.get('/me', requireAuth, asyncHandler(async (req, res) => {
     return res.json(mySongs);
 }));
 
+// Get Latest Songs
+router.get('/latest', asyncHandler(async (req, res) => {
+    const size = parseInt(req.query.size, 10);
+    const songs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album], limit: !isNaN(size) ? size : null, order: [['createdAt', 'DESC']] });
+
+    return res.json(songs);
+}));
+
 // Get Single Song
 router.get('/:id', asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id, { include: [{ model: User, as: 'Artist' }, Album.scope('song')] });

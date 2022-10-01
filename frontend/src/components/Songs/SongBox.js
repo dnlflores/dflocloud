@@ -26,8 +26,6 @@ export default function SongBox({ song, audioPlayer }) {
         setPlayPause(prevState => prevState === "play_circle" ? "pause_circle" : "play_circle")
     };
 
-    console.log("this is the audio player => ", audioPlayer);
-
     return (
         <div className="flx-col ind-song">
             <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{playPause}</span>

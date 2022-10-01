@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Playlist = sequelize.define('Playlist', {
     userId: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    previewImage: DataTypes.STRING
+    previewImage: DataTypes.STRING,
+    timesPlayed: DataTypes.INTEGER
   }, {});
   Playlist.associate = function(models) {
     // associations can be defined here
