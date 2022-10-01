@@ -31,7 +31,7 @@ export default function SongBox({ song, audioPlayer }) {
     return (
         <div className="flx-col ind-song">
             <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{playPause}</span>
-            <img src={song.previewImage} className="song-box-image" alt="song" />
+            <img src={song.previewImage} className="song-box-image" alt="song" onClick={() => history.push(`/songs/${song.id}`)} />
             <p className="song-name mrgn-tp-0 txt-algn-lft" onClick={() => history.push(`/songs/${song.id}`)}>{song.title}</p>
             <p className="song-artist mrgn-tp-0 txt-algn-lft" onClick={() => history.push(`/songs/${song.id}`)}>{song.Artist.username}</p>
         </div>

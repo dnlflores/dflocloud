@@ -26,11 +26,13 @@
     background-color: black;
     height: inherit;
     width: 12rem;
+    cursor: pointer;
 }
 
 .nav-home {
     height: inherit;
     width: 7rem;
+    cursor: pointer;
 }
 
 .nav-home-active {
