@@ -5,3 +5,35 @@
     object-fit: cover;
     position: relative;
 }
+
+.play-btn {
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    z-index: 1;
+    top: 1rem;
+    left: 1rem;
+    color: #ff5501;
+    font-size: 70px;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, .25);
+}
+
+.play-btn:hover {
+    opacity: 1;
+}
+
+.song-artist {
+    color: gray;
+    font-size: 12px;
+    margin-left: 1rem;
+}
+
+.song-name {
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+    margin-left: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

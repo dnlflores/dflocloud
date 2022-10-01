@@ -8,7 +8,7 @@ import Slider from '../Slider';
 import SongBox from '../Songs/SongBox';
 import './Landing.css';
 
-export default function LandingPage({ setIsLoaded }) {
+export default function LandingPage({ setIsLoaded, audioPlayer }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const songsObj = useSelector(state => state.songs);
@@ -19,7 +19,7 @@ export default function LandingPage({ setIsLoaded }) {
     useEffect(() => {
         setIsLoaded(false)
         dispatch(getSongs(12));
-        console.log("this is the useEffect for landing running");
+        
         return () => setIsLoaded(true);
     }, [dispatch])
 
@@ -49,7 +49,7 @@ export default function LandingPage({ setIsLoaded }) {
                         <h2 className="trending-title">Here's What's Trending!</h2>
                         <div className="flx-ctr flx-wrp song-wrapper">
                             {songsObj && songs.map(song => (
-                                <SongBox key={song.id} song={song} />
+                                <SongBox key={song.id} song={song} audioPlayer={audioPlayer} />
                             ))}
                         </div>
                     </div>

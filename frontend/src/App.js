@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from './store/session';
@@ -19,53 +19,53 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const { nowPlaying, setNowPlaying } = useNowPlaying();
+  const audioPlayer = createRef();
 
   useEffect(() => {
-    console.log("this is the useEffect in app running", document.location.href.split('/')[2]);
-    dispatch(sessionActions.restoreUser())
-    if(document.location.href.split('/')[3] !== '') setIsLoaded(true)
+    dispatch(sessionActions.restoreUser());
+    if (document.location.href.split('/')[3] !== '') setIsLoaded(true);
   }, [dispatch]);
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-        <Switch>
-          <Route exact path="/">
-            <LandingPage setIsLoaded={setIsLoaded} />
-          </Route>
-          <Route path="/songs/my">
-            <Songs my={true} />
-          </Route>
-          <Route path="/songs/:songId">
-            <SingleSong />
-          </Route>
-          <Route path="/songs">
-            <Songs my={false}/>
-          </Route>
-          <Route path="/albums/my">
-            <Albums my={true} />
-          </Route>
-          <Route path="/albums/:albumId">
-            <SingleAlbum />
-          </Route>
-          <Route path="/albums">
-            <Albums my={false} />
-          </Route>
-          <Route path="/playlists/my">
-            <Playlists my={true} />
-          </Route>
-          <Route path="/playlists/:playlistId">
-            <SinglePlaylist />
-          </Route>
-          <Route path="/playlists">
-            <Playlists my={false} />
-          </Route>
-          <Route path="/discover">
-            <Discover />
-          </Route>
-        </Switch>
-        <AudioPlayer className="main-audio-player" src={nowPlaying} />
-      </>
+      <Switch>
+        <Route exact path="/">
+          <LandingPage setIsLoaded={setIsLoaded} audioPlayer={audioPlayer} />
+        </Route>
+        <Route path="/songs/my">
+          <Songs my={true} />
+        </Route>
+        <Route path="/songs/:songId">
+          <SingleSong />
+        </Route>
+        <Route path="/songs">
+          <Songs my={false} />
+        </Route>
+        <Route path="/albums/my">
+          <Albums my={true} />
+        </Route>
+        <Route path="/albums/:albumId">
+          <SingleAlbum />
+        </Route>
+        <Route path="/albums">
+          <Albums my={false} />
+        </Route>
+        <Route path="/playlists/my">
+          <Playlists my={true} />
+        </Route>
+        <Route path="/playlists/:playlistId">
+          <SinglePlaylist />
+        </Route>
+        <Route path="/playlists">
+          <Playlists my={false} />
+        </Route>
+        <Route path="/discover">
+          <Discover />
+        </Route>
+      </Switch>
+      <AudioPlayer className="main-audio-player" src={nowPlaying.songUrl} ref={audioPlayer} />
+    </>
   );
 }
 

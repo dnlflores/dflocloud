@@ -87,4 +87,5 @@ body {
 .main-audio-player {
     position: fixed;
     bottom: 0;
+    z-index: 100;
 }
