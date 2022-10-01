@@ -43,7 +43,10 @@ function Navigation({ isLoaded }) {
         <>
             <nav className="nav-bar flx-ctr flx-col" style={{ position: "fixed" }}>
                 <div className="nav-container flx-ctr flx-jst-spc-btwn">
-                    <h2 onClick={() => history.push("/")}>DFloCloud</h2>
+                    <div className="nav-left">
+                        <NavLink to='/' className="nav-logo flx-ctr">DFLOCLOUD</NavLink>
+                        <NavLink to='/discover' className="nav-home flx-ctr" activeClassName="nav-home-active">Home</NavLink>
+                    </div>
                     {sessionLinks}
                 </div>
             </nav>

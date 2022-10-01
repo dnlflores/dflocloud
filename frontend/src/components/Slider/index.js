@@ -25,7 +25,7 @@ export default function Slider() {
                     <h2>Start Exploring Today!</h2>
                     <h3>Start creating and sharing with your friends! Let those creative juices flow!</h3>
                 </div>
-                <button onClick={() => history.push("/songs")} className="explore-songs-button flx-ctr org-btn">Explore All Songs</button>
+                <button onClick={() => history.push("/discover")} className="explore-songs-button flx-ctr org-btn">Explore All Songs</button>
             </div>
             <div className={slideIndex === 1 ? "exploring-container txt-algn-ctr flx-ctr flx-col slide active-anim" : "exploring-container txt-algn-ctr flx-ctr flx-col slide" }>
                 <img src={`https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8`} alt="banner" className="landing-banner" />
@@ -33,7 +33,7 @@ export default function Slider() {
                     <h2>Start Exploring Today!</h2>
                     <h3>Start creating and sharing with your friends! Let those creative juices flow!</h3>
                 </div>
-                <button onClick={() => history.push("/songs")} className="explore-songs-button flx-ctr org-btn">Explore All Songs</button>
+                <button onClick={() => history.push("/discover")} className="explore-songs-button flx-ctr org-btn">Explore All Songs</button>
             </div>
             <div className="container-dots">
                 {Array.from({ length: 2 }).map((dot, idx) => (

@@ -1,13 +1,38 @@
 .nav-bar {
-    background-color: gray;
+    background-color: #333333;
     justify-content: space-between;
-    height: 7vh;
-    width: 85vw;
+    height: 2.75rem;
+    width: 100vw;
     color: white;
-    top: 1rem;
+    top: 0;
     z-index: 100;
 }
 
 .nav-container {
-    width: 75vw;
+    width: 1250px;
+    height: inherit;
+}
+
+.nav-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 14rem;
+    height: inherit;
+}
+
+.nav-logo {    
+    font-weight: bold;
+    background-color: black;
+    height: inherit;
+    width: 12rem;
+}
+
+.nav-home {
+    height: inherit;
+    width: 7rem;
+}
+
+.nav-home-active {
+    background-color: black;
 }

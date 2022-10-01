@@ -1,0 +1,20 @@
+.discover-sect {
+    margin-top: 2rem;
+    background-color: white;
+    width: 1250px;
+    padding-top: 2rem;
+}
+
+.discover-title {
+    margin-left: 2rem;
+}
+
+.new-hot {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-list {
+    display: flex;
+    overflow: scroll;
+}

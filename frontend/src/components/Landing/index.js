@@ -19,6 +19,8 @@ export default function LandingPage({ setIsLoaded }) {
     useEffect(() => {
         setIsLoaded(false)
         dispatch(getSongs(12));
+        console.log("this is the useEffect for landing running");
+        return () => setIsLoaded(true);
     }, [dispatch])
 
     if (loggedIn) return <Redirect to="/songs" />
@@ -51,7 +53,7 @@ export default function LandingPage({ setIsLoaded }) {
                             ))}
                         </div>
                     </div>
-                    <button onClick={() => history.push("/playlists")} className="explore-playlists-button org-btn flx-ctr">Explore Trending Playlists</button>
+                    <button onClick={() => history.push("/discover")} className="explore-playlists-button org-btn flx-ctr">Explore Trending Playlists</button>
                 </div>
             </div>
             <div className="flx-jst-strt continue-listening-container">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from './store/session';
 import { useNowPlaying } from './context/NowPlayingContext';
@@ -11,6 +11,7 @@ import Albums from './components/Albums';
 import SingleAlbum from './components/SingleAlbum';
 import Playlists from './components/Playlists';
 import SinglePlaylist from './components/SinglePlaylist';
+import Discover from './components/Discover';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -20,7 +21,9 @@ function App() {
   const { nowPlaying, setNowPlaying } = useNowPlaying();
 
   useEffect(() => {
+    console.log("this is the useEffect in app running", document.location.href.split('/')[2]);
     dispatch(sessionActions.restoreUser())
+    if(document.location.href.split('/')[3] !== '') setIsLoaded(true)
   }, [dispatch]);
 
   return (
@@ -56,6 +59,9 @@ function App() {
           </Route>
           <Route path="/playlists">
             <Playlists my={false} />
+          </Route>
+          <Route path="/discover">
+            <Discover />
           </Route>
         </Switch>
         <AudioPlayer className="main-audio-player" src={nowPlaying} />

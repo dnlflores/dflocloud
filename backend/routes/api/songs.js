@@ -58,9 +58,9 @@ router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, async
 }));
 
 // Get Songs
-router.get('/', validateQuery, asyncHandler(async (req, res) => {
+router.get('/', asyncHandler(async (req, res) => {
     const size = parseInt(req.query.size, 10);
-    const songs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album], limit: !isNaN(size) ? size : 0 });
+    const songs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album], limit: !isNaN(size) ? size : null });
 
     return res.json(songs);
 }));
@@ -131,6 +131,20 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
     await song.destroy();
 
     return res.json({ message: "Song successfully deleted.", statusCode: 200 });
+}));
+
+// Increase number of times song was played by 1
+router.patch('/:id/play', asyncHandler(async (req, res) => {
+    const song = await Song.findByPk(req.params.id);
+    
+    if(!song) {
+        res.status(404);
+        return res.json({ message: "Song can't be found.", statusCode: 404});
+    }
+
+    await song.update({ timesPlayed: song.timesPlayed + 1 });
+
+    return res.json(song);
 }));
 
 module.exports = router;

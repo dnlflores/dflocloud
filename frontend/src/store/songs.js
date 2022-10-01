@@ -122,15 +122,27 @@ export const removeSong = id => async dispatch => {
         method: "DELETE"
     });
 
-    if(response.ok) {
+    if (response.ok) {
         dispatch(deleteSong(id));
     }
 };
 
+export const songPlayed = song => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${song.id}/play`, {
+        method: "PATCH"
+    });
+
+    if (response.ok) {
+        const updated = await response.json();
+        dispatch(updateSong(updated));
+        return updated;
+    }
+};
+
 export default function songsReducer(state = {}, action) {
-    switch(action.type) {
+    switch (action.type) {
         case CREATE_SONG: {
-            const newState = {...state};
+            const newState = { ...state };
             newState[action.song.id] = action.song;
             return newState;
         }
@@ -140,21 +152,21 @@ export default function songsReducer(state = {}, action) {
             return newState;
         }
         case READ_SONG: {
-            const newState = {...state};
+            const newState = { ...state };
             newState[action.song.id] = action.song;
             return newState;
         }
         case UPDATE_SONG: {
-            const newState = {...state};
-            newState[action.song.id] = action.song
+            const newState = { ...state };
+            newState[action.song.id] = { ...newState[action.song.id], ...action.song };
             return newState;
         }
         case DELETE_SONG: {
-            const newState = {...state};
+            const newState = { ...state };
             delete newState[action.songId];
             return newState;
         }
-        default: 
+        default:
             return state;
     }
 }
