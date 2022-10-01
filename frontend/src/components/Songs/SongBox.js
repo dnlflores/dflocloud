@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useNowPlaying } from "../../context/NowPlayingContext";
@@ -9,7 +9,11 @@ export default function SongBox({ song, audioPlayer }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { nowPlaying, setNowPlaying } = useNowPlaying();
-    const [playPause, setPlayPause] = useState("play_circle");
+    const [playPause, setPlayPause] = useState('');
+
+    useEffect(() => {
+        nowPlaying.id === song.id ? setPlayPause("pause_circle") : setPlayPause("play_circle");
+    }, [])
 
     const handleClick = (e) => {
         if (nowPlaying.id !== song.id) {

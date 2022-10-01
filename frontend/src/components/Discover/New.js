@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { getSongs } from "../../store/songs";
 import SongBox from "../Songs/SongBox";
 
-export default function New() {
+export default function New({ audioPlayer }) {
     const dispatch = useDispatch();
     const songsObj = useSelector(state => state.songs);
     const songs = Object.values(songsObj);
@@ -17,7 +17,7 @@ export default function New() {
             <h3>Charts: New & Hot</h3>
             <div className="song-list">
                 {songs && songs.map(song => (
-                    <SongBox key={song.id} song={song} />
+                    <SongBox key={song.id} song={song} audioPlayer={audioPlayer} />
                 ))}
             </div>
         </section>
