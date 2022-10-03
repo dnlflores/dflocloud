@@ -11,7 +11,8 @@ export default function UploadSong() {
             setFiles(
                 [...acceptedFiles]
             )
-        }
+        },
+        noClick: true
     });
 
     const handleFile = () => {
@@ -43,17 +44,15 @@ export default function UploadSong() {
                     <input {...getInputProps()} />
                     <p>Drag and drop your tracks & albums here</p>
                 </div>
-                <div>
-                    <input
-                        type="file"
-                        accept=".mp3,.mp4"
-                        id="real-file-button"
-                        onChange={updateFiles}
-                        hidden
-                    />
-                    <div className="fake-file-input">
-                        <button className="org-btn login-signup-btns fake-file-button" type="button" onClick={handleFile}>or choose files to upload</button>
-                    </div>
+                <input
+                    type="file"
+                    accept=".mp3,.mp4"
+                    id="real-file-button"
+                    onChange={updateFiles}
+                    hidden
+                />
+                <div className="fake-file-input">
+                    <button className="org-btn login-signup-btns fake-file-button" type="button" onClick={handleFile}>or choose files to upload</button>
                 </div>
                 <div>
                     {!!files.length && files.map((file, i) => (

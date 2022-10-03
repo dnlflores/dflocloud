@@ -90,3 +90,8 @@ body {
     bottom: 0;
     z-index: 100;
 }
+
+.fake-file-input {
+    margin: .5rem;
+    z-index: 1;
+}
