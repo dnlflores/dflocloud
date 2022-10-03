@@ -39,7 +39,7 @@ export default function UploadSong() {
     return (
         <div className="upload-song-page">
             <div className="upload-container flx-ctr flx-col">
-                <div className="flx-col" {...getRootProps()}>
+                <div className="drag-drop-area" {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>Drag and drop your tracks & albums here</p>
                 </div>
