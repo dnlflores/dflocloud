@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { uploadSong } from '../../store/songs';
 import { getMyAlbums } from '../../store/albums';
 
-export default function UploadSongForm(props) {
+export default function UploadSongForm() {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -53,7 +53,6 @@ export default function UploadSongForm(props) {
             setImage(null);
             setHasSubmitted(false);
             setErrors([]);
-            props.setTrigger(false);
         }
         setHasSubmitted(true);
     };

@@ -80,6 +80,12 @@ router.get('/latest', asyncHandler(async (req, res) => {
     return res.json(songs);
 }));
 
+// Get Most Played Songs
+router.get('/popular', asyncHandler(async (req, res) => {
+    const size = parseInt(req.query.size, 10);
+    const songs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album], limit: !isNaN(size) ? size : null, order: [['timesPlayed', 'DESC']] })
+}));
+
 // Get Single Song
 router.get('/:id', asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id, { include: [{ model: User, as: 'Artist' }, Album.scope('song')] });

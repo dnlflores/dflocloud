@@ -1,15 +1,12 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
-import UploadSongModal from '../UploadSongModal';
-import CreateAlbumFormModal from '../CreateAlbumModal';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
-    const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
 
     const sessionLinksStyle = {
@@ -21,14 +18,10 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <>
+            <div className="nav-right" style={sessionLinksStyle}>
+                <NavLink to='/upload' activeClassName="nav-active" className="nav flx-ctr">Upload</NavLink>
                 <ProfileButton user={sessionUser} />
-                <UploadSongModal />
-                <CreateAlbumFormModal />
-                <NavLink to="/songs/my">Your Songs</NavLink>
-                <NavLink to="/albums/my">Your Albums</NavLink>
-                <NavLink to="/playlists/my">Playlists</NavLink>
-            </>
+            </div>
         );
     } else {
         sessionLinks = (
@@ -45,7 +38,7 @@ function Navigation({ isLoaded }) {
                 <div className="nav-container flx-ctr flx-jst-spc-btwn">
                     <div className="nav-left">
                         <NavLink to='/' className="nav-logo flx-ctr">DFLOCLOUD</NavLink>
-                        <NavLink to='/discover' className="nav-home flx-ctr" activeClassName="nav-home-active">Home</NavLink>
+                        <NavLink to='/discover' className="nav flx-ctr" activeClassName="nav-active">Home</NavLink>
                     </div>
                     {sessionLinks}
                 </div>

@@ -16,6 +16,7 @@ export default function SongBox({ song, audioPlayer }) {
     }, [])
 
     const handleClick = (e) => {
+        e.stopPropagation();
         if (nowPlaying.id !== song.id) {
             setNowPlaying(song);
             dispatch(songPlayed(song));
@@ -28,8 +29,10 @@ export default function SongBox({ song, audioPlayer }) {
 
     return (
         <div className="flx-col ind-song">
-            <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{playPause}</span>
-            <img src={song.previewImage} className="song-box-image" alt="song" onClick={() => history.push(`/songs/${song.id}`)} />
+            <div className="hover-bk flx-ctr" onClick={() => history.push(`/songs/${song.id}`)}>
+                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{playPause}</span>
+            </div>
+            <img src={song.previewImage} className="song-box-image" alt="song" />
             <p className="song-name mrgn-tp-0 txt-algn-lft" onClick={() => history.push(`/songs/${song.id}`)}>{song.title}</p>
             <p className="song-artist mrgn-tp-0 txt-algn-lft" onClick={() => history.push(`/songs/${song.id}`)}>{song.Artist.username}</p>
         </div>

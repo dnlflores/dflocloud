@@ -34,7 +34,7 @@
 .explore-songs-button {
     width: 12rem;
     height: 30px;
-    cursor: pointer;
+    /* cursor: pointer; */
     top: 300px;
     position: absolute;
 }
@@ -43,7 +43,7 @@
     .explore-songs-button {
         width: 12rem;
         height: 30px;
-        cursor: pointer;
+        /* cursor: pointer; */
         top: 300px;
         position: absolute;
     }
@@ -61,7 +61,7 @@
     width: 15rem;
     position: relative;
     top: 3rem;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .continue-listening {
@@ -90,7 +90,7 @@
   height: 2rem;
   width: 10rem;
   text-align: center;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .signin-btn { 
@@ -168,7 +168,7 @@
     height: 2.5rem;
     width: 10rem;
     text-align: center;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .landing-footer {

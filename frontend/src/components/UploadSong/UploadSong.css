@@ -1,0 +1,14 @@
+.upload-song-page {
+    background-color: white;
+    width: 1250px;
+    margin-top: 2.5rem;
+    height: 1200px;
+}
+
+.upload-container {
+    width: 15rem;
+    height: 15rem;
+    border: solid gray 1px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px;
+}

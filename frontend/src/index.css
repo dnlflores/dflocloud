@@ -67,6 +67,7 @@ body {
     border: solid 1px #ff5501;
     border-radius: 5px;
     padding: 5px;
+    cursor: pointer;
 }
 
 .input-forms {

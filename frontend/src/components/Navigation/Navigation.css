@@ -13,7 +13,8 @@
     height: inherit;
 }
 
-.nav-left {
+.nav-left,
+.nav-right {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,12 +30,12 @@
     cursor: pointer;
 }
 
-.nav-home {
+.nav {
     height: inherit;
     width: 7rem;
     cursor: pointer;
 }
 
-.nav-home-active {
+.nav-active {
     background-color: black;
 }
