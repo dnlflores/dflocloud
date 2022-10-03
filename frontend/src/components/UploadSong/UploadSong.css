@@ -3,12 +3,16 @@
     width: 1250px;
     margin-top: 2.5rem;
     height: 1200px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .upload-container {
-    width: 15rem;
-    height: 15rem;
+    width: 45rem;
+    height: 25rem;
     border: solid gray 1px;
     border-radius: 5px;
     box-shadow: 0 0 5px;
+    margin-top: 15rem;
 }

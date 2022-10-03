@@ -23,7 +23,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer }) {
         return () => setIsLoaded(true);
     }, [dispatch])
 
-    if (loggedIn) return <Redirect to="/songs" />
+    if (loggedIn) return <Redirect to="/discover" />
 
     return (
         <>
