@@ -9,7 +9,7 @@ import 'react-h5-audio-player/lib/styles.css';
 
 export default function Songs(props) {
     const dispatch = useDispatch();
-    const songs = useSelector(state => state.songs);
+    const songs = useSelector(state => state.songs.allSongs);
     const currentUser = useSelector(state => state.session.user);
     const songsArr = Object.values(songs || {});
 

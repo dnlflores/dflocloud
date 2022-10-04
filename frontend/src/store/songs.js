@@ -8,7 +8,7 @@ const DELETE_SONG = "songs/DELETE_SONG";
 
 const createSong = song => ({
     type: CREATE_SONG,
-    song
+    payload: song
 });
 
 const readSong = song => ({
@@ -32,14 +32,17 @@ const deleteSong = songId => ({
 });
 
 export const uploadSong = (data) => async dispatch => {
-    const { title, description, song, image, albumId } = data;
+    const { title, description, songs, image } = data;
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("albumId", albumId);
 
-    if (song) formData.append("files", song);
+    if (songs && songs.length !== 0) {
+        for (let i = 0; i < songs.length; i++) {
+            formData.append("files", songs[i]);
+        }
+    }
     if (image) formData.append("files", image);
 
     const response = await csrfFetch(`/api/songs/`, {
@@ -139,31 +142,37 @@ export const songPlayed = song => async dispatch => {
     }
 };
 
-export default function songsReducer(state = {}, action) {
+const initialState = { allSongs: {}, singleSong: {} };
+
+export default function songsReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_SONG: {
-            const newState = { ...state };
-            newState[action.song.id] = action.song;
+            const newState = { ...state, allSongs: { ...state.allSongs } };
+            if (Array.isArray(action.payload)) {
+                action.payload.forEach(song => {
+                    newState.allSongs[song.id] = song;
+                })
+            } else {
+                newState.allSongs[action.payload.id] = action.payload;
+            }
             return newState;
         }
         case READ_SONGS: {
-            const newState = {};
-            action.songs.forEach(song => newState[song.id] = song);
+            const newState = { allSongs: {}, singleSong: {} };
+            action.songs.forEach(song => newState.allSongs[song.id] = song);
             return newState;
         }
         case READ_SONG: {
-            const newState = { ...state };
-            newState[action.song.id] = action.song;
+            const newState = { ...state, singleSong: {} };
+            newState.singleSong= action.song;
             return newState;
         }
         case UPDATE_SONG: {
-            const newState = { ...state };
-            newState[action.song.id] = { ...newState[action.song.id], ...action.song };
-            return newState;
+            return { ...state, singleSong: { ...state.singleSong, ...action.song } };
         }
         case DELETE_SONG: {
-            const newState = { ...state };
-            delete newState[action.songId];
+            const newState = { ...state, allSongs: {...state.allSongs}, singleSong: {} };
+            delete newState.allSongs[action.songId];
             return newState;
         }
         default:

@@ -25,3 +25,14 @@
     align-items: flex-start;
     position: absolute;
 }
+
+.drag-drop-area p {
+    position: relative;
+    top: 5rem;
+    font-size: 25px;
+}
+
+.sng-upld-btn {
+    width: 15rem;
+    height: 2rem;
+}

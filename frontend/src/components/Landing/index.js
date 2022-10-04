@@ -11,7 +11,7 @@ import './Landing.css';
 export default function LandingPage({ setIsLoaded, audioPlayer }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const songsObj = useSelector(state => state.songs);
+    const songsObj = useSelector(state => state.songs.allSongs);
     const loggedIn = useSelector(state => state.session.user);
     const songs = Object.values(songsObj).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     const continueBanner = "https://a-v2.sndcdn.com/assets/images/never_stop_listening@2x-ae7903ca.jpg";

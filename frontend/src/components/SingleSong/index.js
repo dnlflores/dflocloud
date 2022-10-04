@@ -11,7 +11,7 @@ export default function SingleSong(props) {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
-    const song = useSelector(state => state.songs[songId]);
+    const song = useSelector(state => state.songs.singleSong);
     const currentUser = useSelector(state => state.session.user);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function SingleSong(props) {
 
     const handleDelete = async event => {
         await dispatch(removeSong(event.target.value))
-        history.push('/songs');
+        history.push('/discover');
     };
 
     if(!song) return null;

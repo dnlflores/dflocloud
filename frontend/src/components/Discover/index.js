@@ -6,7 +6,7 @@ import './Discover.css';
 
 export default function Discover({ audioPlayer }) {
     const dispatch = useDispatch();
-    const songsObj = useSelector(state => state.songs);
+    const songsObj = useSelector(state => state.songs.allSongs);
     const newSongs = Object.values(songsObj).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     const hotSongs = Object.values(songsObj).sort((a, b) => b.timesPlayed - a.timesPlayed);
 
