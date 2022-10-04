@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UploadSongForm from './UploadSongForm';
+import CreatePlaylistForm from '../CreatePlaylistModal/CreatePlaylistForm';
 import './UploadSong.css';
 
 export default function UploadSong() {
     const [files, setFiles] = useState([]);
-    const [showForm, setShowForm] = useState(false);
+    const [showSingleForm, setShowSingleForm] = useState(false);
+    const [showMultiForm, setShowMultiForm] = useState(false);
     const [showDragDrop, setDragDrop] = useState(true);
     const [initialTitle, setInitialTitle] = useState('');
 
@@ -19,12 +21,19 @@ export default function UploadSong() {
         if (files.length === 1) setInitialTitle(files[0].name)
     }, [files])
 
-    const { getRootProps, getInputProps } = useDropzone({
-        accept: ".mp3,.mp4",
+    const { getRootProps, getInputProps, fileRejections } = useDropzone({
+        accept: {
+            'audio/mpeg': ['.mp3']
+        },
         onDrop: acceptedFiles => {
             setFiles([...acceptedFiles]);
-            setShowForm(true);
-            setDragDrop(false);
+            if (acceptedFiles.length === 1 && files.length < 1) {
+                setShowSingleForm(true);
+                setDragDrop(false);
+            } else if (acceptedFiles.length > 1 || files.length > 1) {
+                setShowMultiForm(true);
+                setDragDrop(false);
+            }
         },
         noClick: true
     });
@@ -35,10 +44,14 @@ export default function UploadSong() {
     };
 
     const updateFiles = (e) => {
-        const files = e.target.files;
-        if (!!files.length) {
-            setFiles([...files]);
-            setShowForm(true);
+        const inputFiles = e.target.files;
+        if (inputFiles.length === 1 && files.length < 1) {
+            setFiles([...inputFiles]);
+            setShowSingleForm(true);
+            setDragDrop(false);
+        } else if (inputFiles.length > 1 || files.length > 1) {
+            setFiles([...inputFiles]);
+            setShowMultiForm(true);
             setDragDrop(false);
         }
     };
@@ -56,7 +69,7 @@ export default function UploadSong() {
                         </div>
                         <input
                             type="file"
-                            accept=".mp3,.mp4"
+                            accept=".mp3"
                             id="real-file-button"
                             onChange={updateFiles}
                             hidden
@@ -66,18 +79,31 @@ export default function UploadSong() {
                         </div>
                     </>
                 )}
-                {showForm && (
+                {showSingleForm && (
                     <div className="drag-drop-area" {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <UploadSongForm songFiles={files} initialTitle={initialTitle} />
-                </div>
+                        <input {...getInputProps()} />
+                        <UploadSongForm songFiles={files} initialTitle={initialTitle} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setFiles={setFiles} />
+                    </div>
                 )}
-                <div className="file-names">
-                    {files.length > 1 && files.map((file, i) => (
-                        <div className="file-holder" key={i}>
-                            <p>Here's the file name! {file.name}</p>
-                        </div>
-                    ))}
+                {showMultiForm && (
+                    <div className="drag-drop-area" {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <CreatePlaylistForm />
+                    </div>
+                )}
+                <div className="btm-upld">
+                    {!!fileRejections.length && fileRejections.map(({ file, errors }) => (
+                            <div key={file.path} className="drop-errors flx-ctr flx-col">
+                                This file "{file.path}" has the following error(s):
+                                <div>
+                                    {errors.map(e => (
+                                        <p key={e.code}>{e.message}</p>
+                                    ))}
+                                </div>
+                            </div>
+                        ))
+                    
+                    }
                 </div>
             </div>
         </div>

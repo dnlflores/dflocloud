@@ -31,7 +31,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer }) {
                 <div className="landing-nav flx-ctr flx-jst-spc-btwn">
                     <h2 onClick={() => history.push("/")}>DFloCloud</h2>
                     <div className='landing-nav-btns flx-jst-spc-arnd'>
-                        <LoginFormModal />
+                        <LoginFormModal styling="wht" />
                         <SignUpFormModal />
                     </div>
                 </div>
@@ -69,7 +69,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer }) {
                 <SignUpFormModal styling={{ height: "2rem", width: "10rem", textAlign: "center", cursor: "pointer" }} />
                 <div className="flx-ctr">
                     <p style={{ fontSize: '12px', padding: '1rem' }}>Already have an account?</p>
-                    <LoginFormModal styling={{ height: "2rem", width: "5rem", border: "1px lightgray solid", borderRadius: "5px", textAlign: "center", cursor: "pointer" }} />
+                    <LoginFormModal styling="gry" />
                 </div>
             </div>
         </>

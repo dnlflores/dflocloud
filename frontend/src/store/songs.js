@@ -38,12 +38,11 @@ export const uploadSong = (data) => async dispatch => {
     formData.append("title", title);
     formData.append("description", description);
 
-    if (songs && songs.length !== 0) {
-        for (let i = 0; i < songs.length; i++) {
-            formData.append("files", songs[i]);
-        }
+    for (let i = 0; i < songs.length; i++) {
+        formData.append("files", songs[i]);
     }
-    if (image) formData.append("files", image);
+        
+    formData.append("files", image);
 
     const response = await csrfFetch(`/api/songs/`, {
         method: "POST",

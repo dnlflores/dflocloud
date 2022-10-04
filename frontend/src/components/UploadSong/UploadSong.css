@@ -10,7 +10,7 @@
 
 .upload-container {
     width: 45rem;
-    height: 25rem;
+    height: 27rem;
     border: solid gray 1px;
     border-radius: 5px;
     box-shadow: 0 0 5px;
@@ -44,7 +44,7 @@
     margin: 2rem;
 }
 
-.file-names {
+.btm-upld {
     position: relative;
     top: 10rem;
 }
@@ -53,6 +53,10 @@
 .right-side {
     width: 50%;
     position: relative;
+}
+
+.right-side {
+    padding: 1rem;
 }
 
 .form-container {
@@ -70,4 +74,37 @@
     height: 2rem;
     text-align: center;
     opacity: 0.75;
+}
+
+.drop-errors {
+    position: absolute;
+    bottom: 0;
+    width: 20rem;
+    left: -12rem;
+    color: red
+}
+
+.mid-form {
+    width: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.right-side div {
+    margin: 1rem;
+}
+
+.right-side input {
+    height: 2rem;
+    font-size: 15px;
+}
+
+.right-side textarea {
+    height: 10rem;
+    font-size: 15px;
+}
+
+.upld-btns {
+    width: 15rem;
+    justify-content: space-around;
 }

@@ -70,6 +70,23 @@ body {
     cursor: pointer;
 }
 
+.clr-btn {
+    padding: 5px;
+    border-radius: 5px;
+    width: 4rem;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.brdr-wht {
+    border: 1px solid white;
+}
+
+.brdr-gry {
+    border: 1px solid lightgray;
+}
+
 .input-forms {
     width: 80%;
     height: 2rem;

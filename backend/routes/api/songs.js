@@ -39,7 +39,7 @@ router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, async
     const image = req.files.find(file => file.mimetype.includes('image'));
 
     const songsUrl = await multiplePublicFileUpload(songs);
-    const imageUrl = await singlePublicFileUpload(image);
+    const imageUrl =image ? await singlePublicFileUpload(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq';
 
     console.log("songs url =>>>>>>>>>>>>>>>>", songsUrl)
 

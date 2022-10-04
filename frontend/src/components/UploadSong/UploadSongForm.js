@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { uploadSong } from '../../store/songs';
 
-export default function UploadSongForm({ songFiles, initialTitle }) {
+export default function UploadSongForm({ songFiles, initialTitle, setShowSingleForm, setShowMultiForm, setDragDrop, setFiles }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [title, setTitle] = useState(initialTitle || '');
@@ -11,8 +11,6 @@ export default function UploadSongForm({ songFiles, initialTitle }) {
     const [image, setImage] = useState(null);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
-
-    console.log("this is the initial title => ", initialTitle);
 
     useEffect(() => {
         const newErrors = [];
@@ -32,7 +30,7 @@ export default function UploadSongForm({ songFiles, initialTitle }) {
 
     const handleSubmit = async event => {
         event.preventDefault();
-        
+        console.log("handle submit fired")
         if (!errors.length) {
             const data = {
                 title,
@@ -41,6 +39,7 @@ export default function UploadSongForm({ songFiles, initialTitle }) {
                 image
             }
 
+            console.log("data for submit", data)
             await dispatch(uploadSong(data));
 
             setTitle('');
@@ -62,41 +61,56 @@ export default function UploadSongForm({ songFiles, initialTitle }) {
         e.preventDefault();
         const fakeBtn = document.getElementById('fake-img-upld')
         fakeBtn.click();
-    }
+    };
 
-    console.log("this is the image => ", image)
+    const handleCancel = () => {
+        setShowSingleForm(false);
+        setShowMultiForm(false);
+        setDragDrop(true);
+        setTitle('');
+        setDescription('');
+        setImage(null);
+        setHasSubmitted(false);
+        setErrors([]);
+        setFiles([])
+    };
 
     return (
-        <form className='flx-ctr form-container'>
+        <form className='flx-ctr flx-col form-container' onSubmit={handleSubmit}>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
-            <div className="left-side flx-ctr">
-                <img src={image ? window.URL.createObjectURL(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq'} alt="song-cover" className="input-image" />
-                <input type="file" accept="image/jpeg, image/png" onChange={updateImageFile} id="fake-img-upld" hidden />
-                <button className="sng-img-upld-btn flx-ctr" onClick={handleClick}><span className="material-symbols-outlined">add_a_photo</span>Upload Image</button>
+            <div className="mid-form">
+                <div className="left-side flx-ctr">
+                    <img src={image ? window.URL.createObjectURL(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq'} alt="song-cover" className="input-image" />
+                    <input type="file" accept="image/jpeg, image/png" onChange={updateImageFile} id="fake-img-upld" hidden />
+                    <button className="sng-img-upld-btn flx-ctr" onClick={handleClick}><span className="material-symbols-outlined">add_a_photo</span>Upload Image</button>
+                </div>
+                <div className="right-side flx-col">
+                    <div className="flx-col">
+                        <label htmlFor='title'>Title</label>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            name="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="flx-col">
+                        <label htmlFor='description'>Description</label>
+                        <textarea
+                            placeholder="Description"
+                            name="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
             </div>
-            <div
-                className="right-side flx-col"
-                onSubmit={handleSubmit}
-            >
-                <label htmlFor='title'>Title</label>
-                <input
-                        type="text"
-                        placeholder="Title"
-                        name="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                <label htmlFor='description'>Description</label>
-                <input
-                    type="text"
-                    placeholder="Description"
-                    description="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                />
+            <div className="flx-ctr upld-btns">
                 <button className="org-btn flx-ctr" type="submit">Upload Song</button>
+                <button className="clr-btn brdr-gry" onClick={handleCancel}>Cancel</button>
             </div>
         </form>
 
