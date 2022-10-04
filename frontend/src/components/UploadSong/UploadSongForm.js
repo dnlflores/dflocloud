@@ -58,12 +58,16 @@ export default function UploadSongForm({ songFiles, initialTitle }) {
         if (file) setImage(file);
     };
 
+    console.log("this is the image => ", image)
+
     return (
-        <div>
-            <h2>{title}</h2>
+        <div className='flx-ctr'>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
+            <div className="left-side">
+                <img src={image ? window.URL.createObjectURL(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq'} alt="song-cover" className="input-image" />
+            </div>
             <form
-                className="flx-col"
+                className="right-side flx-col"
                 onSubmit={handleSubmit}
             >
                 <label htmlFor='title'>Title</label>

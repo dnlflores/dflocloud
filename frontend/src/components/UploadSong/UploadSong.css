@@ -36,3 +36,15 @@
     width: 15rem;
     height: 2rem;
 }
+
+.input-image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    margin: 2rem;
+}
+
+.file-names {
+    position: relative;
+    top: 10rem;
+}

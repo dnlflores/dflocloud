@@ -67,10 +67,13 @@ export default function UploadSong() {
                     </>
                 )}
                 {showForm && (
+                    <div className="drag-drop-area" {...getRootProps()}>
+                    <input {...getInputProps()} />
                     <UploadSongForm songFiles={files} initialTitle={initialTitle} />
+                </div>
                 )}
-                <div>
-                    {!!files.length && files.map((file, i) => (
+                <div className="file-names">
+                    {files.length > 1 && files.map((file, i) => (
                         <div className="file-holder" key={i}>
                             <p>Here's the file name! {file.name}</p>
                         </div>
