@@ -8,7 +8,7 @@ import "./Songs.css";
 export default function SongBox({ song, audioPlayer }) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { nowPlaying, setNowPlaying } = useNowPlaying();
+    const { nowPlaying, setNowPlaying, isPlaying } = useNowPlaying();
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -17,13 +17,14 @@ export default function SongBox({ song, audioPlayer }) {
             dispatch(songPlayed(song));
         } else {
             audioPlayer.current.togglePlay(e);
+            setNowPlaying(song);
         }
     };
 
     return (
         <div className="flx-col ind-song">
             <div className="hover-bk flx-ctr" onClick={() => history.push(`/songs/${song.id}`)}>
-                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{nowPlaying.id === song.id ? "pause_circle" : "play_circle"}</span>
+                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{isPlaying ? nowPlaying.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
             </div>
             <img src={song.previewImage} className="song-box-image" alt="song" />
             <p className="song-name mrgn-tp-0 txt-algn-lft" onClick={() => history.push(`/songs/${song.id}`)}>{song.title}</p>

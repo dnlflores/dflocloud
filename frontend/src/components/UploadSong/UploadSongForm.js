@@ -3,14 +3,16 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { uploadSong } from '../../store/songs';
 
-export default function UploadSongForm({ songFiles }) {
+export default function UploadSongForm({ songFiles, initialTitle }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(initialTitle || '');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    console.log("this is the initial title => ", initialTitle);
 
     useEffect(() => {
         const newErrors = [];
@@ -23,6 +25,10 @@ export default function UploadSongForm({ songFiles }) {
         setErrors(newErrors);
 
     }, [title, description]);
+
+    useEffect(() => {
+        setTitle(initialTitle.split('.')[0]);
+    }, [initialTitle])
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -54,7 +60,7 @@ export default function UploadSongForm({ songFiles }) {
 
     return (
         <div>
-            <h2>Upload Song Form</h2>
+            <h2>{title}</h2>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
             <form
                 className="flx-col"

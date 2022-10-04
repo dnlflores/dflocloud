@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UploadSongForm from './UploadSongForm';
 import './UploadSong.css';
@@ -7,6 +7,17 @@ export default function UploadSong() {
     const [files, setFiles] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [showDragDrop, setDragDrop] = useState(true);
+    const [initialTitle, setInitialTitle] = useState('');
+
+    // purpose is to check if files array length is longer than 1.
+    // this will be the beginning of showing 2 different forms based on the number of songs uploaded
+    // the idea is that if the length is longer than one than the create playlist should be displayed
+    // but if there is only one file then the single song file upload should show passing in the title of that
+    // file as the initial title without the .mp3 or .mp4 at the end of the title
+    // Note: target site actually captilizes all of the separated words (even if separated with "-")
+    useEffect(() => {
+        if (files.length === 1) setInitialTitle(files[0].name)
+    }, [files])
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: ".mp3,.mp4",
@@ -20,17 +31,7 @@ export default function UploadSong() {
 
     const handleFile = () => {
         const realBtn = document.getElementById('real-file-button');
-        const fileName = document.getElementById('file-name');
         realBtn.click();
-
-        // realBtn.addEventListener('change', () => {
-
-        //     if (realBtn.value) {
-        //         const name = realBtn.value.split("\\")[2];
-        //         fileName.innerHTML = name;
-        //     }
-        //     else fileName.innerHTML = 'No picture chosen!"'
-        // });
     };
 
     const updateFiles = (e) => {
@@ -66,11 +67,13 @@ export default function UploadSong() {
                     </>
                 )}
                 {showForm && (
-                    <UploadSongForm songFiles={files} />
+                    <UploadSongForm songFiles={files} initialTitle={initialTitle} />
                 )}
                 <div>
                     {!!files.length && files.map((file, i) => (
-                        <p key={i}>Here's the file name! {file.name}</p>
+                        <div className="file-holder" key={i}>
+                            <p>Here's the file name! {file.name}</p>
+                        </div>
                     ))}
                 </div>
             </div>

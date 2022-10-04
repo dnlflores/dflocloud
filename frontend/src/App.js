@@ -18,8 +18,8 @@ import 'react-h5-audio-player/lib/styles.css';
 
 function App() {
   const dispatch = useDispatch();
+  const { nowPlaying, setIsPlaying } = useNowPlaying();
   const [isLoaded, setIsLoaded] = useState(false);
-  const { nowPlaying } = useNowPlaying();
   const audioPlayer = createRef();
 
   useEffect(() => {
@@ -68,7 +68,7 @@ function App() {
           <UploadSong />
         </Route>
       </Switch>
-      <AudioPlayer className="main-audio-player" src={nowPlaying.songUrl} ref={audioPlayer} />
+      <AudioPlayer className="main-audio-player" src={nowPlaying.songUrl} ref={audioPlayer} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} />
     </>
   );
 }
