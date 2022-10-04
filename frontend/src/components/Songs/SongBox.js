@@ -9,11 +9,6 @@ export default function SongBox({ song, audioPlayer }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { nowPlaying, setNowPlaying } = useNowPlaying();
-    const [playPause, setPlayPause] = useState('');
-
-    useEffect(() => {
-        nowPlaying.id === song.id ? setPlayPause("pause_circle") : setPlayPause("play_circle");
-    }, [])
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -23,14 +18,12 @@ export default function SongBox({ song, audioPlayer }) {
         } else {
             audioPlayer.current.togglePlay(e);
         }
-
-        setPlayPause(prevState => prevState === "play_circle" ? "pause_circle" : "play_circle")
     };
 
     return (
         <div className="flx-col ind-song">
             <div className="hover-bk flx-ctr" onClick={() => history.push(`/songs/${song.id}`)}>
-                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{playPause}</span>
+                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{nowPlaying.id === song.id ? "pause_circle" : "play_circle"}</span>
             </div>
             <img src={song.previewImage} className="song-box-image" alt="song" />
             <p className="song-name mrgn-tp-0 txt-algn-lft" onClick={() => history.push(`/songs/${song.id}`)}>{song.title}</p>

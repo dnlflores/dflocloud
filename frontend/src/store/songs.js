@@ -164,14 +164,14 @@ export default function songsReducer(state = initialState, action) {
         }
         case READ_SONG: {
             const newState = { ...state, singleSong: {} };
-            newState.singleSong= action.song;
+            newState.singleSong = action.song;
             return newState;
         }
         case UPDATE_SONG: {
-            return { ...state, singleSong: { ...state.singleSong, ...action.song } };
+            return { ...state, singleSong: { ...state.singleSong, ...action.song }, allSongs: { ...state.allSongs, [action.song.id]: { ...state.allSongs[action.song.id], ...action.song } } };
         }
         case DELETE_SONG: {
-            const newState = { ...state, allSongs: {...state.allSongs}, singleSong: {} };
+            const newState = { ...state, allSongs: { ...state.allSongs }, singleSong: {} };
             delete newState.allSongs[action.songId];
             return newState;
         }
