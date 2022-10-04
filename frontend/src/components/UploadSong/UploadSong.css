@@ -48,3 +48,26 @@
     position: relative;
     top: 10rem;
 }
+
+.left-side,
+.right-side {
+    width: 50%;
+    position: relative;
+}
+
+.form-container {
+    width: inherit;
+    padding: 1rem;
+}
+
+.sng-img-upld-btn {
+    position: absolute;
+    bottom: 4rem;
+    left: 6rem;
+    background: white;
+    border-radius: 5px;
+    width: 10rem;
+    height: 2rem;
+    text-align: center;
+    opacity: 0.75;
+}
