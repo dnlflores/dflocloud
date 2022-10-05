@@ -41,7 +41,6 @@ router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, async
     const songsUrl = await multiplePublicFileUpload(songs);
     const imageUrl =image ? await singlePublicFileUpload(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq';
 
-    console.log("songs url =>>>>>>>>>>>>>>>>", songsUrl)
 
     if (songsUrl.length > 1) {
         const bulk = [];
@@ -127,7 +126,6 @@ router.patch('/:id', requireAuth, multipleMulterUpload("files"), validateSong, a
     const url = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
 
     let picUrl;
-    console.log("this the request files ===========> ", req.files);
     if (req.files.length > 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[1]);
     else if (req.files.length === 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[0]);
     else picUrl = imageUrl ? imageUrl : "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD-ROM.png";

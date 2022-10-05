@@ -14,8 +14,6 @@ export default function Comments(props) {
     const currentUser = useSelector(state => state.session.user);
     const comments = Object.values(commentsObj || {});
 
-    console.log("comments", comments);
-
     useEffect(() => {
         dispatch(getComments(songId));
     }, [dispatch, songId]);

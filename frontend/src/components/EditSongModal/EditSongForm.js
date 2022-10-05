@@ -36,7 +36,6 @@ export default function EditSongForm(props) {
     const handleSubmit = async event => {
         event.preventDefault();
         if (!errors.length) {
-            console.log("this is the image", image);
             const data = {
                 title,
                 description,

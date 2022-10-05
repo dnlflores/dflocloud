@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from "react-router-dom";
 import { getSongs } from '../../store/songs';
+import { getAllPlaylists } from '../../store/playlists';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import Slider from '../Slider';
@@ -19,6 +20,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer }) {
     useEffect(() => {
         setIsLoaded(false)
         dispatch(getSongs(12));
+        dispatch(getAllPlaylists())
         
         return () => setIsLoaded(true);
     }, [dispatch])

@@ -113,7 +113,6 @@ export const editSong = (data, id) => async dispatch => {
 
     if (response.ok) {
         const newSong = await response.json();
-        console.log("this is the new song", newSong);
         dispatch(updateSong(newSong));
         return newSong;
     }

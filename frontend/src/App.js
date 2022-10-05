@@ -68,7 +68,7 @@ function App() {
           <UploadSong />
         </Route>
       </Switch>
-      <AudioPlayer className="main-audio-player" src={nowPlaying.songUrl} ref={audioPlayer} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} />
+      <AudioPlayer className="main-audio-player" src={nowPlaying.songUrl} ref={audioPlayer} showSkipControls={true} showJumpControls={false} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} onClickNext={e => console.log(e)} />
     </>
   );
 }

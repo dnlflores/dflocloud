@@ -30,7 +30,7 @@ export default function UploadSongForm({ songFiles, initialTitle, setShowSingleF
 
     const handleSubmit = async event => {
         event.preventDefault();
-        console.log("handle submit fired")
+        
         if (!errors.length) {
             const data = {
                 title,
@@ -39,7 +39,6 @@ export default function UploadSongForm({ songFiles, initialTitle, setShowSingleF
                 image
             }
 
-            console.log("data for submit", data)
             await dispatch(uploadSong(data));
 
             setTitle('');

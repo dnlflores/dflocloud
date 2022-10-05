@@ -10,16 +10,20 @@ export default function UploadSong() {
     const [showMultiForm, setShowMultiForm] = useState(false);
     const [showDragDrop, setDragDrop] = useState(true);
     const [initialTitle, setInitialTitle] = useState('');
+    const [showDiv, setShowDiv] = useState(false)
 
-    // purpose is to check if files array length is longer than 1.
-    // this will be the beginning of showing 2 different forms based on the number of songs uploaded
-    // the idea is that if the length is longer than one than the create playlist should be displayed
-    // but if there is only one file then the single song file upload should show passing in the title of that
-    // file as the initial title without the .mp3 or .mp4 at the end of the title
-    // Note: target site actually captilizes all of the separated words (even if separated with "-")
-    useEffect(() => {
-        if (files.length === 1) setInitialTitle(files[0].name)
-    }, [files])
+    // useEffect(() => {
+    //     const browserWindow = document.getElementById('window');
+    //     console.log("this is the window => ", browserWindow)
+    //     if(browserWindow) {
+    //         browserWindow.addEventListener('dragleave', (e) => {
+    //             console.log("file left", e)
+    //             if (e) setShowDiv(false);
+    //         });
+    //     }
+
+    //     return () => browserWindow.removeEventListener('dragleave', ()=>{})
+    // }, [showDiv]);
 
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         accept: {
@@ -30,6 +34,7 @@ export default function UploadSong() {
             if (acceptedFiles.length === 1 && files.length < 1) {
                 setShowSingleForm(true);
                 setDragDrop(false);
+                setInitialTitle(acceptedFiles[0].name.split('.')[0])
             } else if (acceptedFiles.length > 1 || files.length > 1) {
                 setShowMultiForm(true);
                 setDragDrop(false);
@@ -56,15 +61,12 @@ export default function UploadSong() {
         }
     };
 
-    console.log("these are the files => ", files);
-
     return (
-        <div className="upload-song-page">
+        <div className="upload-song-page" onDragEnter={() => setShowDiv(true)} onDrop={() => setShowDiv(false)}>
             <div className="upload-container flx-ctr flx-col">
                 {showDragDrop && (
                     <>
-                        <div className="drag-drop-area" {...getRootProps()}>
-                            <input {...getInputProps()} />
+                        <div className="drag-drop-area">
                             <p>Drag and drop your tracks & albums here</p>
                         </div>
                         <input
@@ -80,8 +82,7 @@ export default function UploadSong() {
                     </>
                 )}
                 {showSingleForm && (
-                    <div className="drag-drop-area" {...getRootProps()}>
-                        <input {...getInputProps()} />
+                    <div className="drag-drop-area">
                         <UploadSongForm songFiles={files} initialTitle={initialTitle} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setFiles={setFiles} />
                     </div>
                 )}
@@ -106,6 +107,14 @@ export default function UploadSong() {
                     }
                 </div>
             </div>
+            {showDiv && (
+                <div className="popup-box-bkgrnd flx-ctr" onDragLeave={() => setShowDiv(false)} id="window">
+                    <div className="popup-box" {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p>Drop your files here</p>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

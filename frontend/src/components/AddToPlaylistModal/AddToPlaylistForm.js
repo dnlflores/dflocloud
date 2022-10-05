@@ -7,9 +7,7 @@ export default function AddToPlaylistForm(props) {
     const [playlistId, setPlaylistId] = useState(0)
     const playlists = useSelector(state => state.playlists);
     const playlistsArr = Object.values(playlists || {}).filter(playlist => !playlist.Songs.find(song => song.id === +props.songId));
-
-    console.log("these are the playlists", playlistsArr);
-
+    
     useEffect(() => {
         dispatch(getMyPlaylists());
     }, [dispatch]);

@@ -21,8 +21,6 @@ export default function Playlists(props) {
         await dispatch(removePlaylist(e.target.value));
     };
 
-    console.log("heres the requested info => ", playlistsArr)
-
     if (!playlists) return null;
 
     return (

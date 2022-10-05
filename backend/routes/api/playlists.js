@@ -19,7 +19,7 @@ const validatePlaylist = [
 
 // Get all playlists 
 router.get('/', asyncHandler(async (req, res) => {
-    const playlists = await Playlist.findAll({ include: [Song] });
+    const playlists = await Playlist.findAll({ include: [Song, User] });
 
     return res.json(playlists);
 }))
@@ -34,7 +34,7 @@ router.get('/me', requireAuth, asyncHandler(async (req, res) => {
 // Get specified playlist
 router.get('/:id', asyncHandler(async (req, res) => {
     const playlist = await Playlist.findByPk(req.params.id, {
-        include: [Song]
+        include: [Song, User]
     });
 
     if (!playlist) {
