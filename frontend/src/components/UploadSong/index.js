@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UploadSongForm from './UploadSongForm';
 import CreatePlaylistForm from '../CreatePlaylistModal/CreatePlaylistForm';
@@ -10,20 +10,7 @@ export default function UploadSong() {
     const [showMultiForm, setShowMultiForm] = useState(false);
     const [showDragDrop, setDragDrop] = useState(true);
     const [initialTitle, setInitialTitle] = useState('');
-    const [showDiv, setShowDiv] = useState(false)
-
-    // useEffect(() => {
-    //     const browserWindow = document.getElementById('window');
-    //     console.log("this is the window => ", browserWindow)
-    //     if(browserWindow) {
-    //         browserWindow.addEventListener('dragleave', (e) => {
-    //             console.log("file left", e)
-    //             if (e) setShowDiv(false);
-    //         });
-    //     }
-
-    //     return () => browserWindow.removeEventListener('dragleave', ()=>{})
-    // }, [showDiv]);
+    const [showDiv, setShowDiv] = useState(false);
 
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         accept: {
@@ -59,6 +46,10 @@ export default function UploadSong() {
             setShowMultiForm(true);
             setDragDrop(false);
         }
+    };
+
+    const handleDragLeave = e => {
+        if(e.clientY === 0 || e.clientX === 0)setShowDiv(false);
     };
 
     return (
@@ -108,7 +99,7 @@ export default function UploadSong() {
                 </div>
             </div>
             {showDiv && (
-                <div className="popup-box-bkgrnd flx-ctr" onDragLeave={() => setShowDiv(false)} id="window">
+                <div className="popup-box-bkgrnd flx-ctr" onDragLeave={handleDragLeave}>
                     <div className="popup-box" {...getRootProps()}>
                         <input {...getInputProps()} />
                         <p>Drop your files here</p>
