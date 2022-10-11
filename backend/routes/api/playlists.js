@@ -195,12 +195,12 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
         return res.json({ message: "Only the owner of the playlist can delete the playlist.", statusCode: 403 });
     }
 
-    const playlistSongs = await PlaylistSong.findAll({ where: { playlistId: playlist.id } });
+    // const playlistSongs = await PlaylistSong.findAll({ where: { playlistId: playlist.id } });
 
-    if (playlistSongs.length) {
-        const ids = playlistSongs.map(playlistSong => playlistSong.id)
-        await PlaylistSong.destroy({ where: { id: ids } });
-    }
+    // if (playlistSongs.length) {
+    //     const ids = playlistSongs.map(playlistSong => playlistSong.id)
+    //     await PlaylistSong.destroy({ where: { id: ids } });
+    // }
 
     await playlist.destroy();
 

@@ -154,9 +154,9 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
         return res.json({ message: "Only the owner of this song can delete this song.", statusCode: 403 })
     }
 
-    const songPlaylist = await PlaylistSong.findOne({ where: { songId: song.id } })
+    // const songPlaylist = await PlaylistSong.findOne({ where: { songId: song.id } })
 
-    if (songPlaylist) await songPlaylist.destroy();
+    // if (songPlaylist) await songPlaylist.destroy();
 
     await song.destroy();
 
