@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Draggable } from 'react-drag-reorder';
 import { addSongToPlaylist, buildPlaylist } from '../../store/playlists';
+import { uploadSong } from '../../store/songs';
 import PlaylistSongSlice from './PlaylistSongSlice';
 import './CreatePlaylistForm.css';
-import { uploadSong } from '../../store/songs';
 
 export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSingleForm, setShowMultiForm, setDragDrop }) {
     const dispatch = useDispatch();
@@ -80,8 +81,23 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
         setTitles({});
     };
 
+    const getChangedPos = (currentPos, newPos) => {
+        const songOrder = [...songFiles];
+        const file1 = songOrder[currentPos];
+        const file2 = songOrder[newPos];
+        songOrder[currentPos] = file2;
+        songOrder[newPos] = file1;
+        setSongFiles(songOrder);
+        console.log("this is the current position => ", currentPos);
+        console.log("this is the new position => ", newPos);
+        console.log("these are the files => ", songOrder);
+    };
+
+    console.log("here are the song files => ", songFiles)
+
     return (
         <form className='flx-ctr flx-col form-container' onSubmit={handleSubmit}>
+            {console.log("rendering playlist form")}
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
             <div className="mid-form">
                 <div className="left-side flx-ctr">
@@ -114,9 +130,11 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
                 </div>
             </div>
             <div className="flx-ctr flx-col playlist-songs">
-                {!!songFiles.length && songFiles.map(song => (
-                    <PlaylistSongSlice key={song.path} songFile={song} allSongFiles={songFiles} setSongFiles={setSongFiles} titles={titles} setTitles={setTitles} />
-                ))}
+                <Draggable onPosChange={getChangedPos}>
+                    {!!songFiles.length && songFiles.map(song => (
+                        <PlaylistSongSlice key={song.path} songFile={song} allSongFiles={songFiles} setSongFiles={setSongFiles} titles={titles} setTitles={setTitles} />
+                    ))}
+                </Draggable>
             </div>
             <div className="flx-ctr upld-btns">
                 <button className="org-btn flx-ctr" type="submit">Create Playlist</button>

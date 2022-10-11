@@ -17,6 +17,7 @@ export default function UploadSong() {
             'audio/mpeg': ['.mp3']
         },
         onDrop: acceptedFiles => {
+            console.log("accepted files => ", acceptedFiles)
             setFiles(oldFiles => [...oldFiles, ...acceptedFiles]);
             if (acceptedFiles.length === 1 && files.length < 1) {
                 setShowSingleForm(true);
@@ -52,8 +53,14 @@ export default function UploadSong() {
         if(e.clientY === 0 || e.clientX === 0)setShowDiv(false);
     };
 
+    const handleDragEnter = e => {
+        if (e.dataTransfer.effectAllowed === 'copyLink') setShowDiv(true);
+    }
+
+    console.log("here is are the files => ", files);
+
     return (
-        <div className="upload-song-page" onDragEnter={() => setShowDiv(true)} onDrop={() => setShowDiv(false)}>
+        <div className="upload-song-page" onDragEnter={handleDragEnter} onDrop={() => setShowDiv(false)}>
             <div className="upload-container flx-ctr flx-col">
                 {showDragDrop && (
                     <>
