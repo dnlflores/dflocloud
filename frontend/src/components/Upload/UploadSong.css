@@ -10,7 +10,8 @@
 
 .upload-container {
     width: 45rem;
-    height: 27rem;
+    height: fit-content;
+    min-height: 27rem;
     border: solid gray 1px;
     border-radius: 5px;
     box-shadow: 0 0 5px;
@@ -23,12 +24,10 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    position: absolute;
+    position: relative;
 }
 
 .drag-drop-area p {
-    position: relative;
-    top: 5rem;
     font-size: 25px;
 }
 
@@ -75,6 +74,12 @@
     text-align: center;
     opacity: 0.75;
     cursor: pointer;
+    transition: opacity .1s ease-in;
+    text-indent: 5px;
+}
+
+.sng-img-upld-btn:hover {
+    opacity: 1;
 }
 
 .drop-errors {
@@ -114,7 +119,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     height: 100vh;
     width: 100vw;
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 200;
 }
@@ -122,10 +127,11 @@
 .popup-box {
     background-color: white;
     box-shadow: 0 0 5px;
-    height: 20rem;
-    width: 30rem;
+    height: 25rem;
+    width: 50rem;
 }
 
 .popup-box p {
     color: lightgray;
+    font-size: 25px;
 }

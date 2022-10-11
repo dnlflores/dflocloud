@@ -32,16 +32,17 @@ const deleteSong = songId => ({
 });
 
 export const uploadSong = (data) => async dispatch => {
-    const { title, description, songs, image } = data;
+    const { titles, description, songs, image, title } = data;
 
     const formData = new FormData();
-    formData.append("title", title);
+    if (title) formData.append("title", title)
+    else formData.append("titles", JSON.stringify(titles));
     formData.append("description", description);
 
     for (let i = 0; i < songs.length; i++) {
         formData.append("files", songs[i]);
     }
-        
+
     formData.append("files", image);
 
     const response = await csrfFetch(`/api/songs/`, {

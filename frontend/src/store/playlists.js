@@ -46,12 +46,12 @@ const removeFromPlaylist = (playlistId, songId) => ({
 });
 
 export const buildPlaylist = data => async dispatch => {
-    const { name, image } = data;
+    const { name, image, description } = data;
 
     const formData = new FormData();
     formData.append("name", name);
-
-    if (image) formData.append("image", image);
+    formData.append("description", description);
+    formData.append("image", image);
 
     const response = await csrfFetch(`/api/playlists/`, {
         method: "POST",

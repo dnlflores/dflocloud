@@ -12,7 +12,7 @@ import SingleAlbum from './components/SingleAlbum';
 import Playlists from './components/Playlists';
 import SinglePlaylist from './components/SinglePlaylist';
 import Discover from './components/Discover';
-import UploadSong from './components/UploadSong';
+import Upload from './components/Upload';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -65,7 +65,7 @@ function App() {
           <Discover audioPlayer={audioPlayer} />
         </Route>
         <Route path="/upload">
-          <UploadSong />
+          <Upload />
         </Route>
       </Switch>
       <AudioPlayer className="main-audio-player" src={nowPlaying.songUrl} ref={audioPlayer} showSkipControls={true} showJumpControls={false} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} onClickNext={e => console.log(e)} />

@@ -47,13 +47,14 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 // Create a playlist
 router.post('/', requireAuth, singleMulterUpload("image"), validatePlaylist, asyncHandler(async (req, res) => {
-    const { name, imageUrl } = req.body;
-    const picUrl = imageUrl ? imageUrl : await singlePublicFileUpload(req.file);
+    const { name, description } = req.body;
+    const picUrl = req.file ? await singlePublicFileUpload(req.file) : `https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq`;
 
     const playlist = await Playlist.create({
         userId: req.user.id,
         name,
-        previewImage: picUrl
+        previewImage: picUrl,
+        description
     });
 
     const createdPlaylist = await Playlist.findByPk(playlist.id, { include: [Song] });
@@ -105,6 +106,11 @@ router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
     });
 
     return res.json({ id: addSong.id, songId, playlistId, song });
+}));
+
+// Add multiple songs to a playlist 
+router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
+    
 }));
 
 // Remove a song to a playlist

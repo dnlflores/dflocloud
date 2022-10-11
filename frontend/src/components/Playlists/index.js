@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getAllPlaylists, getMyPlaylists, removePlaylist } from '../../store/playlists';
-import CreatePlaylistModal from '../CreatePlaylistModal';
 import AudioPlayer from 'react-h5-audio-player'
 import EditPlaylistModal from '../EditPlaylistModal';
 
@@ -26,7 +25,6 @@ export default function Playlists(props) {
     return (
         <>
             <h2>This is the playlists component</h2>
-            <CreatePlaylistModal />
             {playlistsArr.map(playlist => (
                 <div key={playlist.id}>
                     <NavLink to={`/playlists/${playlist.id}`}>{playlist.name}</NavLink>

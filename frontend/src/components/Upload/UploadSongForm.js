@@ -25,7 +25,7 @@ export default function UploadSongForm({ songFiles, initialTitle, setShowSingleF
     }, [title, description]);
 
     useEffect(() => {
-        setTitle(initialTitle.split('.')[0]);
+        setTitle(initialTitle.slice(0, initialTitle.length - 4));
     }, [initialTitle])
 
     const handleSubmit = async event => {
@@ -112,6 +112,5 @@ export default function UploadSongForm({ songFiles, initialTitle, setShowSingleF
                 <button className="clr-btn brdr-gry" onClick={handleCancel}>Cancel</button>
             </div>
         </form>
-
     )
 }

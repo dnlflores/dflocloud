@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import UploadSongForm from './UploadSongForm';
-import CreatePlaylistForm from '../CreatePlaylistModal/CreatePlaylistForm';
+import CreatePlaylistForm from '../CreatePlaylistForm';
 import './UploadSong.css';
 
 export default function UploadSong() {
@@ -17,7 +17,7 @@ export default function UploadSong() {
             'audio/mpeg': ['.mp3']
         },
         onDrop: acceptedFiles => {
-            setFiles([...acceptedFiles]);
+            setFiles(oldFiles => [...oldFiles, ...acceptedFiles]);
             if (acceptedFiles.length === 1 && files.length < 1) {
                 setShowSingleForm(true);
                 setDragDrop(false);
@@ -80,7 +80,7 @@ export default function UploadSong() {
                 {showMultiForm && (
                     <div className="drag-drop-area" {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <CreatePlaylistForm />
+                        <CreatePlaylistForm songFiles={files} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setSongFiles={setFiles} />
                     </div>
                 )}
                 <div className="btm-upld">
@@ -100,7 +100,7 @@ export default function UploadSong() {
             </div>
             {showDiv && (
                 <div className="popup-box-bkgrnd flx-ctr" onDragLeave={handleDragLeave}>
-                    <div className="popup-box" {...getRootProps()}>
+                    <div className="popup-box flx-ctr" {...getRootProps()}>
                         <input {...getInputProps()} />
                         <p>Drop your files here</p>
                     </div>

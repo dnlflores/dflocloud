@@ -32,31 +32,32 @@ const validateQuery = [
 // song url and image url naming convention is a work in progress. 
 // these url's need 2 different names for each to check if a user has used a computer file upload (AWS frontend)
 // or if they are providing an actual link to a picture (mostly for testing)
-router.post('/', requireAuth, multipleMulterUpload("files"), validateSong, asyncHandler(async (req, res) => {
-    const { title, description } = req.body;
+router.post('/', requireAuth, multipleMulterUpload("files"), asyncHandler(async (req, res) => {
+    const { titles, description, title } = req.body;
+
+    const titlesObj = title ? {} : JSON.parse(titles);
 
     const songs = req.files.filter(file => file.mimetype.includes('audio'));
     const image = req.files.find(file => file.mimetype.includes('image'));
 
     const songsUrl = await multiplePublicFileUpload(songs);
-    const imageUrl =image ? await singlePublicFileUpload(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq';
-
+    const imageUrl = image ? await singlePublicFileUpload(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq';
 
     if (songsUrl.length > 1) {
         const bulk = [];
-        songsUrl.forEach(song => {
+        songsUrl.forEach((song, i) => {
             bulk.push({
-                title,
+                title: titlesObj[songs[i].originalname],
                 description,
                 userId: req.user.id,
                 songUrl: song,
                 previewImage: imageUrl
             })
         });
-        await Song.bulkCreate(bulk);
-        return res.redirect('/api/songs');
+        const allSongs = await Song.bulkCreate(bulk);
+        return res.json(allSongs);
     }
-    
+
     await Song.create({
         title,
         description,

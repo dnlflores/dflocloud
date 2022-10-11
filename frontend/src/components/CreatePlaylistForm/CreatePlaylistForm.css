@@ -1,0 +1,23 @@
+.song-slice {
+    border-top: 2px solid lightgray;
+    width: 100%;
+    height: 5rem;
+    color: lightgray;
+    justify-content: space-around;
+}
+
+.song-slice span {
+    cursor: pointer;
+}
+
+.song-slice input {
+    border: solid 1px lightgray;
+    width: 35rem;
+    height: 2rem;
+    border-radius: 5px;
+}
+
+.playlist-songs {
+    margin: 1rem;
+    width: 100%;
+}
