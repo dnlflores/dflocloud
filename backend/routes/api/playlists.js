@@ -57,7 +57,7 @@ router.post('/', requireAuth, singleMulterUpload("image"), validatePlaylist, asy
         description
     });
 
-    const createdPlaylist = await Playlist.findByPk(playlist.id, { include: [Song] });
+    const createdPlaylist = await Playlist.findByPk(playlist.id, { include: [Song, User] });
 
     return res.json(createdPlaylist);
 }));

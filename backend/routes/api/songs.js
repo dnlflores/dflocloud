@@ -54,10 +54,12 @@ router.post('/', requireAuth, multipleMulterUpload("files"), asyncHandler(async 
                 previewImage: imageUrl
             })
         });
-        await Song.bulkCreate(bulk);
+        const createSongs = await Song.bulkCreate(bulk);
 
-        const allSongs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album], limit: songs.length, order: [['createdAt', 'DESC']] })
-        return res.json(allSongs);
+        const ids = createSongs.map(song => song.id);
+
+        const newSongs = await Song.findAll({ where: { id: ids }, include: [{ model: User, as: 'Artist' }] });
+        return res.json(newSongs);
     }
 
     await Song.create({
