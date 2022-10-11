@@ -6,7 +6,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 const { singleMulterUpload, singlePublicFileUpload, multipleMulterUpload, multiplePublicFileUpload } = require('../../awsS3');
 const { Op } = require('sequelize');
-const { Song, Album, User } = require('../../db/models');
+const { Song, Album, User, PlaylistSong } = require('../../db/models');
 
 const router = express.Router();
 
@@ -54,7 +54,9 @@ router.post('/', requireAuth, multipleMulterUpload("files"), asyncHandler(async 
                 previewImage: imageUrl
             })
         });
-        const allSongs = await Song.bulkCreate(bulk);
+        await Song.bulkCreate(bulk);
+
+        const allSongs = await Song.findAll({ include: [{ model: User, as: 'Artist' }, Album], limit: songs.length, order: [['createdAt', 'DESC']] })
         return res.json(allSongs);
     }
 
@@ -151,6 +153,10 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
         res.status(403);
         return res.json({ message: "Only the owner of this song can delete this song.", statusCode: 403 })
     }
+
+    const songPlaylist = await PlaylistSong.findOne({ where: { songId: song.id } })
+
+    if (songPlaylist) await songPlaylist.destroy();
 
     await song.destroy();
 

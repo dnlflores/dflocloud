@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
   });
   PlaylistSong.associate = function(models) {
     // associations can be defined her
+    // PlaylistSong.hasMany(models.Playlist, {
+    //   foreignKey: 'playlistId',
+    //   onDelete: 'cascade',
+    //   hooks: true
+    // })
   };
   return PlaylistSong;
 };

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import UploadSongForm from './UploadSongForm';
 import CreatePlaylistForm from '../CreatePlaylistForm';
 import './UploadSong.css';
+import { Redirect } from 'react-router-dom';
 
 export default function UploadSong() {
     const [files, setFiles] = useState([]);
@@ -11,7 +13,7 @@ export default function UploadSong() {
     const [showDragDrop, setDragDrop] = useState(true);
     const [initialTitle, setInitialTitle] = useState('');
     const [showDiv, setShowDiv] = useState(false);
-
+    const sessionUser = useSelector(state => state.session.user);
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         accept: {
             'audio/mpeg': ['.mp3']
@@ -33,7 +35,7 @@ export default function UploadSong() {
     const containsFiles = e => {
         if (e.dataTransfer.types) {
             for (var i = 0; i < e.dataTransfer.types.length; i++) {
-                if (e.dataTransfer.types[i] == "Files") {
+                if (e.dataTransfer.types[i] === "Files") {
                     return true;
                 }
             }
@@ -68,6 +70,8 @@ export default function UploadSong() {
         if (containsFiles(e)) setShowDiv(true);
     }
 
+    if (!sessionUser) return <Redirect to='/' />
+
     return (
         <div className="upload-song-page" id="upload-page" onDragEnter={handleDragEnter} onDrop={() => setShowDiv(false)}>
             <div className="upload-container flx-ctr flx-col">
@@ -94,12 +98,7 @@ export default function UploadSong() {
                     </div>
                 )}
                 {showMultiForm && (
-                    <>
-                        <div className="drag-drop-area" {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <CreatePlaylistForm songFiles={files} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setSongFiles={setFiles} />
-                        </div>
-                    </>
+                    <CreatePlaylistForm songFiles={files} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setSongFiles={setFiles} />
                 )}
                 <div className="btm-upld">
                     {!!fileRejections.length && fileRejections.map(({ file, errors }) => (

@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getAllPlaylists, getMyPlaylists, removePlaylist } from '../../store/playlists';
-import AudioPlayer from 'react-h5-audio-player'
+import AudioPlayer from 'react-h5-audio-player';
 import EditPlaylistModal from '../EditPlaylistModal';
+import './Playlists.css';
 
 export default function Playlists(props) {
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function Playlists(props) {
     if (!playlists) return null;
 
     return (
-        <>
+        <div className="playlist-temp">
             <h2>This is the playlists component</h2>
             {playlistsArr.map(playlist => (
                 <div key={playlist.id}>
@@ -44,6 +45,6 @@ export default function Playlists(props) {
                 </div>
             ))
             }
-        </>
+        </div>
     )
 }

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react"
 
-export default function PlaylistSongSlice({ songFile, titles, setTitles, setSongFiles, allSongFiles }) {
-    const [songName, setSongName] = useState(songFile.name.slice(0, songFile.name.length - 4));
+export default function PlaylistSongSlice({ songFile, titles, setTitles, setSongFiles, allSongFiles, index }) {
+    const [songName, setSongName] = useState('');
+
+    useEffect(() => {
+        const newName = songFile.name.slice(0, songFile.name.length - 4);
+        setSongName(newName)
+    }, [songFile]);
 
     useEffect(() => {
         const newTitles = { ...titles };
@@ -26,10 +31,9 @@ export default function PlaylistSongSlice({ songFile, titles, setTitles, setSong
     }
 
     return (
-        <div className="flx-ctr song-slice">
-            <span className="material-symbols-outlined">density_medium</span>
+        <>
             <input type="text" onChange={handleChange} value={songName} />
             <span className="material-symbols-outlined" onClick={handleRemove}>cancel</span>
-        </div>
+        </>
     )
 }

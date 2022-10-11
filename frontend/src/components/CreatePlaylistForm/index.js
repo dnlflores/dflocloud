@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Draggable } from 'react-drag-reorder';
 import { addSongToPlaylist, buildPlaylist } from '../../store/playlists';
 import { uploadSong } from '../../store/songs';
 import PlaylistSongSlice from './PlaylistSongSlice';
@@ -9,13 +8,15 @@ import './CreatePlaylistForm.css';
 
 export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSingleForm, setShowMultiForm, setDragDrop }) {
     const dispatch = useDispatch();
-    const history = useHistory()
+    const history = useHistory();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState(null);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
-    const [titles, setTitles] = useState({})
+    const [titles, setTitles] = useState({});
+    const [dragItemIndex, setDragItemIndex] = useState(-1);
+    const [dragOverItemIndex, setDragOverItemIndex] = useState(-1);
 
     useEffect(() => {
         const newErrors = [];
@@ -41,7 +42,7 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
 
             const playlist = await dispatch(buildPlaylist(playlistData));
             const songs = await dispatch(uploadSong({ titles, songs: songFiles, description, image }));
-            for(let i = 0; i < songs.length; i++) { 
+            for (let i = 0; i < songs.length; i++) {
                 const song = songs[i];
                 await dispatch(addSongToPlaylist(song.id, playlist.id))
             }
@@ -82,16 +83,13 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
         setSongFiles([])
     };
 
-    const getChangedPos = (currentPos, newPos) => {
+    const onDragEnd = e => {
         const songOrder = [...songFiles];
-        const file1 = songOrder[currentPos];
-        const file2 = songOrder[newPos];
-        songOrder[currentPos] = file2;
-        songOrder[newPos] = file1;
+        const file1 = songOrder[dragItemIndex];
+        const file2 = songOrder[dragOverItemIndex];
+        songOrder[dragItemIndex] = file2;
+        songOrder[dragOverItemIndex] = file1;
         setSongFiles(songOrder);
-        console.log("this is the current position => ", currentPos);
-        console.log("this is the new position => ", newPos);
-        console.log("these are the files => ", songOrder);
     };
 
     return (
@@ -128,11 +126,11 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
                 </div>
             </div>
             <div className="flx-ctr flx-col playlist-songs">
-                <Draggable onPosChange={getChangedPos}>
-                    {!!songFiles.length && songFiles.map(song => (
-                        <PlaylistSongSlice key={song.path} songFile={song} allSongFiles={songFiles} setSongFiles={setSongFiles} titles={titles} setTitles={setTitles} />
-                    ))}
-                </Draggable>
+                {!!songFiles.length && songFiles.map((song, i) => (
+                    <div key={i} className="flx-ctr song-slice" draggable onDragEnd={onDragEnd} onDragEnter={() => setDragItemIndex(i)} onDragStart={() => setDragOverItemIndex(i)} onDragOver={e => e.preventDefault()}>
+                        <PlaylistSongSlice songFile={song} allSongFiles={songFiles} setSongFiles={setSongFiles} titles={titles} setTitles={setTitles} index={i} />
+                    </div>
+                ))}
             </div>
             <div className="flx-ctr upld-btns">
                 <button className="org-btn flx-ctr" type="submit">Create Playlist</button>
