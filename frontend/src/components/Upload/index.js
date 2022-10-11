@@ -17,7 +17,6 @@ export default function UploadSong() {
             'audio/mpeg': ['.mp3']
         },
         onDrop: acceptedFiles => {
-            console.log("accepted files => ", acceptedFiles)
             setFiles(oldFiles => [...oldFiles, ...acceptedFiles]);
             if (acceptedFiles.length === 1 && files.length < 1) {
                 setShowSingleForm(true);
@@ -30,6 +29,18 @@ export default function UploadSong() {
         },
         noClick: true
     });
+
+    const containsFiles = e => {
+        if (e.dataTransfer.types) {
+            for (var i = 0; i < e.dataTransfer.types.length; i++) {
+                if (e.dataTransfer.types[i] == "Files") {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
     const handleFile = () => {
         const realBtn = document.getElementById('real-file-button');
@@ -50,17 +61,15 @@ export default function UploadSong() {
     };
 
     const handleDragLeave = e => {
-        if(e.clientY === 0 || e.clientX === 0)setShowDiv(false);
+        if (e.clientY === 0 || e.clientX === 0) setShowDiv(false);
     };
 
     const handleDragEnter = e => {
-        if (e.dataTransfer.effectAllowed === 'copyLink') setShowDiv(true);
+        if (containsFiles(e)) setShowDiv(true);
     }
 
-    console.log("here is are the files => ", files);
-
     return (
-        <div className="upload-song-page" onDragEnter={handleDragEnter} onDrop={() => setShowDiv(false)}>
+        <div className="upload-song-page" id="upload-page" onDragEnter={handleDragEnter} onDrop={() => setShowDiv(false)}>
             <div className="upload-container flx-ctr flx-col">
                 {showDragDrop && (
                     <>
@@ -85,23 +94,25 @@ export default function UploadSong() {
                     </div>
                 )}
                 {showMultiForm && (
-                    <div className="drag-drop-area" {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <CreatePlaylistForm songFiles={files} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setSongFiles={setFiles} />
-                    </div>
+                    <>
+                        <div className="drag-drop-area" {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <CreatePlaylistForm songFiles={files} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setSongFiles={setFiles} />
+                        </div>
+                    </>
                 )}
                 <div className="btm-upld">
                     {!!fileRejections.length && fileRejections.map(({ file, errors }) => (
-                            <div key={file.path} className="drop-errors flx-ctr flx-col">
-                                This file "{file.path}" has the following error(s):
-                                <div>
-                                    {errors.map(e => (
-                                        <p key={e.code}>{e.message}</p>
-                                    ))}
-                                </div>
+                        <div key={file.path} className="drop-errors flx-ctr flx-col">
+                            This file "{file.path}" has the following error(s):
+                            <div>
+                                {errors.map(e => (
+                                    <p key={e.code}>{e.message}</p>
+                                ))}
                             </div>
-                        ))
-                    
+                        </div>
+                    ))
+
                     }
                 </div>
             </div>

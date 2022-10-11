@@ -79,6 +79,7 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
         setHasSubmitted(false);
         setErrors([]);
         setTitles({});
+        setSongFiles([])
     };
 
     const getChangedPos = (currentPos, newPos) => {
@@ -93,11 +94,8 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
         console.log("these are the files => ", songOrder);
     };
 
-    console.log("here are the song files => ", songFiles)
-
     return (
         <form className='flx-ctr flx-col form-container' onSubmit={handleSubmit}>
-            {console.log("rendering playlist form")}
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
             <div className="mid-form">
                 <div className="left-side flx-ctr">
