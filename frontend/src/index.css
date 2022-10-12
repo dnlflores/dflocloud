@@ -102,13 +102,11 @@ body {
   'opsz' 48
 }
 
-.main-audio-player {
-    position: fixed;
-    bottom: 0;
-    z-index: 100;
-}
-
 .fake-file-input {
     margin: .5rem;
     z-index: 1;
+}
+
+.footer-div {
+    height: 6rem;
 }

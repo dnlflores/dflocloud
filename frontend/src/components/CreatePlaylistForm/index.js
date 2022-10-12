@@ -6,7 +6,7 @@ import { uploadSong } from '../../store/songs';
 import PlaylistSongSlice from './PlaylistSongSlice';
 import './CreatePlaylistForm.css';
 
-export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSingleForm, setShowMultiForm, setDragDrop }) {
+export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSingleForm, setShowMultiForm, setDragDrop, setLoading }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [name, setName] = useState("");
@@ -40,6 +40,7 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
                 description
             }
 
+            setLoading(true);
             const playlist = await dispatch(buildPlaylist(playlistData));
             const songs = await dispatch(uploadSong({ titles, songs: songFiles, description, image }));
             for (let i = 0; i < songs.length; i++) {
@@ -47,6 +48,7 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
                 await dispatch(addSongToPlaylist(song.id, playlist.id))
             }
 
+            setLoading(false);
             setName('');
             setDescription('');
             setImage(null);
@@ -92,6 +94,8 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
         setSongFiles(songOrder);
     };
 
+    console.log('these are the titles => ', titles);
+
     return (
         <form className='flx-ctr flx-col form-container' onSubmit={handleSubmit}>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
@@ -127,7 +131,7 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
             </div>
             <div className="flx-ctr flx-col playlist-songs">
                 {!!songFiles.length && songFiles.map((song, i) => (
-                    <div key={i} className="flx-ctr song-slice" draggable onDragEnd={onDragEnd} onDragEnter={() => setDragItemIndex(i)} onDragStart={() => setDragOverItemIndex(i)} onDragOver={e => e.preventDefault()}>
+                    <div key={i} className="flx-ctr song-slice" onDragEnd={onDragEnd} onDragEnter={() => setDragItemIndex(i)} onDragStart={() => setDragOverItemIndex(i)} onDragOver={e => e.preventDefault()}>
                         <PlaylistSongSlice songFile={song} allSongFiles={songFiles} setSongFiles={setSongFiles} titles={titles} setTitles={setTitles} index={i} />
                     </div>
                 ))}

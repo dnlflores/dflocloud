@@ -19,7 +19,7 @@ const validatePlaylist = [
 
 // Get all playlists 
 router.get('/', asyncHandler(async (req, res) => {
-    const playlists = await Playlist.findAll({ include: [Song, User] });
+    const playlists = await Playlist.findAll({ include: [{ model: Song, include: [{ model: User, as: 'Artist' }] }, User] });
 
     return res.json(playlists);
 }))

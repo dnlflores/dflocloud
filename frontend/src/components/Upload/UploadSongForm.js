@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { uploadSong } from '../../store/songs';
 
-export default function UploadSongForm({ songFiles, initialTitle, setShowSingleForm, setShowMultiForm, setDragDrop, setFiles }) {
+export default function UploadSongForm({ songFiles, initialTitle, setShowSingleForm, setShowMultiForm, setDragDrop, setFiles, setLoading }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [title, setTitle] = useState(initialTitle || '');
@@ -25,29 +25,32 @@ export default function UploadSongForm({ songFiles, initialTitle, setShowSingleF
     }, [title, description]);
 
     useEffect(() => {
-        setTitle(initialTitle.slice(0, initialTitle.length - 4));
+        setTitle(initialTitle.length < 50 ? initialTitle.slice(0, initialTitle.length - 4) : initialTitle.slice(0, 50));
     }, [initialTitle])
 
     const handleSubmit = async event => {
         event.preventDefault();
-        
-        if (!errors.length) {
-            const data = {
-                title,
-                description,
-                songs: songFiles,
-                image
-            }
 
-            await dispatch(uploadSong(data));
-
-            setTitle('');
-            setDescription('');
-            setImage(null);
-            setHasSubmitted(false);
-            setErrors([]);
-        }
+        console.log('these are the errors ? ', errors)
         setHasSubmitted(true);
+
+        if (errors.length) return alert('error');
+
+        const data = {
+            title,
+            description,
+            songs: songFiles,
+            image
+        }
+        setLoading(true);
+        await dispatch(uploadSong(data));
+
+        setTitle('');
+        setDescription('');
+        setImage(null);
+        setHasSubmitted(false);
+        setErrors([]);
+        setLoading(false);
         history.push("/discover")
     };
 

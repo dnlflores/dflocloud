@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import UploadSongForm from './UploadSongForm';
 import CreatePlaylistForm from '../CreatePlaylistForm';
+import loadingImg from '../../assets/loading.png';
 import './UploadSong.css';
-import { Redirect } from 'react-router-dom';
 
 export default function UploadSong() {
     const [files, setFiles] = useState([]);
@@ -13,6 +14,7 @@ export default function UploadSong() {
     const [showDragDrop, setDragDrop] = useState(true);
     const [initialTitle, setInitialTitle] = useState('');
     const [showDiv, setShowDiv] = useState(false);
+    const [loading, setLoading] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const { getRootProps, getInputProps, fileRejections } = useDropzone({
         accept: {
@@ -94,11 +96,11 @@ export default function UploadSong() {
                 )}
                 {showSingleForm && (
                     <div className="drag-drop-area">
-                        <UploadSongForm songFiles={files} initialTitle={initialTitle} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setFiles={setFiles} />
+                        <UploadSongForm songFiles={files} initialTitle={initialTitle} setLoading={setLoading} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setFiles={setFiles} />
                     </div>
                 )}
                 {showMultiForm && (
-                    <CreatePlaylistForm songFiles={files} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setSongFiles={setFiles} />
+                    <CreatePlaylistForm songFiles={files} setShowMultiForm={setShowMultiForm} setShowSingleForm={setShowSingleForm} setDragDrop={setDragDrop} setSongFiles={setFiles} setLoading={setLoading} />
                 )}
                 <div className="btm-upld">
                     {!!fileRejections.length && fileRejections.map(({ file, errors }) => (
@@ -120,6 +122,13 @@ export default function UploadSong() {
                     <div className="popup-box flx-ctr" {...getRootProps()}>
                         <input {...getInputProps()} />
                         <p>Drop your files here</p>
+                    </div>
+                </div>
+            )}
+            {loading && (
+                <div className="background-loading flx-ctr">
+                    <div className="loading-text flx-ctr">
+                        <img src={loadingImg} alt="loading" />
                     </div>
                 </div>
             )}

@@ -1,0 +1,32 @@
+.now-playing-img {
+    height: 100%;
+    width: 5rem;
+    object-fit: cover;
+}
+
+.main-audio-player {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+}
+
+.custom-player {
+    height: 5rem;
+    width: 80vw;
+}
+
+.custom-player-info {
+    width: 20vw;
+    height: 5rem;
+    background-color: white;
+    box-shadow: 0 0 3px 0 rgb(0 0 0 / 20%);
+    justify-content: flex-start;
+}
+
+.custom-player-info p {
+    margin: 1rem;
+}
+
+.now-playing-title-artist {
+    text-overflow: ellipsis;
+}

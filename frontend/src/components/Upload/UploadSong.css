@@ -135,3 +135,27 @@
     color: lightgray;
     font-size: 25px;
 }
+
+.background-loading {
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loading-text {
+    position: absolute;
+    top: 13vh;
+    left: 37vw;
+    animation: loader 2s infinite;
+}
+
+@keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(1turn);
+    }
+  }

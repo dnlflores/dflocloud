@@ -2,7 +2,6 @@ import React, { useEffect, useState, createRef } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from './store/session';
-import { useNowPlaying } from './context/NowPlayingContext';
 import Navigation from './components/Navigation';
 import LandingPage from './components/Landing';
 import Songs from './components/Songs';
@@ -13,12 +12,10 @@ import Playlists from './components/Playlists';
 import SinglePlaylist from './components/SinglePlaylist';
 import Discover from './components/Discover';
 import Upload from './components/Upload';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import CustomPlayer from './components/CustomPlayer';
 
 function App() {
   const dispatch = useDispatch();
-  const { nowPlaying, setIsPlaying } = useNowPlaying();
   const [isLoaded, setIsLoaded] = useState(false);
   const audioPlayer = createRef();
 
@@ -68,7 +65,9 @@ function App() {
           <Upload />
         </Route>
       </Switch>
-      <AudioPlayer className="main-audio-player" src={nowPlaying.songUrl} ref={audioPlayer} showSkipControls={true} showJumpControls={false} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} />
+      <div className="footer-div" />
+
+      <CustomPlayer audioPlayer={audioPlayer} />
     </>
   );
 }
