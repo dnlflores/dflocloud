@@ -1,0 +1,32 @@
+.single-page {
+    display: flex;
+    margin-top: 2.5rem;
+    flex-direction: column;
+}
+
+.background-player-info {
+    color: white;
+    background-color: black;
+    width: 1250px;
+    height: 24rem;
+    justify-content: space-around;
+}
+
+.background-player-info img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.song-text {
+    align-items: flex-start;
+}
+
+.play-song {
+    justify-content: space-around;
+    width: 40rem;
+}
+
+.play-song span {
+    font-size: 100px;
+}

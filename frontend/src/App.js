@@ -35,7 +35,7 @@ function App() {
           <Songs my={true} />
         </Route>
         <Route path="/songs/:songId">
-          <SingleSong />
+          <SingleSong audioPlayer={audioPlayer} />
         </Route>
         <Route path="/songs">
           <Songs my={false} />

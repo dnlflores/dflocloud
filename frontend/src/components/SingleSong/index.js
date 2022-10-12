@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import { getSong, removeSong } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
 import Comments from '../Comments';
+import './SingleSong.css';
+import PlayerInfoSect from './PlayerInfoSect';
 
-export default function SingleSong(props) {
+export default function SingleSong({ audioPlayer }) {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -23,25 +23,20 @@ export default function SingleSong(props) {
         history.push('/discover');
     };
 
-    if(!song) return null;
-    
+    if (!song) return null;
+
     return (
-        <div key={song.id}>
-            <h2>{song.id}</h2>
-            <h2>{song.title}</h2>
-            <AudioPlayer
-                src={song.songUrl}
-                onPlay={e => console.log("onPlay")}
-                // other props here
-            />
-            <img src={song.previewImage} alt={song.title} style={{width: "20vw"}} />
-            {currentUser && +currentUser.id === +song.userId && (
-                <>
-                    <button onClick={handleDelete} value={song.id}>Delete Song</button>
-                    <EditSongModal song={song}/>
-                </>
-            )}
-            <Comments />
+        <div className="single-page">
+            <PlayerInfoSect song={song} audioPlayer={audioPlayer} />
+            <div className='flx-ctr flx-col'>
+                {currentUser && +currentUser.id === +song.userId && (
+                    <>
+                        <button onClick={handleDelete} value={song.id}>Delete Song</button>
+                        <EditSongModal song={song} />
+                    </>
+                )}
+                <Comments />
+            </div>
         </div>
     )
 }

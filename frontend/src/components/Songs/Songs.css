@@ -23,6 +23,7 @@
 .play-btn {
     color: #ff5501;
     font-size: 70px;
+    cursor: pointer;
 }
 
 .play-btn:hover {

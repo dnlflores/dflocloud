@@ -39,3 +39,34 @@
 .nav-active {
     background-color: black;
 }
+
+.nav-profile-pic {
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    top: 2.75rem;
+    color: black;
+    width: 10rem;
+    height: 15rem;
+    right: 40.5rem;
+    box-shadow: 0 0 5px grey;
+    justify-content: space-evenly;
+}
+
+.profile-btn {
+    justify-content: space-around;
+    width: 10rem;
+    height: 100%;
+}
+
+.profile-btn.clicked {
+    background-color: black;
+}

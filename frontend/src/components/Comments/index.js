@@ -9,7 +9,6 @@ export default function Comments(props) {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const [showCommentForm, setShowCommentForm] = useState(false);
-    const [oldComment, setOldComment] = useState(null);
     const commentsObj = useSelector(state => state.comments);
     const currentUser = useSelector(state => state.session.user);
     const comments = Object.values(commentsObj || {});
@@ -28,9 +27,6 @@ export default function Comments(props) {
             {showCommentForm && (
                 <CreateCommentForm setTrigger={setShowCommentForm} />
             )}
-            {oldComment && (
-                <EditCommentForm setTrigger={setOldComment} comment={oldComment}/>
-            )}
             {!!comments.length && comments.map(comment => (
                 <div>
                     <p>{comment.content}</p>
@@ -38,7 +34,6 @@ export default function Comments(props) {
                     {currentUser && +currentUser.id === +comment.userId && (
                         <>
                             <button onClick={handleDelete} value={comment.id}>Delete Comment</button>
-                            <button onClick={e => setOldComment(comment)} value={comment}>Edit Comment</button>
                         </>
                     )}
                 </div>
