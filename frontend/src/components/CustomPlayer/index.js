@@ -1,4 +1,4 @@
-import AudioPlayer from 'react-h5-audio-player';
+import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import { useNowPlaying } from '../../context/NowPlayingContext';
 import 'react-h5-audio-player/lib/styles.css';
 import './CustomPlayer.css'
@@ -7,7 +7,7 @@ export default function CustomPlayer({ audioPlayer }) {
     const { nowPlaying, setNowPlaying, setIsPlaying, queue, setQueue } = useNowPlaying();
 
     const handleClickNext = () => {
-        if(!queue.length) return;
+        if (!queue.length) return;
 
         const newQueue = [...queue];
         const nextSong = newQueue.shift();
@@ -42,6 +42,13 @@ export default function CustomPlayer({ audioPlayer }) {
                 onClickNext={handleClickNext}
                 onEnded={handleClickNext}
                 autoPlayAfterSrcChange
+                customControlsSection={
+                    [
+                        <div style={{ width: '50rem'}} />,
+                        RHAP_UI.MAIN_CONTROLS,
+                        RHAP_UI.VOLUME_CONTROLS,
+                    ]
+                }
             />
             <div className="flx-ctr custom-player-info">
                 {content}
