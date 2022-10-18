@@ -45,7 +45,6 @@
     width: 25px;
     height: 25px;
     object-fit: cover;
-    cursor: pointer;
 }
 
 .profile-dropdown {
@@ -65,6 +64,7 @@
     justify-content: space-around;
     width: 10rem;
     height: 100%;
+    cursor: pointer;
 }
 
 .profile-btn.clicked {
