@@ -12,7 +12,8 @@ function Navigation({ isLoaded }) {
     const sessionLinksStyle = {
         display: "flex",
         justifyContent: "space-around",
-        width: "16rem"
+        width: "16rem",
+        position: 'relative'
     }
 
     let sessionLinks;
