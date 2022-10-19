@@ -14,8 +14,8 @@ export default function CreateCommentForm(props) {
     useEffect(() => {
         const newErrors = [];
 
-        if(content.length < 10) newErrors.push("Comment must be more than 10 characters.");
-        if(content.length > 100) newErrors.push("Comment must be shorter than 100 characters.");
+        if (content.length < 5) newErrors.push("Comment must be more than 5 characters.");
+        if (content.length > 50) newErrors.push("Comment must be shorter than 50 characters.");
 
         setErrors(newErrors);
     }, [content])
@@ -23,39 +23,36 @@ export default function CreateCommentForm(props) {
     const handleSubmit = async event => {
         event.preventDefault();
 
-        if(!errors.length) {
-            const createdComment = await dispatch(generateComment({content, songId, userId: currentUser.id}));
+        if (!errors.length) {
+            const createdComment = await dispatch(generateComment({ content, songId, userId: currentUser.id }));
 
-            if(createdComment) {
+            if (createdComment) {
                 setContent('');
                 setErrors([])
                 setHasSubmitted(false);
-                props.setTrigger(false);
+                return;
             }
         }
-
         setHasSubmitted(true);
     };
 
 
     return (
         <form onSubmit={handleSubmit}>
-            <ul>
+            <div>
                 {hasSubmitted && errors.map((error, idx) => (
-                    <li key={idx}>{error}</li>
+                    <p key={idx}>{error}</p>
                 ))}
-            </ul>
-            <label>
-                Comment
-                <input
-                    type="text"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    required
-                />
-            </label>
-            <button type="submit">Submit</button>
-            <button onClick={() => props.setTrigger(false)}>Cancel</button>
+            </div>
+            <input
+                type="text"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+                className="comment-input"
+                placeholder="Write a comment"
+            />
+            {/* <button type="submit">Submit</button> */}
         </form>
     )
 }

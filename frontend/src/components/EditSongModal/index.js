@@ -7,7 +7,7 @@ function UploadSongFormModal({ song }) {
 
     return (
         <>
-            <button onClick={() => setShowModal(true)}>Edit Song</button>
+            <button className="flx-ctr" onClick={() => setShowModal(true)}>Edit <span className="material-symbols-outlined">edit</span></button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <EditSongForm setTrigger={setShowModal} song={song} />

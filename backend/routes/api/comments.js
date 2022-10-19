@@ -11,8 +11,8 @@ const router = express.Router();
 const validateComment = [
     check('content')
         .exists({ checkFalsy: true })
-        .isLength({ min: 10, max: 100 })
-        .withMessage('Content must be at least 10 characters and less than 100 characters.'),
+        .isLength({ min: 5, max: 50 })
+        .withMessage('Content must be at least 5 characters and less than 50 characters.'),
     handleValidationErrors
 ];
 

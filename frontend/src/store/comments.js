@@ -80,7 +80,7 @@ export default function commentsReducer(state = {}, action) {
             return newState;
         }
         case READ_COMMENTS: {
-            const newState = {...state};
+            const newState = {};
             action.comments.forEach(comment => newState[comment.id] = comment);
             return newState;
         }

@@ -4,8 +4,9 @@ import { useParams, useHistory } from "react-router-dom";
 import { getSong, removeSong } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
 import Comments from '../Comments';
-import './SingleSong.css';
+import CreateCommentForm from '../Comments/CreateCommentForm';
 import PlayerInfoSect from './PlayerInfoSect';
+import './SingleSong.css';
 
 export default function SingleSong({ audioPlayer }) {
     const { songId } = useParams();
@@ -19,22 +20,32 @@ export default function SingleSong({ audioPlayer }) {
     }, [dispatch, songId]);
 
     const handleDelete = async event => {
-        await dispatch(removeSong(event.target.value))
+        await dispatch(removeSong(songId))
         history.push('/discover');
     };
 
-    if (!song) return null;
+    if (!song.title) return null;
 
     return (
         <div className="single-page">
             <PlayerInfoSect song={song} audioPlayer={audioPlayer} />
-            <div className='flx-ctr flx-col'>
+            <div className='flx-ctr flx-col comment-create-sect'>
+                <div className="flx-ctr comment-pic-div">
+                    <img src={currentUser && currentUser.profilePicUrl} alt="current-user" className="comment-pro-pic" />
+                    <CreateCommentForm />
+                </div>
                 {currentUser && +currentUser.id === +song.userId && (
-                    <>
-                        <button onClick={handleDelete} value={song.id}>Delete Song</button>
+                    <div className='flx-ctr song-user-btns'>
+                        <button className="flx-ctr" id="delete-btn" onClick={handleDelete}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
                         <EditSongModal song={song} />
-                    </>
+                    </div>
                 )}
+            </div>
+            <div className="artist-info-comment-list">
+                <div className="flx-ctr flx-col artist-info">
+                    <img className="song-artist-pic" src={song.Artist.profilePicUrl} alt="artist" />
+                    <p>{song.Artist.username}</p>
+                </div>
                 <Comments />
             </div>
         </div>
