@@ -30,7 +30,7 @@ export default function Comments(props) {
                         <img src={comment.User.profilePicUrl} alt="comment-user" />
                         <div className="user-info">
                             <p>{comment.User.username}</p>
-                            <p>{comment.content}</p>
+                            <p style={{ color: 'black' }}>{comment.content}</p>
                         </div>
                     </div>
                     {currentUser && +currentUser.id === +comment.userId && (
