@@ -15,6 +15,8 @@ export default function SingleSong({ audioPlayer }) {
     const song = useSelector(state => state.songs.singleSong);
     const currentUser = useSelector(state => state.session.user);
 
+    console.log("this is the song => ", song)
+
     useEffect(() => {
         dispatch(getSong(songId));
     }, [dispatch, songId]);
@@ -24,7 +26,7 @@ export default function SingleSong({ audioPlayer }) {
         history.push('/discover');
     };
 
-    if (!song.title) return null;
+    if (!song.Artist) return null;
 
     return (
         <div className="single-page">
