@@ -8,7 +8,7 @@
 
 .background-player-info {
     color: white;
-    background-color: black;
+    background-color: gray;
     width: 1250px;
     height: 24rem;
     justify-content: space-around;
@@ -16,21 +16,32 @@
 
 .background-player-info img {
     width: 250px;
-    height: 250px;
+    height: 300px;
     object-fit: cover;
+    position: absolute;
+    right: 45rem;
 }
 
 .song-text {
     align-items: flex-start;
 }
 
+.song-text h2 {
+    margin: 1px;
+    background-color: black;
+}
+
 .play-song {
-    justify-content: space-around;
+    justify-content: flex-start;
     width: 40rem;
+    position: absolute;
+    top: 5rem;
+    left: 42.5rem;
 }
 
 .play-song span {
     font-size: 100px;
+    margin-right: 2rem;
 }
 
 .comment-pic-div {

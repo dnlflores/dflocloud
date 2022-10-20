@@ -24,6 +24,8 @@
     color: #ff5501;
     font-size: 70px;
     cursor: pointer;
+    background-color: white;
+    border-radius: 100%;
 }
 
 .play-btn:hover {

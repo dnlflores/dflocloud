@@ -1,10 +1,31 @@
+import { useRef, useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { WaveSurfer, WaveForm } from 'wavesurfer-react';
 import { useNowPlaying } from "../../context/NowPlayingContext";
 import { songPlayed } from "../../store/songs";
 
 export default function PlayerInfoSect({ song, audioPlayer }) {
     const dispatch = useDispatch();
     const { nowPlaying, setNowPlaying, isPlaying } = useNowPlaying();
+
+    const wavesurferRef = useRef();
+    const handleWSMount = useCallback(
+        (waveSurfer) => {
+            wavesurferRef.current = waveSurfer;
+
+            if (wavesurferRef.current) {
+                wavesurferRef.current.load("https://cdn.pixabay.com/audio/2022/10/05/audio_686ddcce85.mp3");
+
+                wavesurferRef.current.on("ready", () => {
+                    console.log("WaveSurfer is ready");
+                });
+
+                wavesurferRef.current.on("loading", (data) => {
+                    console.log("loading --> ", data);
+                });
+            }
+        }, []
+    );
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -20,16 +41,16 @@ export default function PlayerInfoSect({ song, audioPlayer }) {
 
     return (
         <div className="flx-ctr background-player-info">
-            <div>
-                <div className="flx-ctr play-song">
-                    <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{isPlaying ? nowPlaying.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
-                    <div className="flx-ctr flx-col song-text">
-                        <h2>{song.title}</h2>
-                        <h2>{song.Artist.username}</h2>
-                    </div>
+            <div className="flx-ctr play-song">
+                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{isPlaying ? nowPlaying.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
+                <div className="flx-ctr flx-col song-text">
+                    <h2>{song.title}</h2>
+                    <h2>{song.Artist.username}</h2>
                 </div>
-                <h2>WAVEFORM HERE</h2>
             </div>
+            <WaveSurfer plugins={[]} onMount={handleWSMount}>
+                <WaveForm id="waveform" cursorColor="transparent" />
+            </WaveSurfer>
             <img src={song.previewImage} alt={song.title} />
         </div>
     )
