@@ -37,6 +37,10 @@ export default function PlayerInfoSect({ song, audioPlayer }) {
         }
     };
 
+    const play = useCallback(() => {
+        wavesurferRef.current.playPause();
+    }, []);
+
     if (!song.Artist) return null;
 
     return (
@@ -48,9 +52,10 @@ export default function PlayerInfoSect({ song, audioPlayer }) {
                     <h2>{song.Artist.username}</h2>
                 </div>
             </div>
-            <WaveSurfer plugins={[]} onMount={handleWSMount}>
-                <WaveForm id="waveform" cursorColor="transparent" />
+            <WaveSurfer onMount={handleWSMount}>
+                <WaveForm id="waveform" cursorColor="transparent" backgroundColor='black' progressColor='blue' waveColor="red" fillParent={false} interact={false} />
             </WaveSurfer>
+            <button onClick={play}>play</button>
             <img src={song.previewImage} alt={song.title} />
         </div>
     )

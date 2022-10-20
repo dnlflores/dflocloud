@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
+import { WaveSurfer, WaveForm } from 'wavesurfer-react';
 import { getSong, removeSong } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
 import Comments from '../Comments';
@@ -25,6 +26,26 @@ export default function SingleSong({ audioPlayer }) {
         await dispatch(removeSong(songId))
         history.push('/discover');
     };
+
+    const wavesurferRef = useRef();
+    const handleWSMount = useCallback(
+        (waveSurfer) => {
+            wavesurferRef.current = waveSurfer;
+
+            if (wavesurferRef.current) {
+                console.log("made it here", song)
+                wavesurferRef.current.load("https://cdn.pixabay.com/audio/2022/10/05/audio_686ddcce85.mp3");
+
+                wavesurferRef.current.on("ready", () => {
+                    console.log("WaveSurfer is ready");
+                });
+
+                wavesurferRef.current.on("loading", (data) => {
+                    console.log("loading --> ", data);
+                });
+            }
+        }, [song]
+    );
 
     if (!song.Artist) return null;
 
