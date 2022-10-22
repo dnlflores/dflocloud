@@ -7,6 +7,7 @@ import Comments from '../Comments';
 import CreateCommentForm from '../Comments/CreateCommentForm';
 import PlayerInfoSect from './PlayerInfoSect';
 import './SingleSong.css';
+import AddToPlaylistModal from '../AddToPlaylistModal';
 
 export default function SingleSong({ audioPlayer }) {
     const { songId } = useParams();
@@ -34,12 +35,17 @@ export default function SingleSong({ audioPlayer }) {
                     <img src={currentUser ? currentUser.profilePicUrl : "https://cdn.pixabay.com/photo/2021/01/29/08/10/musician-5960112_960_720.jpg"} alt="current-user" className="comment-pro-pic" />
                     <CreateCommentForm />
                 </div>
-                {currentUser && +currentUser.id === +song.userId && (
-                    <div className='flx-ctr song-user-btns'>
-                        <button className="flx-ctr" id="delete-btn" onClick={handleDelete}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
-                        <EditSongModal song={song} />
-                    </div>
-                )}
+                <div className='flx-ctr song-user-btns'>
+                    {currentUser && (
+                        <AddToPlaylistModal songId={songId} />
+                    )}
+                    {currentUser && +currentUser.id === +song.userId && (
+                        <>
+                            <EditSongModal song={song} />
+                            <button className="flx-ctr" id="delete-btn" onClick={handleDelete}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
+                        </>
+                    )}
+                </div>
             </div>
             <div className="artist-info-comment-list">
                 <div className="flx-ctr flx-col artist-info">

@@ -70,7 +70,7 @@
 }
 
 .song-user-btns {
-    width: 8rem;
+    width: 16rem;
     justify-content: space-around;
     margin-top: 1rem;
 }
@@ -167,4 +167,8 @@
 
 .comment-list > p > span {
     margin-right: 10px;
+}
+
+.plylst-btn {
+    width: 7rem;
 }

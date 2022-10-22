@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyPlaylists, addSongToPlaylist } from "../../store/playlists";
 
-export default function AddToPlaylistForm(props) {
+export default function AddToPlaylistForm({ songId, setTrigger }) {
     const dispatch = useDispatch();
     const [playlistId, setPlaylistId] = useState(0)
     const playlists = useSelector(state => state.playlists);
-    const playlistsArr = Object.values(playlists || {}).filter(playlist => !playlist.Songs.find(song => song.id === +props.songId));
+    const playlistsArr = Object.values(playlists || {}).filter(playlist => !playlist.Songs.find(song => song.id === +songId));
     
     useEffect(() => {
         dispatch(getMyPlaylists());
@@ -15,10 +15,10 @@ export default function AddToPlaylistForm(props) {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        await dispatch(addSongToPlaylist(props.songId, playlistId));
+        await dispatch(addSongToPlaylist(songId, playlistId));
 
         setPlaylistId(0);
-        props.setTrigger(false);
+        setTrigger(false);
     };
 
     if(!playlists) return null;
