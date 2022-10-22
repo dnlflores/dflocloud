@@ -33,8 +33,8 @@ export default function SingleSong({ audioPlayer }) {
             wavesurferRef.current = waveSurfer;
 
             if (wavesurferRef.current) {
-                console.log("made it here", song)
-                wavesurferRef.current.load("https://cdn.pixabay.com/audio/2022/10/05/audio_686ddcce85.mp3");
+                wavesurferRef.current.setMute(true);
+                wavesurferRef.current.load(song.songUrl);
 
                 wavesurferRef.current.on("ready", () => {
                     console.log("WaveSurfer is ready");
@@ -47,11 +47,19 @@ export default function SingleSong({ audioPlayer }) {
         }, [song]
     );
 
+    const play = (isPlaying) => {
+        if (wavesurferRef.current && isPlaying) wavesurferRef.current.play();
+        else if(wavesurferRef.current) wavesurferRef.current.pause();
+    };
+
     if (!song.Artist) return null;
 
     return (
         <div className="single-page">
-            <PlayerInfoSect song={song} audioPlayer={audioPlayer} />
+            <PlayerInfoSect song={song} audioPlayer={audioPlayer} play={play} />
+            <WaveSurfer onMount={handleWSMount}>
+                <WaveForm id="waveform" cursorColor="transparent" backgroundColor='gray' progressColor='black' waveColor="white" interact={false} barWidth={0} />
+            </WaveSurfer>
             <div className='flx-ctr flx-col comment-create-sect'>
                 <div className="flx-ctr comment-pic-div">
                     <img src={currentUser && currentUser.profilePicUrl} alt="current-user" className="comment-pro-pic" />
