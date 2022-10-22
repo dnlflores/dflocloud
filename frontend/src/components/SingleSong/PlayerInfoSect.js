@@ -21,8 +21,6 @@ export default function PlayerInfoSect({ song, audioPlayer, play }) {
         }
     };
 
-    console.log("this is the audioplayer current => ", audioPlayer.current)
-
     if (!song.Artist) return null;
 
     return (

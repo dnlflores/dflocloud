@@ -62,7 +62,7 @@ export default function SingleSong({ audioPlayer }) {
             </WaveSurfer>
             <div className='flx-ctr flx-col comment-create-sect'>
                 <div className="flx-ctr comment-pic-div">
-                    <img src={currentUser && currentUser.profilePicUrl} alt="current-user" className="comment-pro-pic" />
+                    <img src={currentUser ? currentUser.profilePicUrl : "https://cdn.pixabay.com/photo/2021/01/29/08/10/musician-5960112_960_720.jpg"} alt="current-user" className="comment-pro-pic" />
                     <CreateCommentForm />
                 </div>
                 {currentUser && +currentUser.id === +song.userId && (

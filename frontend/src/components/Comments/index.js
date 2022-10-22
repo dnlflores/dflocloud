@@ -15,7 +15,6 @@ export default function Comments(props) {
     }, [dispatch, songId]);
 
     const handleDelete = async event => {
-        console.log("here is the event target => ", event.target.id)
         await dispatch(removeComment(event.target.id));
     };
 
