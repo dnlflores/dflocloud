@@ -1,7 +1,6 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
-import { WaveSurfer, WaveForm } from 'wavesurfer-react';
 import { getSong, removeSong } from '../../store/songs';
 import EditSongModal from '../EditSongModal';
 import Comments from '../Comments';
@@ -16,8 +15,6 @@ export default function SingleSong({ audioPlayer }) {
     const song = useSelector(state => state.songs.singleSong);
     const currentUser = useSelector(state => state.session.user);
 
-    console.log("this is the song => ", song)
-
     useEffect(() => {
         dispatch(getSong(songId));
     }, [dispatch, songId]);
@@ -27,39 +24,11 @@ export default function SingleSong({ audioPlayer }) {
         history.push('/discover');
     };
 
-    const wavesurferRef = useRef();
-    const handleWSMount = useCallback(
-        (waveSurfer) => {
-            wavesurferRef.current = waveSurfer;
-
-            if (wavesurferRef.current) {
-                wavesurferRef.current.setMute(true);
-                wavesurferRef.current.load(song.songUrl);
-
-                wavesurferRef.current.on("ready", () => {
-                    console.log("WaveSurfer is ready");
-                });
-
-                wavesurferRef.current.on("loading", (data) => {
-                    console.log("loading --> ", data);
-                });
-            }
-        }, [song]
-    );
-
-    const play = (isPlaying) => {
-        if (wavesurferRef.current && isPlaying) wavesurferRef.current.play();
-        else if(wavesurferRef.current) wavesurferRef.current.pause();
-    };
-
     if (!song.Artist) return null;
 
     return (
         <div className="single-page">
-            <PlayerInfoSect song={song} audioPlayer={audioPlayer} play={play} />
-            <WaveSurfer onMount={handleWSMount}>
-                <WaveForm id="waveform" cursorColor="transparent" backgroundColor='gray' progressColor='black' waveColor="white" interact={false} barWidth={0} />
-            </WaveSurfer>
+            <PlayerInfoSect song={song} audioPlayer={audioPlayer} />
             <div className='flx-ctr flx-col comment-create-sect'>
                 <div className="flx-ctr comment-pic-div">
                     <img src={currentUser ? currentUser.profilePicUrl : "https://cdn.pixabay.com/photo/2021/01/29/08/10/musician-5960112_960_720.jpg"} alt="current-user" className="comment-pro-pic" />

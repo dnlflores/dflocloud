@@ -1,15 +1,10 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNowPlaying } from "../../context/NowPlayingContext";
 import { songPlayed } from "../../store/songs";
 
-export default function PlayerInfoSect({ song, audioPlayer, play }) {
+export default function PlayerInfoSect({ song, audioPlayer }) {
     const dispatch = useDispatch();
     const { nowPlaying, setNowPlaying, isPlaying } = useNowPlaying();
-
-    useEffect(() => {
-        play(isPlaying);
-    }, [isPlaying]);
 
     const handleClick = (e) => {
         e.stopPropagation();
