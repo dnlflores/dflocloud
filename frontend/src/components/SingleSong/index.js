@@ -35,7 +35,7 @@ export default function SingleSong({ audioPlayer }) {
                     <img src={currentUser ? currentUser.profilePicUrl : "https://cdn.pixabay.com/photo/2021/01/29/08/10/musician-5960112_960_720.jpg"} alt="current-user" className="comment-pro-pic" />
                     <CreateCommentForm />
                 </div>
-                <div className='flx-ctr song-user-btns'>
+                <div className='flx-ctr song-user-btns' style={currentUser && +currentUser.id !== +song.userId ? { justifyContent: 'flex-start' } : {}}>
                     {currentUser && (
                         <AddToPlaylistModal songId={songId} />
                     )}

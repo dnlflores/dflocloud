@@ -4,6 +4,7 @@ const CREATE_COMMENT = 'comments/CREATE_COMMENT';
 const READ_COMMENTS = 'comments/READ_COMMENTS';
 const UPDATE_COMMENT = 'comments/UPDATE_COMMENT';
 const DELETE_COMMENT = 'comments/DELETE_COMMENT';
+const RESET = 'comments/RESET';
 
 const createComment = comment => ({
     type: CREATE_COMMENT,
@@ -24,6 +25,10 @@ const deleteComment = commentId => ({
     type: DELETE_COMMENT,
     commentId
 });
+
+export const resetComments = () => ({
+    type: RESET
+})
 
 export const generateComment = data => async dispatch => {
     const response = await csrfFetch(`/api/comments/${data.songId}`, {
@@ -93,6 +98,9 @@ export default function commentsReducer(state = {}, action) {
             const newState = {...state};
             delete newState[action.commentId];
             return newState;
+        }
+        case RESET: {
+            return {};
         }
         default:
             return state;

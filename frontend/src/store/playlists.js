@@ -183,7 +183,7 @@ export default function playlistsReducer(state = {}, action) {
             return newState;
         }
         case READ_PLAYLIST: {
-            const newState = {...state};
+            const newState = {};
             newState[action.playlist.id] = action.playlist;
             return newState;
         }

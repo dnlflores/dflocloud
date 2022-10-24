@@ -87,6 +87,7 @@ export default function UploadSong() {
                             accept=".mp3"
                             id="real-file-button"
                             onChange={updateFiles}
+                            multiple
                             hidden
                         />
                         <div className="fake-file-input">

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getSongs } from "../../store/songs";
 import { getAllPlaylists } from "../../store/playlists";
+import { resetComments } from "../../store/comments";
 import SongSect from './SongSect';
 import PlaylistSect from "./PlaylistSect";
 import './Discover.css';
@@ -17,7 +18,8 @@ export default function Discover({ audioPlayer }) {
 
     useEffect(() => {
         dispatch(getSongs());
-        dispatch(getAllPlaylists())
+        dispatch(getAllPlaylists());
+        dispatch(resetComments());
     }, [dispatch])
 
     return (
