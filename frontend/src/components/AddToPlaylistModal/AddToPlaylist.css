@@ -41,6 +41,7 @@
 
 .add-to-playlist-header h2 {
     margin-right: 1rem;
+    cursor: pointer;
 }
 
 h2.selected {
