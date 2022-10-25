@@ -8,8 +8,8 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-
-    return queryInterface.bulkInsert('Songs', [
+    options.tableName = 'Songs';
+    return queryInterface.bulkInsert(options, [
       {
         userId: 2,
         albumId: 1,
@@ -131,9 +131,9 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
+    options.tableName = 'Songs';
     const Op = Sequelize.Op;
-
-    return queryInterface.bulkDelete('Songs', {
+    return queryInterface.bulkDelete(options, {
       title: { [Op.in]: ['Skyfall with Young Thug', 'The Prayer', 'Canon in D', 'Beethoven 7th'] }
     }, {});
   }

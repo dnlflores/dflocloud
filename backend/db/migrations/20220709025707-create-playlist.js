@@ -46,9 +46,9 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('now')
       }
-    });
+    }, options);
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Playlists');
+    return queryInterface.dropTable('Playlists', options);
   }
 };

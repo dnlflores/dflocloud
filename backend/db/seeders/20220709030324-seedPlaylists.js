@@ -8,8 +8,8 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    
-    return queryInterface.bulkInsert('Playlists', [
+    options.tableName = 'Playlists';
+    return queryInterface.bulkInsert(options, [
       {
         userId: 1,
         name: "Playlist 1",
@@ -42,7 +42,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-
-    return queryInterface.bulkDelete('Playlists', null, {});
+    options.tableName = 'Playlists';
+    return queryInterface.bulkDelete(options, null, {});
   }
 };
