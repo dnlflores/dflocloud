@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import AddToPlaylist from './AddToPlaylist';
 import CreatePlaylist from './CreatePlaylist';
 import { getMyPlaylists } from '../../store/playlists';
 
-export default function AddToPlaylistModal({ songId }) {
+export default function AddToPlaylistModal({ song }) {
     const dispatch = useDispatch();
+    const { songId } = useHistory();
     const [showModal, setShowModal] = useState(false);
     const [selected, setSelected] = useState(0);
     const playlists = useSelector(state => state.playlists);
@@ -31,7 +33,7 @@ export default function AddToPlaylistModal({ songId }) {
                             <h2>Create a playlist</h2>
                         )}
                     </div>
-                    {selected === 0 ? <AddToPlaylist setTrigger={setShowModal} songId={songId} playlists={playlistsArr} /> : <CreatePlaylist />}
+                    {selected === 0 ? <AddToPlaylist setTrigger={setShowModal} songId={songId} playlists={playlistsArr} /> : <CreatePlaylist song={song} setTrigger={setShowModal} setSelected={setSelected} />}
                 </Modal>
             )}
         </>

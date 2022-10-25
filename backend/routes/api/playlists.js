@@ -47,8 +47,8 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 // Create a playlist
 router.post('/', requireAuth, singleMulterUpload("image"), validatePlaylist, asyncHandler(async (req, res) => {
-    const { name, description } = req.body;
-    const picUrl = req.file ? await singlePublicFileUpload(req.file) : `https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq`;
+    const { name, description, imageUrl } = req.body;
+    const picUrl = req.file ? await singlePublicFileUpload(req.file) : imageUrl ? imageUrl : `https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq`;
 
     const playlist = await Playlist.create({
         userId: req.user.id,

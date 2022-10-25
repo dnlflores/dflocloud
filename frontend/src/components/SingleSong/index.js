@@ -37,7 +37,7 @@ export default function SingleSong({ audioPlayer }) {
                 </div>
                 <div className='flx-ctr song-user-btns' style={currentUser && +currentUser.id !== +song.userId ? { justifyContent: 'flex-start' } : {}}>
                     {currentUser && (
-                        <AddToPlaylistModal songId={songId} />
+                        <AddToPlaylistModal song={song} />
                     )}
                     {currentUser && +currentUser.id === +song.userId && (
                         <>

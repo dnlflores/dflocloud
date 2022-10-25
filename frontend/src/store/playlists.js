@@ -46,12 +46,13 @@ const removeFromPlaylist = (playlistId, songId) => ({
 });
 
 export const buildPlaylist = data => async dispatch => {
-    const { name, image, description } = data;
+    const { name, image, description, url } = data;
 
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
-    formData.append("image", image);
+    if(image) formData.append("image", image);
+    else formData.append("imageUrl", url);
 
     const response = await csrfFetch(`/api/playlists/`, {
         method: "POST",
@@ -143,6 +144,7 @@ export const removePlaylist = id => async dispatch => {
 };
 
 export const addSongToPlaylist = (songId, playlistId) => async dispatch => {
+    console.log("here is the info recieved from thunk => ", songId, playlistId);
     const response = await csrfFetch(`/api/playlists/${playlistId}`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},

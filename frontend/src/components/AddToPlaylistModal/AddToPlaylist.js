@@ -1,14 +1,21 @@
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { addSongToPlaylist } from "../../store/playlists";
+import { useHistory, useParams } from "react-router-dom";
+import { addSongToPlaylist, removeSongFromPlaylist } from "../../store/playlists";
 import './AddToPlaylist.css';
 
-export default function AddToPlaylist({ songId, setTrigger, playlists, header }) {
+export default function AddToPlaylist({ setTrigger, playlists }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { songId } = useParams();
 
     const addToPlaylist = async playlistId => {
         await dispatch(addSongToPlaylist(songId, playlistId));
+
+        setTrigger(false);
+    };
+
+    const removeFromPlaylist = async playlistId => {
+        await dispatch(removeSongFromPlaylist(songId, playlistId));
 
         setTrigger(false);
     };
@@ -21,7 +28,7 @@ export default function AddToPlaylist({ songId, setTrigger, playlists, header })
                         <img className="plylst-img" onClick={() => history.push(`/playlists/${playlist.id}`)} style={{ cursor: 'pointer' }} src={playlist.previewImage} alt={playlist.name} />
                         <p onClick={() => history.push(`/playlists/${playlist.id}`)} style={{ cursor: 'pointer' }}>{playlist.name}</p>
                     </div>
-                    <button className="add-plylst-btn" onClick={() => addToPlaylist(playlist.id)}>Add to Playlist</button>
+                    {playlist.Songs.find(song => +song.id === +songId) ? <button className="add-plylst-btn added" onClick={() => removeFromPlaylist(playlist.id)}>Added</button> : <button className="add-plylst-btn" onClick={() => addToPlaylist(playlist.id)}>Add to Playlist</button>}
                 </div>
             ))}
         </div>
