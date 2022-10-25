@@ -116,7 +116,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 // Edit Song
 router.patch('/:id', requireAuth, multipleMulterUpload("files"), validateSong, asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id, { include: [{ model: User, as: 'Artist' }] });
-    const { title, description, songUrl, imageUrl } = req.body;
+    const { title, description, imageUrl } = req.body;
 
     if (!song) {
         res.status(404);
@@ -128,15 +128,13 @@ router.patch('/:id', requireAuth, multipleMulterUpload("files"), validateSong, a
         return res.json({ message: "Only the owner of this song can edit this song.", statusCode: 403 })
     }
 
-    const url = songUrl ? songUrl : await singlePublicFileUpload(req.files[0]);
-
     let picUrl;
     if (req.files.length > 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[1]);
     else if (req.files.length === 1 && !imageUrl) picUrl = await singlePublicFileUpload(req.files[0]);
     else picUrl = imageUrl ? imageUrl : "https://upload.wikimedia.org/wikipedia/commons/c/ca/CD-ROM.png";
 
     await song.update({
-        title, description, userId: req.user.id, songUrl: url, previewImage: picUrl
+        title, description, userId: req.user.id, previewImage: picUrl
     })
 
     return res.json(song);

@@ -1,24 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editSong } from '../../store/songs';
-import { getMyAlbums } from '../../store/albums';
 
-export default function EditSongForm(props) {
+export default function EditSongForm({ setTrigger, song, setLoading }) {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState(props.song.title);
-    const [description, setDescription] = useState(props.song.description);
-    const [song, setSong] = useState(props.song.songUrl);
-    const [image, setImage] = useState(props.song.previewImage);
-    const [album, setAlbum] = useState(props.song.albumId);
+    const [title, setTitle] = useState(song.title);
+    const [description, setDescription] = useState(song.description);
+    const [image, setImage] = useState(song.previewImage);
     const [errors, setErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const currentUser = useSelector(state => state.session.user);
-    const albums = useSelector(state => state.albums);
-    const albumsArr = Object.values(albums || {});
-
-    useEffect(() => {
-        dispatch(getMyAlbums());
-    }, [dispatch])
 
     useEffect(() => {
         const newErrors = [];
@@ -27,11 +18,10 @@ export default function EditSongForm(props) {
         if (title.length > 50) newErrors.push("Song title must be less than 50 characters.");
         if (description.length < 10) newErrors.push("Description must be longer than 10 characters.");
         if (description.length > 300) newErrors.push("Description must be less than 300 characters.");
-        if (album === 0) newErrors.push("Please select an album");
 
         setErrors(newErrors);
 
-    }, [title, description, album])
+    }, [title, description])
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -41,27 +31,21 @@ export default function EditSongForm(props) {
                 description,
                 userId: currentUser.id,
                 song,
-                image,
-                albumId: album
-            }
+                image
+            };
 
-            await dispatch(editSong(data, props.song.id));
+            setLoading(true);
+            await dispatch(editSong(data, song.id));
 
             setTitle('');
             setDescription('');
-            setSong(null);
             setImage(null);
-            setAlbum(0);
             setHasSubmitted(false);
             setErrors([]);
-            props.setTrigger(false);
+            setLoading(false);
+            setTrigger(false);
         }
         setHasSubmitted(true);
-    };
-
-    const updateSongFile = (e) => {
-        const file = e.target.files[0];
-        if (file) setSong(file);
     };
 
     const updateImageFile = e => {
@@ -69,54 +53,54 @@ export default function EditSongForm(props) {
         if (file) setImage(file);
     };
 
-    if(!albums) return null;
+    const handleClick = e => {
+        e.preventDefault();
+        const fakeBtn = document.getElementById('fake-img-upld')
+        fakeBtn.click();
+    };
+
+    const handleCancel = () => {
+        setTrigger(false);
+    };
 
     return (
-        <div>
-            <h2>Edit Song Form</h2>
+        <form className='flx-ctr flx-col form-container' onSubmit={handleSubmit}>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
-            <form
-                style={{ display: "flex", flexFlow: "column" }}
-                onSubmit={handleSubmit}
-            >
-                <label>
-                    Title:
-                    <input
-                        type="text"
-                        placeholder="Title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Description:
-                    <input
-                        type="text"
-                        placeholder="Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Choose an Album:
-                    <select defaultValue={0} onChange={(e) => setAlbum(e.target.value)} required>
-                        <option disabled value={0}>Please Select an Album</option>
-                        {albumsArr.map(album => (
-                            <option key={album.id} value={album.id}>{album.title}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    Choose an mp3/mp4:
-                    <input type="file" accept=".mp3,.mp4" onChange={updateSongFile} />
-                </label>
-                <label>
-                    Choose an image for this song:
-                    <input type="file" accept="image/jpeg, image/png" onChange={updateImageFile} />
-                </label>
-                <button type="submit">Edit Song</button>
-            </form>
-        </div>
+            <div className="mid-form">
+                <div className="left-side flx-ctr">
+                    <img src={typeof image === 'string' ? image : image ? window.URL.createObjectURL(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq'} alt="song-cover" className="input-image" />
+                    <input type="file" accept="image/jpeg, image/png" onChange={updateImageFile} id="fake-img-upld" hidden />
+                    <button className="sng-img-upld-btn flx-ctr" style={{ left: '4rem' }} onClick={handleClick}><span className="material-symbols-outlined">add_a_photo</span>Replace Image</button>
+                </div>
+                <div className="right-side flx-col">
+                    <div className="flx-col">
+                        <label htmlFor='title'>Title</label>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            name="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="flx-col">
+                        <label htmlFor='description'>Description</label>
+                        <textarea
+                            placeholder="Description"
+                            name="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="flx-ctr upld-btns">
+                <button className="org-btn flx-ctr" type="submit">Edit Song</button>
+                <button className="clr-btn brdr-gry" onClick={handleCancel}>Cancel</button>
+            </div>
+        </form>
 
     )
 }

@@ -137,11 +137,13 @@
 }
 
 .background-loading {
-    z-index: 1000;
+    z-index: 2000;
     width: 100vw;
     height: 100vh;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    right: 0;
 }
 
 .loading-text {

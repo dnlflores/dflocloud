@@ -30,7 +30,7 @@ export default function Songs(props) {
                     <NavLink to={`/songs/${song.id}`}>{song.title}</NavLink>
                     <AudioPlayer
                         src={song.songUrl}
-                        onPlay={e => console.log("onPlay")}
+                        // onPlay={e => console.log("onPlay")}
                         // other props here
                     />
                     <AddToPlaylistModal songId={song.id} />

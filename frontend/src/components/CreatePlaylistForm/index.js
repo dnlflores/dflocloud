@@ -94,8 +94,6 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
         setSongFiles(songOrder);
     };
 
-    console.log('these are the titles => ', titles);
-
     return (
         <form className='flx-ctr flx-col form-container' onSubmit={handleSubmit}>
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}

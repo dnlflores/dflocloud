@@ -55,6 +55,7 @@ export default function UploadSong() {
         const inputFiles = e.target.files;
         if (inputFiles.length === 1 && files.length < 1) {
             setFiles([...inputFiles]);
+            setInitialTitle(inputFiles[0].name.split('.')[0])
             setShowSingleForm(true);
             setDragDrop(false);
         } else if (inputFiles.length > 1 || files.length > 1) {

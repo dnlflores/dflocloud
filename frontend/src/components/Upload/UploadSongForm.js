@@ -31,7 +31,6 @@ export default function UploadSongForm({ songFiles, initialTitle, setShowSingleF
     const handleSubmit = async event => {
         event.preventDefault();
 
-        console.log('these are the errors ? ', errors)
         setHasSubmitted(true);
 
         if (errors.length) return alert('error');

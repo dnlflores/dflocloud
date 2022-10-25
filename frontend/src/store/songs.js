@@ -91,15 +91,11 @@ export const getSong = (id) => async dispatch => {
 };
 
 export const editSong = (data, id) => async dispatch => {
-    const { title, description, song, image, albumId } = data;
+    const { title, description, image } = data;
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("albumId", albumId);
-
-    if (typeof song !== "string") formData.append("files", song);
-    else formData.append("songUrl", song);
 
     if (typeof image !== "string") formData.append("files", image);
     else formData.append("imageUrl", image);

@@ -18,8 +18,6 @@ export default function Comments(props) {
         await dispatch(removeComment(event.target.id));
     };
 
-    console.log("here are the comments => ", comments)
-
     return (
         <div className="flx-col comment-list">
             {!!comments.length && <p><span className="material-symbols-outlined">chat_bubble</span>{`${comments.length} Comments`}</p>}
