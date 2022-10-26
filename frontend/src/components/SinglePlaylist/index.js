@@ -1,39 +1,55 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useParams } from "react-router-dom";
-import { getPlaylist, removeSongFromPlaylist } from '../../store/playlists';
-import AudioPlayer from 'react-h5-audio-player';
+import { useParams, useHistory } from "react-router-dom";
+import { getPlaylist, removeSongFromPlaylist, removePlaylist } from '../../store/playlists';
+import PlayerInfoSect from './PlayerInfoSect';
+import EditPlaylistModal from '../EditPlaylistModal';
+import SongList from './SongList';
+import './SinglePlaylist.css';
 
-export default function SinglePlaylist(props) {
+export default function SinglePlaylist({ audioPlayer }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { playlistId } = useParams();
     const playlist = useSelector(state => state.playlists[playlistId]);
+    const currentUser = useSelector(state => state.session.user);
+    const [playlistStarted, setPlaylistStarted] = useState(false);
+    const [selectedSong, setSelectedSong] = useState(null)
 
     useEffect(() => {
         dispatch(getPlaylist(playlistId));
+        if (!selectedSong && playlist) setSelectedSong(playlist.Songs[0]);
     }, [dispatch, playlistId])
 
     const handleRemove = async e => {
         await dispatch(removeSongFromPlaylist(e.target.value, playlistId))
     };
-    
-    if(!playlist) return null;
+
+    const handleRemovePlaylist = async () => {
+        await dispatch(removePlaylist(playlist.id));
+        history.push('/discover');
+    };
+
+    if (!playlist) return null;
 
     return (
-        <>
-            <h2>This is the Single Playlist Component</h2>
-            <h3>{playlist.name}</h3>
-            <div>
-                <h2>Songs</h2>
-                {playlist.Songs.map(song => (
-                    <div key={song.id}>
-                        <NavLink key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
-                        <AudioPlayer src={song.songUrl} />
-                        <img src={song.previewImage} alt={song.title} style={{width: "20vw"}} />
-                        <button onClick={handleRemove} value={song.id}>Remove</button>
-                    </div>
-                ))}
+        <div className="single-page">
+            <PlayerInfoSect playlist={playlist} audioPlayer={audioPlayer} selectedSong={selectedSong} playlistStarted={playlistStarted} setPlaylistStarted={setPlaylistStarted} />
+            <div className='flx-ctr song-user-btns plylst-usr-btns'>
+                {currentUser && +currentUser.id === +playlist.userId && (
+                    <>
+                        <EditPlaylistModal playlist={playlist} />
+                        <button className="flx-ctr" id="delete-btn" onClick={handleRemovePlaylist}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
+                    </>
+                )}
             </div>
-        </>
+            <div className="artist-info-comment-list">
+                <div className="flx-ctr flx-col artist-info">
+                    <img className="song-artist-pic" src={playlist.User.profilePicUrl} alt="user" />
+                    <p>{playlist.User.username}</p>
+                </div>
+                <SongList songs={playlist.Songs} />
+            </div>
+        </div>
     )
 }

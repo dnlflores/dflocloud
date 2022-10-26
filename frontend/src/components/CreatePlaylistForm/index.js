@@ -37,7 +37,8 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
             const playlistData = {
                 name,
                 image,
-                description
+                description,
+                url: 'https://us.123rf.com/450wm/motismotis/motismotis1805/motismotis180500005/102159464-retro-background-futuristic-landscape-1980s-style-digital-retro-landscape-cyber-surface-retro-music-.jpg'
             }
 
             setLoading(true);
@@ -99,7 +100,7 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
             {hasSubmitted && !!errors.length && errors.map(error => <div key={error}>{error}</div>)}
             <div className="mid-form">
                 <div className="left-side flx-ctr">
-                    <img src={image ? window.URL.createObjectURL(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq'} alt="song-cover" className="input-image" />
+                    <img src={image ? window.URL.createObjectURL(image) : 'https://us.123rf.com/450wm/motismotis/motismotis1805/motismotis180500005/102159464-retro-background-futuristic-landscape-1980s-style-digital-retro-landscape-cyber-surface-retro-music-.jpg'} alt="song-cover" className="input-image" />
                     <input type="file" accept="image/jpeg, image/png" onChange={updateFile} id="fake-img-upld" hidden />
                     <button className="sng-img-upld-btn flx-ctr" onClick={handleClick}><span className="material-symbols-outlined">add_a_photo</span>Upload Image</button>
                 </div>

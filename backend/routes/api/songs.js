@@ -41,7 +41,7 @@ router.post('/', requireAuth, multipleMulterUpload("files"), asyncHandler(async 
     const image = req.files.find(file => file.mimetype.includes('image'));
 
     const songsUrl = await multiplePublicFileUpload(songs);
-    const imageUrl = image ? await singlePublicFileUpload(image) : 'https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq';
+    const imageUrl = image ? await singlePublicFileUpload(image) : 'https://us.123rf.com/450wm/motismotis/motismotis1805/motismotis180500005/102159464-retro-background-futuristic-landscape-1980s-style-digital-retro-landscape-cyber-surface-retro-music-.jpg';
 
     if (songsUrl.length > 1) {
         const bulk = [];

@@ -7,7 +7,7 @@ export default function EditPlaylistModal({ playlist }) {
 
     return (
         <>
-            <button onClick={() => setShowModal(true)}>Edit Playlist</button>
+            <button className="flx-ctr" onClick={() => setShowModal(true)}>Edit <span className="material-symbols-outlined">edit</span></button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <EditPlaylistForm setTrigger={setShowModal} playlist={playlist} />

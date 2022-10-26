@@ -53,7 +53,7 @@ function App() {
           <Playlists my={true} />
         </Route>
         <Route path="/playlists/:playlistId">
-          <SinglePlaylist />
+          <SinglePlaylist audioPlayer={audioPlayer} />
         </Route>
         <Route path="/playlists">
           <Playlists my={false} />

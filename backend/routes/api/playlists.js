@@ -34,7 +34,7 @@ router.get('/me', requireAuth, asyncHandler(async (req, res) => {
 // Get specified playlist
 router.get('/:id', asyncHandler(async (req, res) => {
     const playlist = await Playlist.findByPk(req.params.id, {
-        include: [Song, User]
+        include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
     });
 
     if (!playlist) {
@@ -48,7 +48,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 // Create a playlist
 router.post('/', requireAuth, singleMulterUpload("image"), validatePlaylist, asyncHandler(async (req, res) => {
     const { name, description, imageUrl } = req.body;
-    const picUrl = req.file ? await singlePublicFileUpload(req.file) : imageUrl ? imageUrl : `https://qph.cf2.quoracdn.net/main-qimg-0b4d3539b314fb898a95d424fe1af853-pjlq`;
+    const picUrl = req.file ? await singlePublicFileUpload(req.file) : imageUrl ? imageUrl : `https://us.123rf.com/450wm/motismotis/motismotis1805/motismotis180500005/102159464-retro-background-futuristic-landscape-1980s-style-digital-retro-landscape-cyber-surface-retro-music-.jpg`;
 
     const playlist = await Playlist.create({
         userId: req.user.id,
@@ -110,7 +110,7 @@ router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
 
 // Add multiple songs to a playlist 
 router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
-    
+
 }));
 
 // Remove a song to a playlist
