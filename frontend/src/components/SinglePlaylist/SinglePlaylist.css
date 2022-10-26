@@ -15,6 +15,7 @@
 }
 
 .plylst-song-slice {
+    position: relative;
     border-bottom: 1px solid #F2F2F2;
     width: 90%;
     font-size: 13px;
@@ -25,9 +26,23 @@
     cursor: pointer;
 }
 
+.playing {
+    background-color: #F2F2F2;
+    border-radius: 5px;
+}
+
 .plylst-song-slice:hover {
     background-color: #F2F2F2;
     border-radius: 5px;
+}
+
+.plylst-song-slice:hover > #plylst-song-btn {
+    display: flex;
+    position: absolute;
+    top: 15px;
+    left: 5px;
+    color: #FF5500;
+    font-size: 20px;
 }
 
 .plylst-song-slice img {
@@ -49,4 +64,8 @@
 .rmv-song-btn span:hover {
     border: 1px solid;
     border-radius: 5px;
+}
+
+#plylst-song-btn {
+    display: none;
 }

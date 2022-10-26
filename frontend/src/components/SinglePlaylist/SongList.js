@@ -40,7 +40,7 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
     return (
         <div className="flx-ctr flx-col plylst-page-songs">
             {songs.map((song, idx) => (
-                <div className="plylst-song-slice" key={song.id} onClick={e => handleClick(e, song, idx)}>
+                <div className={ isPlaying ? nowPlaying.id === song.id ? "plylst-song-slice playing" : "plylst-song-slice" : "plylst-song-slice"} key={song.id} onClick={e => handleClick(e, song, idx)}>
                     <div className="flx-ctr">
                         <img src={song.previewImage} alt={song.title} />
                         <span>{song.Artist.username} - </span>
@@ -49,6 +49,7 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
                     {currentUser && currentUser.id === playlist.userId && (
                         <button className="rmv-song-btn" onClick={e => handleRemove(e, song.id)}><span className="material-symbols-outlined" id="rmv-song-btn">close</span></button>
                     )}
+                    <span id="plylst-song-btn" className="material-symbols-outlined play-btn flx-ctr">{isPlaying ? nowPlaying.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
                 </div>
             ))}
         </div>
