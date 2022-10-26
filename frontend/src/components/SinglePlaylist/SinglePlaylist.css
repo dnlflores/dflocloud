@@ -20,6 +20,7 @@
     font-size: 13px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding-left: .5rem;
     cursor: pointer;
 }
@@ -38,4 +39,14 @@
 .plylst-song-slice span {
     color: #999;
     margin: 0 .5rem;
+}
+
+.rmv-song-btn span{
+    color: lightgray;
+    z-index: 1000;
+}
+
+.rmv-song-btn span:hover {
+    border: 1px solid;
+    border-radius: 5px;
 }

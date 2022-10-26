@@ -103,7 +103,7 @@ router.get('/popular', asyncHandler(async (req, res) => {
 
 // Get Single Song
 router.get('/:id', asyncHandler(async (req, res) => {
-    const song = await Song.findByPk(req.params.id, { include: [{ model: User, as: 'Artist' }, Album.scope('song')] });
+    const song = await Song.findByPk(req.params.id, { include: [{ model: User, as: 'Artist' }, Album] });
 
     if (!song) {
         res.status(404);

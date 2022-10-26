@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
-import { getPlaylist, removeSongFromPlaylist, removePlaylist } from '../../store/playlists';
+import { getPlaylist, removePlaylist } from '../../store/playlists';
 import PlayerInfoSect from './PlayerInfoSect';
 import EditPlaylistModal from '../EditPlaylistModal';
 import SongList from './SongList';
@@ -17,11 +17,7 @@ export default function SinglePlaylist({ audioPlayer }) {
 
     useEffect(() => {
         dispatch(getPlaylist(playlistId));
-    }, [dispatch, playlistId])
-
-    const handleRemove = async e => {
-        await dispatch(removeSongFromPlaylist(e.target.value, playlistId))
-    };
+    }, [dispatch, playlistId]);
 
     const handleRemovePlaylist = async () => {
         await dispatch(removePlaylist(playlist.id));
@@ -46,7 +42,7 @@ export default function SinglePlaylist({ audioPlayer }) {
                     <img className="song-artist-pic" src={playlist.User.profilePicUrl} alt="user" />
                     <p>{playlist.User.username}</p>
                 </div>
-                <SongList songs={playlist.Songs} audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} />
+                <SongList songs={playlist.Songs} audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} playlist={playlist} />
             </div>
         </div>
     )

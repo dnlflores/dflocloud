@@ -1,10 +1,19 @@
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { songPlayed } from "../../store/songs";
+import { removeSongFromPlaylist } from "../../store/playlists";
 import { useNowPlaying } from "../../context/NowPlayingContext"
 
-export default function SongList({ songs, audioPlayer, setPlaylistStarted }) {
+export default function SongList({ songs, audioPlayer, setPlaylistStarted, playlist }) {
     const dispatch = useDispatch();
-    const { nowPlaying, setNowPlaying, setQueue } = useNowPlaying();
+    const { playlistId } = useParams();
+    const { nowPlaying, setNowPlaying, setQueue, setIsPlaying, isPlaying } = useNowPlaying();
+    const currentUser = useSelector(state => state.session.user);
+
+    useEffect(() => {
+        if (!isPlaying) audioPlayer.current.audio.current.pause();
+    }, [isPlaying])
 
     const handleClick = (e, song, songIndex) => {
         e.stopPropagation();
@@ -18,13 +27,28 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted }) {
         }
     };
 
+    const handleRemove = async (e, songId) => {
+        e.stopPropagation();
+        if (songId === nowPlaying.id) {
+            setPlaylistStarted(false);
+            setIsPlaying(false);
+            setNowPlaying({});
+        }
+        await dispatch(removeSongFromPlaylist(songId, playlistId));
+    };
+
     return (
         <div className="flx-ctr flx-col plylst-page-songs">
             {songs.map((song, idx) => (
                 <div className="plylst-song-slice" key={song.id} onClick={e => handleClick(e, song, idx)}>
-                    <img src={song.previewImage} alt={song.title} />
-                    <span>{song.Artist.username} - </span>
-                    <p>{song.title}</p>
+                    <div className="flx-ctr">
+                        <img src={song.previewImage} alt={song.title} />
+                        <span>{song.Artist.username} - </span>
+                        <p>{song.title}</p>
+                    </div>
+                    {currentUser && currentUser.id === playlist.userId && (
+                        <button className="rmv-song-btn" onClick={e => handleRemove(e, song.id)}><span className="material-symbols-outlined" id="rmv-song-btn">close</span></button>
+                    )}
                 </div>
             ))}
         </div>

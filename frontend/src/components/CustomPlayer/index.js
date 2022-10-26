@@ -17,6 +17,8 @@ export default function CustomPlayer({ audioPlayer }) {
 
     let content;
 
+    console.log("the player rerendered", audioPlayer?.current?.isPlaying());
+
     if (!nowPlaying.title) content = (<p>Nothing Selected</p>);
     else content = (
         <>
