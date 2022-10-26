@@ -29,7 +29,8 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'Users' }
+        references: { model: 'Users' },
+        onDelete: 'CASCADE'
       },
       previewImage: {
         type: Sequelize.STRING
@@ -37,7 +38,8 @@ module.exports = {
       albumId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: 'Albums' }
+        references: { model: 'Albums' },
+        onDelete: 'CASCADE'
       },
       timesPlayed: {
         type: Sequelize.INTEGER,
@@ -47,12 +49,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, options);
   },
