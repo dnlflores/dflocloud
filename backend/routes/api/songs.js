@@ -165,7 +165,7 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
 
 // Increase number of times song was played by 1
 router.patch('/:id/play', asyncHandler(async (req, res) => {
-    const song = await Song.findByPk(req.params.id);
+    const song = await Song.findByPk(req.params.id, { include: { model: User, as: 'Artist' } });
 
     if (!song) {
         res.status(404);

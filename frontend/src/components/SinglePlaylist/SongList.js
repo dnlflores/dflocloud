@@ -10,6 +10,14 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
     const { playlistId } = useParams();
     const { nowPlaying, setNowPlaying, setQueue, setIsPlaying, isPlaying } = useNowPlaying();
     const currentUser = useSelector(state => state.session.user);
+    const playing = {
+        display: 'flex',
+        position: 'absolute',
+        top: '15px',
+        left: '5px',
+        color: '#FF5500',
+        fontSize: '20px',
+    }
 
     useEffect(() => {
         if (!isPlaying) audioPlayer.current.audio.current.pause();
@@ -40,7 +48,7 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
     return (
         <div className="flx-ctr flx-col plylst-page-songs">
             {songs.map((song, idx) => (
-                <div className={ isPlaying ? nowPlaying.id === song.id ? "plylst-song-slice playing" : "plylst-song-slice" : "plylst-song-slice"} key={song.id} onClick={e => handleClick(e, song, idx)}>
+                <div className={isPlaying ? nowPlaying.id === song.id ? "plylst-song-slice playing" : "plylst-song-slice" : "plylst-song-slice"} key={song.id} onClick={e => handleClick(e, song, idx)}>
                     <div className="flx-ctr">
                         <img src={song.previewImage} alt={song.title} />
                         <span>{song.Artist.username} - </span>
@@ -49,7 +57,7 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
                     {currentUser && currentUser.id === playlist.userId && (
                         <button className="rmv-song-btn" onClick={e => handleRemove(e, song.id)}><span className="material-symbols-outlined" id="rmv-song-btn">close</span></button>
                     )}
-                    <span id="plylst-song-btn" className="material-symbols-outlined play-btn flx-ctr">{isPlaying ? nowPlaying.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
+                    <span style={isPlaying && nowPlaying.id === song.id ? playing : {}} id="plylst-song-btn" className="material-symbols-outlined play-btn flx-ctr">{isPlaying ? nowPlaying.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
                 </div>
             ))}
         </div>

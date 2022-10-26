@@ -36,7 +36,7 @@
     border-radius: 5px;
 }
 
-.plylst-song-slice:hover > #plylst-song-btn {
+.plylst-song-slice:hover #plylst-song-btn {
     display: flex;
     position: absolute;
     top: 15px;
