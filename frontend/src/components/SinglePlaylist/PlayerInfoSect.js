@@ -1,13 +1,26 @@
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNowPlaying } from "../../context/NowPlayingContext";
 import { songPlayed } from "../../store/songs";
 
 export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted, setPlaylistStarted }) {
     const dispatch = useDispatch();
-    const { nowPlaying, setNowPlaying, isPlaying } = useNowPlaying();
+    const { nowPlaying, setNowPlaying, isPlaying, setQueue } = useNowPlaying();
+    const [currentSongIdx, setCurrentSongIdx] = useState(0)
+
+    useEffect(() => {
+        playlist.Songs.find((song, idx) => {
+            if (song.id === nowPlaying.id) {
+                setCurrentSongIdx(idx);
+                return true;
+            }
+            return false;
+        })
+    }, [nowPlaying])
 
     const handleClick = (e) => {
         e.stopPropagation();
+        setQueue(playlist.Songs.slice(currentSongIdx + 1));
         if (!playlistStarted) {
             setNowPlaying(playlist.Songs[0]);
             dispatch(songPlayed(playlist.Songs[0]));
@@ -17,9 +30,7 @@ export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted,
         }
     };
 
-    console.log("this is the playlist ? ", playlist);
-    console.log("this is whats playing => ", nowPlaying);
-    console.log("this is the audio player => ", audioPlayer);
+    console.log("player info re rendered on single playlist page");
 
     if (!playlist.Songs) return null;
 

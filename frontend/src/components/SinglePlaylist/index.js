@@ -14,11 +14,9 @@ export default function SinglePlaylist({ audioPlayer }) {
     const playlist = useSelector(state => state.playlists[playlistId]);
     const currentUser = useSelector(state => state.session.user);
     const [playlistStarted, setPlaylistStarted] = useState(false);
-    const [selectedSong, setSelectedSong] = useState(null)
 
     useEffect(() => {
         dispatch(getPlaylist(playlistId));
-        if (!selectedSong && playlist) setSelectedSong(playlist.Songs[0]);
     }, [dispatch, playlistId])
 
     const handleRemove = async e => {
@@ -34,7 +32,7 @@ export default function SinglePlaylist({ audioPlayer }) {
 
     return (
         <div className="single-page">
-            <PlayerInfoSect playlist={playlist} audioPlayer={audioPlayer} selectedSong={selectedSong} playlistStarted={playlistStarted} setPlaylistStarted={setPlaylistStarted} />
+            <PlayerInfoSect playlist={playlist} audioPlayer={audioPlayer} playlistStarted={playlistStarted} setPlaylistStarted={setPlaylistStarted} />
             <div className='flx-ctr song-user-btns plylst-usr-btns'>
                 {currentUser && +currentUser.id === +playlist.userId && (
                     <>
@@ -48,7 +46,7 @@ export default function SinglePlaylist({ audioPlayer }) {
                     <img className="song-artist-pic" src={playlist.User.profilePicUrl} alt="user" />
                     <p>{playlist.User.username}</p>
                 </div>
-                <SongList songs={playlist.Songs} />
+                <SongList songs={playlist.Songs} audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} />
             </div>
         </div>
     )
