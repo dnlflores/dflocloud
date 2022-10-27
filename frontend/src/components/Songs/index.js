@@ -5,8 +5,9 @@ import EditSongModal from '../EditSongModal';
 import AddToPlaylistModal from '../AddToPlaylistModal';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import SongBox from './SongBox';
 
-export default function Songs({ songs }) {
+export default function Songs({ songs, audioPlayer }) {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.session.user);
     const songsArr = Object.values(songs || {});
@@ -16,25 +17,10 @@ export default function Songs({ songs }) {
     };
 
     return (
-        <>
-            <h2>Songs component!</h2>
+        <div className="library-comp">
             {songs && songsArr.map(song => (
-                <div key={song.id}>
-                    <NavLink to={`/songs/${song.id}`}>{song.title}</NavLink>
-                    <AudioPlayer
-                        src={song.songUrl}
-                        // onPlay={e => console.log("onPlay")}
-                        // other props here
-                    />
-                    <AddToPlaylistModal songId={song.id} />
-                    {currentUser && +currentUser.id === +song.userId && (
-                        <>
-                            <button onClick={handleDelete} value={song.id}>Delete Song</button>
-                            <EditSongModal song={song}/>
-                        </>
-                    )}
-                </div>
+                <SongBox song={song} audioPlayer={audioPlayer} />
             ))}
-        </>
+        </div>
     )
 }

@@ -8,7 +8,7 @@ import Playlists from '../Playlists';
 import Songs from '../Songs'
 import './Library.css';
 
-export default function Library() {
+export default function Library({ audioPlayer }) {
     const dispatch = useDispatch();
     const mySongs = useSelector(state => state.songs.allSongs);
     const myPlaylists = useSelector(state => state.playlists);
@@ -35,10 +35,10 @@ export default function Library() {
                     <Overview songs={Object.values(mySongs)} playlists={Object.values(myPlaylists)} />
                 </Route>
                 <Route path="/library/playlists">
-                    <Playlists playlists={myPlaylists} />
+                    <Playlists playlists={myPlaylists} audioPlayer={audioPlayer} />
                 </Route>
                 <Route path="/library/tracks">
-                    <Songs songs={mySongs} />
+                    <Songs songs={mySongs} audioPlayer={audioPlayer} />
                 </Route>
             </Switch>
         </div>
