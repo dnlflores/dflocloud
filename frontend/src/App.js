@@ -13,6 +13,7 @@ import SinglePlaylist from './components/SinglePlaylist';
 import Discover from './components/Discover';
 import Upload from './components/Upload';
 import CustomPlayer from './components/CustomPlayer';
+import Library from './components/Library';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,12 +62,15 @@ function App() {
         <Route path="/discover">
           <Discover audioPlayer={audioPlayer} />
         </Route>
+        <Route path="/library">
+          <Library audioPlayer={audioPlayer} />
+        </Route>
         <Route path="/upload">
           <Upload />
         </Route>
       </Switch>
+      
       <div className="footer-div" />
-
       <CustomPlayer audioPlayer={audioPlayer} />
     </>
   );

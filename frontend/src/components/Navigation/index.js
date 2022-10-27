@@ -40,6 +40,7 @@ function Navigation({ isLoaded }) {
                     <div className="nav-left">
                         <NavLink to='/' className="nav-logo flx-ctr">DFLOCLOUD</NavLink>
                         <NavLink to='/discover' className="nav flx-ctr" activeClassName="nav-active">Home</NavLink>
+                        <NavLink to='/library' className="nav flx-ctr" activeClassName="nav-active">Library</NavLink>
                     </div>
                     {sessionLinks}
                 </div>

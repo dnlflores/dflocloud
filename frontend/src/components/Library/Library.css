@@ -1,0 +1,27 @@
+.library-page {
+    margin-top: 2.75rem;
+    width: 1250px;
+    background-color: white;
+    min-height: 89vh;
+    justify-content: flex-start;
+}
+
+.library-header {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    border-bottom: solid 1px #F2F2F2;
+}
+
+.library-header h2 {
+    margin: 1.5rem 2rem;
+    cursor: pointer;
+}
+
+.library-header h2.selectedHead {
+    color: #FF5500;
+}
+
+.overview-page {
+    width: 100%;
+}

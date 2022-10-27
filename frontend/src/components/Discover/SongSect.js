@@ -16,7 +16,7 @@ export default function SongSect({ audioPlayer, songs, sect }) {
 
     return(
         <section className="song-sect">
-            <h3>Charts: {sect}</h3>
+            <h3>{sect}</h3>
             <Slider {...settings}>
                 {!!songs.length && songs.map(song => (
                     <SongBox key={song.id} song={song} audioPlayer={audioPlayer} />
