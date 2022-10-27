@@ -6,6 +6,9 @@ import { resetComments } from "../../store/comments";
 import SongSect from './SongSect';
 import PlaylistSect from "./PlaylistSect";
 import './Discover.css';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Discover({ audioPlayer }) {
     const dispatch = useDispatch();

@@ -12,9 +12,15 @@
 .song-sect {
     display: flex;
     flex-direction: column;
+    width: 95%;
+    margin-left: 2rem;
 }
 
 .song-list {
     display: flex;
     overflow: scroll;
+}
+
+.song-sect button{
+    color: #FF5500;
 }
