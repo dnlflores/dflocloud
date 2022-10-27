@@ -1,29 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, Redirect, Route, Switch, useParams } from 'react-router-dom';
 import { getMySongs } from '../../store/songs';
 import { getMyPlaylists } from '../../store/playlists';
 import Overview from './Overview';
+import Playlists from '../Playlists';
+import Songs from '../Songs'
 import './Library.css';
 
 export default function Library() {
     const dispatch = useDispatch();
     const mySongs = useSelector(state => state.songs.allSongs);
     const myPlaylists = useSelector(state => state.playlists);
-    const [selected, setSelected] = useState('Overview');
+    const { page } = useParams();
 
     useEffect(() => {
         dispatch(getMySongs());
         dispatch(getMyPlaylists());
     }, [dispatch])
 
+    console.log("this is the url => ", );
+
+    if (!window.location.href.split('/')[4]) return <Redirect to="/library/me" />
+
     return (
         <div className="flx-ctr flx-col library-page">
             <div className="library-header">
-                <h2 className={selected === 'Overview' ? 'selectedHead' : ''} onClick={() => setSelected('Overview')}>Overview</h2>
-                <h2 className={selected === 'Playlists' ? 'selectedHead' : ''} onClick={() => setSelected('Playlists')}>Playlists</h2>
-                <h2 className={selected === 'Tracks' ? 'selectedHead' : ''} onClick={() => setSelected('Tracks')}>Tracks</h2>
+                <NavLink to="/library/me" activeClassName="selectedHead">Overview</NavLink>
+                <NavLink to="/library/playlists" activeClassName="selectedHead">Playlists</NavLink>
+                <NavLink to="/library/tracks" activeClassName="selectedHead">Tracks</NavLink>
             </div>
-            {selected === "Overview" && <Overview songs={Object.values(mySongs)} playlists={Object.values(myPlaylists)} />}
+            <Switch>
+                <Route path="/library/me">
+                    <Overview songs={Object.values(mySongs)} playlists={Object.values(myPlaylists)} />
+                </Route>
+                <Route path="/library/playlists">
+                    <Playlists playlists={myPlaylists} />
+                </Route>
+                <Route path="/library/tracks">
+                    <Songs songs={mySongs} />
+                </Route>
+            </Switch>
         </div>
     )
 }

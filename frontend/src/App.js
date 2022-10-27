@@ -69,7 +69,7 @@ function App() {
           <Upload />
         </Route>
       </Switch>
-      
+
       <div className="footer-div" />
       <CustomPlayer audioPlayer={audioPlayer} />
     </>

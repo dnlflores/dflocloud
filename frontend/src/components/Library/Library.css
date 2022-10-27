@@ -13,12 +13,14 @@
     border-bottom: solid 1px #F2F2F2;
 }
 
-.library-header h2 {
+.library-header a {
     margin: 1.5rem 2rem;
     cursor: pointer;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
-.library-header h2.selectedHead {
+.library-header a.selectedHead {
     color: #FF5500;
 }
 
