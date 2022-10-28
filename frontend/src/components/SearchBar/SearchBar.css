@@ -2,7 +2,8 @@
     position: relative;
     background-color: #333333;
     height: 100%;
-    width: 30%;
+    width: 50%;
+    z-index: 5000;
 }
 
 .search-bar input {
@@ -18,4 +19,41 @@
     right: 1rem;
     top: 0.7em;
     cursor: pointer;
+}
+
+.search-results {
+    position: absolute;
+    width: 30rem;
+    max-height: 20rem;
+    background-color: #111111;
+    top: 0;
+    overflow-y: auto;
+    justify-content: flex-start;
+    right: -15rem;
+    z-index: 5000;
+}
+
+.search-results div {
+    cursor: pointer;
+    width: 100%;
+}
+
+.search-results div:hover {
+    background-color: #333333;
+}
+
+.search-wrapper {
+    position: relative;
+    background-color: #333333;
+    height: 100%;
+    width: 100%;
+}
+
+.closable {
+    position: absolute;
+    top: 0;
+    z-index: 4999;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
 }
