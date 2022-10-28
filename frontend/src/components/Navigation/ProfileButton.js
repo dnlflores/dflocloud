@@ -42,10 +42,10 @@ function ProfileButton({ user }) {
                 <p>{currentUser.username}</p>
             </button>
             {showMenu && (
-                <div className="profile-dropdown flx-ctr flx-col">
-                    <NavLink to="/playlists/my">My Playlists</NavLink>
-                    <NavLink to="/songs/my">My Songs</NavLink>
-                    <button onClick={logout}>Log Out</button>
+                <div className="flx-ctr flx-col profile-dropdown">
+                    <NavLink to="/library/playlists" className="flx-ctr"><span className="material-symbols-outlined">queue_music</span>&nbsp; My Playlists</NavLink>
+                    <NavLink to="/library/tracks" className="flx-ctr"><span className="material-symbols-outlined">music_note</span>&nbsp; My Songs</NavLink>
+                    <button onClick={logout} className="flx-ctr"><span className="material-symbols-outlined">logout</span>&nbsp; Log Out</button>
                 </div>
             )}
         </>
