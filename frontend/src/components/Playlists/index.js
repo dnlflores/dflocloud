@@ -6,7 +6,7 @@ export default function Playlists({ playlists, audioPlayer }) {
     return (
         <div className="library-comp">
             {playlistsArr.map(playlist => (
-                <PlaylistBox playlist={playlist} audioPlayer={audioPlayer} />
+                <PlaylistBox playlist={playlist} audioPlayer={audioPlayer} key={playlist.id} />
             ))}
         </div>
     )

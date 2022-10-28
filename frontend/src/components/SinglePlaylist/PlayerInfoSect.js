@@ -30,8 +30,6 @@ export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted,
         }
     };
 
-    console.log("player info re rendered on single playlist page");
-
     if (!playlist.Songs) return null;
 
     return (

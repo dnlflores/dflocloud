@@ -141,29 +141,6 @@
     }
 }
 
-.search-bar {
-    background-color: #F2F2F2;
-    border: none;
-    width: 40rem;
-    height: 2rem;
-    font-size: 18px;
-    padding: 1rem;
-}
-
-.search-bar::placeholder {
-    color: #999999;
-    padding-left: 20px
-}
-
-@media (min-width: 1240px) {
-    .search-bar {
-        width: 600px;
-        height: 46px;
-        padding: 0;
-        font-size: 14px;
-    }
-}
-
 .upld-btn {
     height: 2.5rem;
     width: 10rem;

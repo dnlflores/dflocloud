@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
+import SearchBar from '../SearchBar';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -35,13 +36,14 @@ function Navigation({ isLoaded }) {
 
     return isLoaded && (
         <>
-            <nav className="nav-bar flx-ctr flx-col" style={{ position: "fixed" }}>
-                <div className="nav-container flx-ctr flx-jst-spc-btwn">
+            <nav className="flx-ctr flx-col nav-bar" style={{ position: "fixed" }}>
+                <div className="flx-ctr flx-jst-spc-btwn nav-container">
                     <div className="nav-left">
                         <NavLink to='/' className="nav-logo flx-ctr">DFLOCLOUD</NavLink>
                         <NavLink to='/discover' className="nav flx-ctr" activeClassName="nav-active">Home</NavLink>
                         <NavLink to='/library' className="nav flx-ctr" activeClassName="nav-active">Library</NavLink>
                     </div>
+                    <SearchBar />
                     {sessionLinks}
                 </div>
             </nav>

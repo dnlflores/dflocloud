@@ -19,8 +19,6 @@ export default function Library({ audioPlayer }) {
         dispatch(getMyPlaylists());
     }, [dispatch])
 
-    console.log("this is the url => ", );
-
     if (!window.location.href.split('/')[4]) return <Redirect to="/library/me" />
 
     return (
