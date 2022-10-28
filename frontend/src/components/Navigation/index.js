@@ -7,7 +7,7 @@ import SignUpFormModal from '../SignUpFormModal';
 import SearchBar from '../SearchBar';
 import './Navigation.css';
 
-function Navigation({ isLoaded }) {
+function Navigation({ isLoaded, results, setResults }) {
     const sessionUser = useSelector(state => state.session.user);
 
     const sessionLinksStyle = {
@@ -43,7 +43,7 @@ function Navigation({ isLoaded }) {
                         <NavLink to='/discover' className="nav flx-ctr" activeClassName="nav-active">Home</NavLink>
                         <NavLink to='/library' className="nav flx-ctr" activeClassName="nav-active">Library</NavLink>
                     </div>
-                    <SearchBar />
+                    <SearchBar results={results} setResults={setResults} />
                     {sessionLinks}
                 </div>
             </nav>

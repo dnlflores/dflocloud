@@ -7,7 +7,7 @@ const commentsRouter = require('./comments.js');
 const albumsRouter = require('./albums.js');
 const playlistsRouter = require('./playlists.js')
 const { restoreUser } = require('../../utils/auth.js');
-const { Song, Playlist } = require('../../db/models');
+const { Song, Playlist, User } = require('../../db/models');
 const { Op } = require('sequelize');
 
 router.use(restoreUser);
@@ -43,7 +43,8 @@ router.get('/search', asyncHandler(async (req, res) => {
                     }
                 }
             ]
-        }
+        },
+        include: [{model: User, as: 'Artist'}]
     }) :
     await Song.findAll({
         where: {
@@ -59,7 +60,8 @@ router.get('/search', asyncHandler(async (req, res) => {
                     }
                 }
             ]
-        }
+        },
+        include: [{model: User, as: 'Artist'}]
     });
 
     const matchedPlaylists = process.env.NODE_ENV === 'production' ?
@@ -78,7 +80,8 @@ router.get('/search', asyncHandler(async (req, res) => {
                     }
                 }
             ]
-        }
+        },
+        include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
     }) :
     await Playlist.findAll({
         where: {
@@ -94,7 +97,8 @@ router.get('/search', asyncHandler(async (req, res) => {
                     }
                 }
             ]
-        }
+        },
+        include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
     });
 
     return res.json({ songs: matchedSongs, playlists: matchedPlaylists });

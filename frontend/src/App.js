@@ -14,10 +14,12 @@ import Discover from './components/Discover';
 import Upload from './components/Upload';
 import CustomPlayer from './components/CustomPlayer';
 import Library from './components/Library';
+import SearchResults from './components/SearchResults';
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [results, setResults] = useState({});
   const audioPlayer = createRef();
 
   useEffect(() => {
@@ -27,13 +29,10 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+      <Navigation isLoaded={isLoaded} results={results} setResults={setResults} />
       <Switch>
         <Route exact path="/">
           <LandingPage setIsLoaded={setIsLoaded} audioPlayer={audioPlayer} />
-        </Route>
-        <Route path="/songs/my">
-          <Songs my={true} />
         </Route>
         <Route path="/songs/:songId">
           <SingleSong audioPlayer={audioPlayer} />
@@ -41,17 +40,11 @@ function App() {
         <Route path="/songs">
           <Songs my={false} />
         </Route>
-        <Route path="/albums/my">
-          <Albums my={true} />
-        </Route>
         <Route path="/albums/:albumId">
           <SingleAlbum />
         </Route>
         <Route path="/albums">
           <Albums my={false} />
-        </Route>
-        <Route path="/playlists/my">
-          <Playlists my={true} />
         </Route>
         <Route path="/playlists/:playlistId">
           <SinglePlaylist audioPlayer={audioPlayer} />
@@ -67,6 +60,9 @@ function App() {
         </Route>
         <Route path="/upload">
           <Upload />
+        </Route>
+        <Route path="/results">
+          <SearchResults results={results} audioPlayer={audioPlayer} />
         </Route>
       </Switch>
 
