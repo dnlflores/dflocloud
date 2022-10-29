@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import useDebounce from '../../hooks/useDebounce';
 import './SearchBar.css';
@@ -7,6 +7,7 @@ export default function SearchBar({ results, setResults }) {
     const history = useHistory();
     const [search, setSearch] = useState('');
     const [showResults, setShowResults] = useState(false);
+    const srchBtn = useRef();
 
     useDebounce(() => {
         if (search !== '') fetch(`/api/search?term=${search}`).then(res => res.json().then(data => setResults(data)));
@@ -28,13 +29,22 @@ export default function SearchBar({ results, setResults }) {
     const handleSearch = () => {
         history.push('/results');
         setShowResults(false);
-    }
+    };
+
+    const handleKeyUp = e => {
+        e.preventDefault();
+        console.log("here is the event => ", e);
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+            srchBtn.current.click();
+            setShowResults(false);
+        }
+    };
 
     return (
         <div className="flx-ctr flx-col search-wrapper">
             <div className="flx-ctr search-bar">
-                <input type="text" onChange={e => setSearch(e.target.value)} value={search} placeholder="Search" onFocus={() => search ? setShowResults(true) : setShowResults(false)} />
-                <button onClick={handleSearch}><span className="material-symbols-outlined">search</span></button>
+                <input type="text" onKeyUp={handleKeyUp} onChange={e => setSearch(e.target.value)} value={search} placeholder="Search" onFocus={() => search ? setShowResults(true) : setShowResults(false)} />
+                <button onClick={handleSearch} ref={srchBtn}><span className="material-symbols-outlined">search</span></button>
             </div>
             {showResults && (
                 <>
