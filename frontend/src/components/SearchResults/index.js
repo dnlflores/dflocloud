@@ -7,8 +7,6 @@ export default function SearchResults({ results, audioPlayer }) {
     const songs = Object.values(results.songs || {});
     const playlists = Object.values(results.playlists || {});
 
-    console.log("here are the results => ", results)
-
     if (!results.songs) return <Redirect to="/discover" />
 
     return (

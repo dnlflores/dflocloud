@@ -8,6 +8,7 @@ export default function SearchBar({ results, setResults }) {
     const [search, setSearch] = useState('');
     const [showResults, setShowResults] = useState(false);
     const srchBtn = useRef();
+    const orderedResults = [...Object.values(results.playlists || {}), ...Object.values(results.songs || {})].sort((a, b) => a.timesPlayed - b.timesPlayed);
 
     useDebounce(() => {
         if (search !== '') fetch(`/api/search?term=${search}`).then(res => res.json().then(data => setResults(data)));
@@ -33,7 +34,7 @@ export default function SearchBar({ results, setResults }) {
 
     const handleKeyUp = e => {
         e.preventDefault();
-        console.log("here is the event => ", e);
+        
         if (e.code === 'Enter' || e.code === 'NumpadEnter') {
             srchBtn.current.click();
             setShowResults(false);
@@ -51,14 +52,9 @@ export default function SearchBar({ results, setResults }) {
                     <div className="closable" onClick={() => setShowResults(false)} />
                     <div style={{ position: 'relative' }}>
                         <div className="flx-ctr flx-col search-results">
-                            {results.songs && Object.values(results.songs).map(song => (
-                                <div key={song.id} className="flx-ctr" onClick={() => goToResult('song', song.id)}>
-                                    <h3><span className="material-symbols-outlined">music_note</span>&nbsp;{song.title}</h3>
-                                </div>
-                            ))}
-                            {results.playlists && Object.values(results.playlists).map(playlist => (
-                                <div key={playlist.id} className="flx-ctr" onClick={() => goToResult('playlist', playlist.id)}>
-                                    <h3><span className="material-symbols-outlined">queue_music</span>&nbsp;{playlist.name}</h3>
+                            {orderedResults.map((result, idx) => (
+                                <div key={idx} className="flx-ctr" onClick={() => goToResult(result.name ? 'playlist' : 'song', result.id)}>
+                                    <h3><span className="material-symbols-outlined">{result.name ? "queue_music" : "music_note"}</span>&nbsp;{result.name ? result.name : result.title}</h3>
                                 </div>
                             ))}
                         </div>
