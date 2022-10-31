@@ -1,4 +1,14 @@
 'use strict';
+const { faker } = require('@faker-js/faker');
+const comments = [...Array(100)].map((comment, idx) => (
+  {
+    userId: Math.floor(Math.random() * 10) + 1,
+    content: faker.lorem.sentences(),
+    songId: Math.floor(Math.random() * 30) + 1,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+));
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -9,28 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   up: (queryInterface, Sequelize) => {
     options.tableName = 'Comments';
-    return queryInterface.bulkInsert(options, [
-    {
-      songId: 1,
-      content: "This song is alright",
-      userId: 1
-    },
-    {
-      songId: 2,
-      content: "This song is the bomb.com",
-      userId: 3
-    },
-    {
-      songId: 3,
-      content: "This song is okay at best",
-      userId: 1
-    },
-    {
-      songId: 4,
-      content: "This song is the bomb diggity",
-      userId: 2
-    }
-  ], {});
+    return queryInterface.bulkInsert(options, comments, {});
   },
 
   down: (queryInterface, Sequelize) => {

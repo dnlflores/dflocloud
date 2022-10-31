@@ -1,4 +1,12 @@
 'use strict';
+const playlistSongs = [...Array(500)].map((playlist, idx) => (
+  {
+    songId: Math.floor(Math.random() * 30) + 1,
+    playlistId: Math.floor(Math.random() * 50) + 1,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+));
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -9,40 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   up: (queryInterface, Sequelize) => {
     options.tableName = 'PlaylistSongs';
-    return queryInterface.bulkInsert(options, [
-      {
-        songId: 1,
-        playlistId: 1
-      },
-      {
-        songId: 2,
-        playlistId: 2
-      },
-      {
-        songId: 3,
-        playlistId: 3
-      },
-      {
-        songId: 4,
-        playlistId: 4
-      },
-      {
-        songId: 5,
-        playlistId: 1
-      },
-      {
-        songId: 6,
-        playlistId: 2
-      },
-      {
-        songId: 7,
-        playlistId: 3
-      },
-      {
-        songId: 8,
-        playlistId: 4
-      }
-    ], {});
+    return queryInterface.bulkInsert(options, playlistSongs, {});
   },
 
   down: (queryInterface, Sequelize) => {
