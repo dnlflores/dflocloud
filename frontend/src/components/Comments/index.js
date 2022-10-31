@@ -20,7 +20,7 @@ export default function Comments({ song }) {
 
     return (
         <div className="flx-col comment-list">
-            <div className="song-description">
+            <div className="page-description">
                 <p>{song.description}</p>
             </div>
             {!!comments.length && <p><span className="material-symbols-outlined">chat_bubble</span>{`${comments.length} Comments`}</p>}
