@@ -7,9 +7,10 @@ import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import Slider from '../Slider';
 import SongBox from '../Songs/SongBox';
+import SearchBar from '../SearchBar';
 import './Landing.css';
 
-export default function LandingPage({ setIsLoaded, audioPlayer }) {
+export default function LandingPage({ setIsLoaded, audioPlayer, results, setResults }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const songsObj = useSelector(state => state.songs.allSongs);
@@ -29,24 +30,17 @@ export default function LandingPage({ setIsLoaded, audioPlayer }) {
 
     return (
         <>
-            <div className="page-container flx-ctr flx-col">
-                <div className="landing-nav flx-ctr flx-jst-spc-btwn">
+            <div className="flx-ctr flx-col page-container">
+                <div className="flx-ctr flx-jst-spc-btwn landing-nav">
                     <h2 onClick={() => history.push("/")}>DFloCloud</h2>
-                    <div className='landing-nav-btns flx-jst-spc-arnd'>
+                    <div className="flx-jst-spc-arnd landing-nav-btns">
                         <LoginFormModal styling="wht" />
                         <SignUpFormModal />
                     </div>
                 </div>
                 <Slider />
-                <div className="trending-container flx-ctr flx-col">
-                    <div className="flx-ctr flx-jst-spc-arnd search-container">
-                        <form>
-                            <input className="search-bar" type="text" placeholder="Search for artists, bands, tracks, podcasts"></input>
-                            <span className="material-symbols-outlined search-btn" type="submit">search</span>
-                        </form>
-                        <p style={{ color: "black" }}>or</p>
-                        <button className="org-btn upld-btn">Upload your own</button>
-                    </div>
+                <div className="flx-ctr flx-col trending-container">
+                    <SearchBar results={results} setResults={setResults} />
                     <div className="music-container flx-col flx-ctr">
                         <h2 className="trending-title">Here's What's Trending!</h2>
                         <div className="flx-ctr flx-wrp song-wrapper">

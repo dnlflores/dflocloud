@@ -32,7 +32,7 @@ function App() {
       <Navigation isLoaded={isLoaded} results={results} setResults={setResults} />
       <Switch>
         <Route exact path="/">
-          <LandingPage setIsLoaded={setIsLoaded} audioPlayer={audioPlayer} />
+          <LandingPage setIsLoaded={setIsLoaded} audioPlayer={audioPlayer} results={results} setResults={setResults} />
         </Route>
         <Route path="/songs/:songId">
           <SingleSong audioPlayer={audioPlayer} />
