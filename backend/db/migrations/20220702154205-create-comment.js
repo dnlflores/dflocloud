@@ -22,7 +22,7 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       content: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       songId: {

@@ -4,7 +4,7 @@ const playlists = [...Array(50)].map((playlist, idx) => (
   {
     userId: Math.floor(Math.random() * 10) + 1,
     name: faker.music.songName(),
-    description: faker.lorem.sentences(),
+    description: faker.lorem.sentences(3),
     previewImage: faker.image.abstract(500, 500, true),
     timesPlayed: Math.floor(Math.random() * 1000),
     createdAt: new Date(),
