@@ -35,7 +35,7 @@ module.exports = {
         description: 'Try to fall asleep...',
         songUrl: 'https://cdn.pixabay.com/audio/2021/11/05/audio_b66e48cda5.mp3',
         timesPlayed: 120,
-        previewImage: 'https://cdn.pixabay.com/audio/2022/09/28/18-56-18-535_200x200.jpg'
+        previewImage: 'https://listverse.com/wp-content/uploads/2014/03/1-catawba.jpg'
       },
       {
         userId: 4,
@@ -44,7 +44,7 @@ module.exports = {
         description: 'Come creep to the beat...',
         songUrl: 'https://cdn.pixabay.com/audio/2022/09/28/audio_f1974c5c4f.mp3',
         timesPlayed: 221,
-        previewImage: 'https://i1.sndcdn.com/artworks-000341661411-tvgbu4-t500x500.jpg'
+        previewImage: 'https://cdn.pixabay.com/audio/2022/09/28/18-56-18-535_200x200.jpg'
       },
       {
         userId: 5,
