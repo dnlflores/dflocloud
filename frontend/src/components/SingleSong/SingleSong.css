@@ -18,8 +18,6 @@
     width: 250px;
     height: 300px;
     object-fit: cover;
-    position: absolute;
-    right: 45rem;
 }
 
 .song-text {
@@ -34,9 +32,8 @@
 .play-song {
     justify-content: flex-start;
     width: 40rem;
-    position: absolute;
-    top: 5rem;
-    left: 42.5rem;
+    align-self: flex-start;
+    margin-top: 4rem;
 }
 
 .play-song span {

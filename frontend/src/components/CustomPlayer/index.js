@@ -44,7 +44,7 @@ export default function CustomPlayer({ audioPlayer }) {
                 autoPlayAfterSrcChange
                 customControlsSection={
                     [
-                        <div style={{ width: '50rem'}} />,
+                        <div style={{ width: '10%'}} />,
                         RHAP_UI.MAIN_CONTROLS,
                         RHAP_UI.VOLUME_CONTROLS,
                     ]

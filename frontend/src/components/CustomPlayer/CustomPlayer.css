@@ -8,15 +8,16 @@
     position: fixed;
     bottom: 0;
     z-index: 100;
+    width: 100%;
 }
 
 .custom-player {
     height: 5rem;
-    width: 80vw;
+    /* width: 89vw; */
 }
 
 .custom-player-info {
-    width: 65rem;
+    width: 50%;
     height: 5rem;
     background-color: white;
     box-shadow: 0 0 3px 0 rgb(0 0 0 / 20%);
