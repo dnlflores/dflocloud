@@ -110,10 +110,11 @@ export const getPlaylist = id => async dispatch => {
 };
 
 export const editPlaylist = (data, id) => async dispatch => {
-    const { name, image } = data;
+    const { name, image, description } = data;
 
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("description", description);
 
     if (typeof image !== "string") formData.append("image", image);
     else formData.append("image", image);
@@ -190,7 +191,7 @@ export default function playlistsReducer(state = {}, action) {
         }
         case UPDATE_PLAYLIST: {
             const newState = {...state};
-            newState[action.playlist.id] = action.playlist;
+            newState[action.playlist.id] = {...newState[action.playlist.id], ...action.playlist};
             return newState;
         }
         case DELETE_PLAYLIST: {

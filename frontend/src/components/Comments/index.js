@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getComments, removeComment } from '../../store/comments';
 
-export default function Comments(props) {
+export default function Comments({ song }) {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const commentsObj = useSelector(state => state.comments);
@@ -20,6 +20,9 @@ export default function Comments(props) {
 
     return (
         <div className="flx-col comment-list">
+            <div className="song-description">
+                <p>{song.description}</p>
+            </div>
             {!!comments.length && <p><span className="material-symbols-outlined">chat_bubble</span>{`${comments.length} Comments`}</p>}
             {!!comments.length && comments.map(comment => (
                 <div className="comment-card" key={comment.id}>

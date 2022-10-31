@@ -52,7 +52,7 @@ export default function SingleSong({ audioPlayer }) {
                     <img className="song-artist-pic" src={song.Artist.profilePicUrl} alt="artist" />
                     <p>{song.Artist.username}</p>
                 </div>
-                <Comments />
+                <Comments song={song} />
             </div>
         </div>
     )

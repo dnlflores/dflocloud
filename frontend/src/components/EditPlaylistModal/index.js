@@ -4,13 +4,14 @@ import EditPlaylistForm from './EditPlaylistForm';
 
 export default function EditPlaylistModal({ playlist }) {
     const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     return (
         <>
             <button className="flx-ctr" onClick={() => setShowModal(true)}>Edit <span className="material-symbols-outlined">edit</span></button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EditPlaylistForm setTrigger={setShowModal} playlist={playlist} />
+                    <EditPlaylistForm setTrigger={setShowModal} playlist={playlist} setLoading={setLoading} />
                 </Modal>
             )}
         </>

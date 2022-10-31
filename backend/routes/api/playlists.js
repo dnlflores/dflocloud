@@ -158,8 +158,10 @@ router.delete('/:id/song', requireAuth, asyncHandler(async (req, res) => {
 
 // Edit a playlist
 router.patch('/:id', requireAuth, singleMulterUpload("image"), validatePlaylist, asyncHandler(async (req, res) => {
-    const { name, image } = req.body;
-    const playlist = await Playlist.findByPk(req.params.id, { include: [Song] });
+    const { name, image, description } = req.body;
+    const playlist = await Playlist.findByPk(req.params.id, {
+        include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
+    });
 
     if (!playlist) {
         res.status(404);
@@ -175,6 +177,7 @@ router.patch('/:id', requireAuth, singleMulterUpload("image"), validatePlaylist,
 
     await playlist.update({
         name,
+        description,
         previewImage: picUrl
     })
 

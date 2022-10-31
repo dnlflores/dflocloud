@@ -110,3 +110,15 @@ body {
 .footer-div {
     height: 6rem;
 }
+
+.page-description {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: fit-content;
+}
+
+.page-description p {
+    color: black;
+    font-size: 15px;
+}
