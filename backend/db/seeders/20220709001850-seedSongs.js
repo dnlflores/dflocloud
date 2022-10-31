@@ -35,7 +35,7 @@ module.exports = {
         description: 'Try to fall asleep...',
         songUrl: 'https://cdn.pixabay.com/audio/2021/11/05/audio_b66e48cda5.mp3',
         timesPlayed: 120,
-        previewImage: 'https://listverse.com/wp-content/uploads/2014/03/1-catawba.jpg'
+        previewImage: 'https://cdn.pixabay.com/audio/2022/09/28/18-56-18-535_200x200.jpg'
       },
       {
         userId: 4,
