@@ -48,7 +48,7 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
     return (
         <div className="flx-ctr flx-col plylst-page-songs">
             <div className="page-description">
-                <p>{playlist.description}</p>
+                <p style={{ color: 'black' }}>{playlist.description}</p>
             </div>
             {songs.map((song, idx) => (
                 <div className={isPlaying ? nowPlaying.id === song.id ? "plylst-song-slice playing" : "plylst-song-slice" : "plylst-song-slice"} key={song.id} onClick={e => handleClick(e, song, idx)}>
