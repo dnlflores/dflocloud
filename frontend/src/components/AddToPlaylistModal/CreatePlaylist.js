@@ -30,10 +30,9 @@ export default function CreatePlaylist({ song, setTrigger, setSelected }) {
             <div className="song-slice-plylst">
                 <div className="flx-ctr crt-plylst-add">
                     <img src={song.previewImage} alt={song.title} />
-                    <p style={{ color: '#999' }}>{song.Artist.username} - </p>
-                    <p>{song.title}</p>
+                    <p style={{ color: '#999' }}>{song.Artist.username} -</p>
+                    <p>&nbsp;{song.title}</p>
                 </div>
-                <span className="material-symbols-outlined">close</span>
             </div>
         </div>
     )

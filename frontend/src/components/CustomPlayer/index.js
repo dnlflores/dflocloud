@@ -7,10 +7,11 @@ export default function CustomPlayer({ audioPlayer }) {
     const { nowPlaying, setNowPlaying, setIsPlaying, queue, setQueue } = useNowPlaying();
 
     const handleClickNext = () => {
-        if (!queue.length) return;
+        if (!queue.size) return;
 
-        const newQueue = [...queue];
-        const nextSong = newQueue.shift();
+        const newQueue = queue;
+        console.log("this is the new queue => ", newQueue);
+        const nextSong = newQueue.removeFrom(0);
         setQueue(newQueue);
         setNowPlaying(nextSong);
     };

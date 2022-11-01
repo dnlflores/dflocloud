@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNowPlaying } from "../../context/NowPlayingContext";
+import LinkedList from "../../helpers/LinkedList";
 import { songPlayed } from "../../store/songs";
 
 export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted, setPlaylistStarted }) {
@@ -20,7 +21,10 @@ export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted,
 
     const handleClick = (e) => {
         e.stopPropagation();
-        setQueue(playlist.Songs.slice(currentSongIdx + 1));
+        const tempQueue = playlist.Songs.slice(currentSongIdx + 1);
+        const newQueue = new LinkedList();
+        tempQueue.forEach(song => newQueue.add(song));
+        setQueue(newQueue);
         if (!playlistStarted) {
             setNowPlaying(playlist.Songs[0]);
             dispatch(songPlayed(playlist.Songs[0]));

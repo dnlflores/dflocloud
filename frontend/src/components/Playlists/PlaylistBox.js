@@ -9,13 +9,15 @@ export default function PlaylistBox({ playlist, audioPlayer }) {
     const firstSong = songs[index];
     const dispatch = useDispatch();
     const history = useHistory();
-    const { nowPlaying, setNowPlaying, isPlaying, setQueue } = useNowPlaying();
+    const { nowPlaying, setNowPlaying, isPlaying, setQueue, queue } = useNowPlaying();
 
     const handleClick = (e) => {
         e.stopPropagation();
         if (nowPlaying.id !== firstSong.id) {
             setNowPlaying(firstSong);
-            setQueue([...songs.slice(1)]);
+            const newQueue = queue;
+            newQueue.removeFrom(0);
+            setQueue(newQueue);
             dispatch(songPlayed(firstSong));
         } else {
             audioPlayer.current.togglePlay(e);
