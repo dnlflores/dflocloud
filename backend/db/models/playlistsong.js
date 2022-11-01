@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
   PlaylistSong.init(
     {
       songId: DataTypes.INTEGER,
-      playlistId: DataTypes.INTEGER
+      playlistId: DataTypes.INTEGER,
+      index: DataTypes.INTEGER
     },
     {
       sequelize,
@@ -19,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       scopes: {
         playlist: {
           attributes: { exclude: ['createdAt', 'updatedAt'] }
+        },
+        order: {
+          attributes: { exclude: ['songId', 'createdAt', 'updatedAt', 'id']}
         }
       }
     }

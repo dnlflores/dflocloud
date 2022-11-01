@@ -21,7 +21,9 @@ const validatePlaylist = [
 router.get('/', asyncHandler(async (req, res) => {
     const playlists = await Playlist.findAll({ include: [{ model: Song, include: [{ model: User, as: 'Artist' }] }, User] });
 
-    return res.json(playlists);
+    const playlistsOrders = await PlaylistSong.scope('order').findAll()
+
+    return res.json({ playlists, orders: playlistsOrders });
 }))
 
 // Get playlists by the current user
@@ -37,12 +39,18 @@ router.get('/:id', asyncHandler(async (req, res) => {
         include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
     });
 
+    const playlistOrder = await PlaylistSong.scope('order').findAll({
+        where: {
+            playlistId: playlist.id
+        }
+    });
+
     if (!playlist) {
         res.status(404);
         return res.json({ message: "Playlist not found.", statusCode: 404 })
     }
 
-    return res.json(playlist);
+    return res.json({ playlist, order: playlistOrder });
 }));
 
 // Create a playlist

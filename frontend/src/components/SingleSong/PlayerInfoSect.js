@@ -4,12 +4,20 @@ import { songPlayed } from "../../store/songs";
 
 export default function PlayerInfoSect({ song, audioPlayer }) {
     const dispatch = useDispatch();
-    const { nowPlaying, setNowPlaying, isPlaying } = useNowPlaying();
+    const { nowPlaying, setNowPlaying, isPlaying, queue } = useNowPlaying();
 
     const handleClick = (e) => {
         e.stopPropagation();
-        if (nowPlaying.id !== song.id) {
-            setNowPlaying(song);
+
+        let current = queue.head;
+        while (current !== null) {
+            if (current.element.id === song.id) break;
+
+            current = current.next;
+        }
+
+        if (nowPlaying.element.id !== song.id) {
+            setNowPlaying(current);
             dispatch(songPlayed(song));
         } else {
             audioPlayer.current.togglePlay(e);
@@ -21,7 +29,7 @@ export default function PlayerInfoSect({ song, audioPlayer }) {
     return (
         <div className="flx-ctr background-player-info">
             <div className="flx-ctr play-song">
-                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{isPlaying ? nowPlaying.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
+                <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{isPlaying ? nowPlaying.element.id === song.id ? "pause_circle" : "play_circle" : "play_circle"}</span>
                 <div className="flx-ctr flx-col song-text">
                     <h2>{song.title}</h2>
                     <h2>{song.Artist.username}</h2>

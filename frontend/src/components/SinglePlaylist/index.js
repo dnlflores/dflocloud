@@ -26,6 +26,8 @@ export default function SinglePlaylist({ audioPlayer }) {
 
     if (!playlist) return null;
 
+    console.log("this is the playlist from redux on single page => ", playlist);
+
     return (
         <div className="single-page">
             <PlayerInfoSect playlist={playlist} audioPlayer={audioPlayer} playlistStarted={playlistStarted} setPlaylistStarted={setPlaylistStarted} />

@@ -25,6 +25,10 @@ module.exports = {
         references: { model: 'Playlists' },
         onDelete: 'CASCADE'
       },
+      index: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

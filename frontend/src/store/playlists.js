@@ -13,14 +13,14 @@ const createPlaylist = playlist => ({
     playlist
 });
 
-const readPlaylists = playlists => ({
+const readPlaylists = data => ({
     type: READ_PLAYLISTS,
-    playlists
+    data
 });
 
-const readPlaylist = playlist => ({
+const readPlaylist = data => ({
     type: READ_PLAYLIST,
-    playlist
+    data
 });
 
 const updatePlaylist = playlist => ({
@@ -73,9 +73,9 @@ export const getAllPlaylists = () => async dispatch => {
     const response = await csrfFetch("/api/playlists");
 
     if (response.ok) {
-        const playlists = await response.json();
-        dispatch(readPlaylists(playlists));
-        return playlists;
+        const data = await response.json();
+        dispatch(readPlaylists(data));
+        return data;
     }
 };
 
@@ -103,9 +103,9 @@ export const getPlaylist = id => async dispatch => {
     const response = await csrfFetch(`/api/playlists/${id}`);
 
     if(response.ok) {
-        const playlist = await response.json();
-        dispatch(readPlaylist(playlist));
-        return playlist;
+        const data = await response.json();
+        dispatch(readPlaylist(data));
+        return data;
     }
 };
 
@@ -181,12 +181,12 @@ export default function playlistsReducer(state = {}, action) {
         }
         case READ_PLAYLISTS: {
             const newState = {};
-            action.playlists.forEach(playlist => newState[playlist.id] = playlist);
+            action.data.playlists.forEach(playlist => newState[playlist.id] = {...playlist, order: [action.data.orders.filter(detail => playlist.id === detail.playlistId)]});
             return newState;
         }
         case READ_PLAYLIST: {
             const newState = {};
-            newState[action.playlist.id] = action.playlist;
+            newState[action.data.playlist.id] = {...action.data.playlist, order: [...action.data.order]};
             return newState;
         }
         case UPDATE_PLAYLIST: {

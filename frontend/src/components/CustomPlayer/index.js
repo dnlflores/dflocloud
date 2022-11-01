@@ -7,24 +7,27 @@ export default function CustomPlayer({ audioPlayer }) {
     const { nowPlaying, setNowPlaying, setIsPlaying, queue, setQueue } = useNowPlaying();
 
     const handleClickNext = () => {
-        if (!queue.size) return;
+        if (!nowPlaying) return;
 
-        const newQueue = queue;
-        console.log("this is the new queue => ", newQueue);
-        const nextSong = newQueue.removeFrom(0);
-        setQueue(newQueue);
+        // const newQueue = queue;
+        const nextSong = nowPlaying.next;
+        // newQueue.head = newQueue.head.next;
+        // setQueue(newQueue);
         setNowPlaying(nextSong);
     };
 
+
     let content;
 
-    if (!nowPlaying.title) content = (<p>Nothing Selected</p>);
+    console.log("now playing", nowPlaying)
+
+    if (!nowPlaying.element.title) content = (<p>Nothing Selected</p>);
     else content = (
         <>
-            <img className="now-playing-img" src={nowPlaying.previewImage} alt="now-playing" />
+            <img className="now-playing-img" src={nowPlaying.element.previewImage} alt="now-playing" />
             <div className="now-playing-title-artist">
-                <p>{nowPlaying.title}</p>
-                <p>{nowPlaying.Artist.username}</p>
+                <p>{nowPlaying.element.title}</p>
+                <p>{nowPlaying.element.Artist.username}</p>
             </div>
         </>
     );
@@ -34,7 +37,7 @@ export default function CustomPlayer({ audioPlayer }) {
             <AudioPlayer
                 className='custom-player'
                 layout='horizontal-reverse'
-                src={nowPlaying.songUrl}
+                src={nowPlaying.element.songUrl}
                 ref={audioPlayer}
                 showSkipControls={true}
                 showJumpControls={false}

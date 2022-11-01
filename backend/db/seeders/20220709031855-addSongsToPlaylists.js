@@ -3,6 +3,7 @@ const playlistSongs = [...Array(500)].map((playlist, idx) => (
   {
     songId: Math.floor(Math.random() * 30) + 1,
     playlistId: Math.floor(Math.random() * 50) + 1,
+    index: idx % 10,
     createdAt: new Date(),
     updatedAt: new Date()
   }
