@@ -1,4 +1,5 @@
 'use strict';
+const { faker } = require('@faker-js/faker');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -279,6 +280,186 @@ module.exports = {
         albumId: null,
         title: "Blessed",
         description: "Blessed by Daddy's music."
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/10/14/audio_84b5738b17.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 1,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/10/14/audio_9939f792cb.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 2,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/08/03/audio_54ca0ffa52.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 3,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/07/29/audio_1c5260dbf6.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 4,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/05/16/audio_db6591201e.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 5,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/05/13/audio_c490e37598.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 6,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/04/27/audio_30ff2fdf22.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 7,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/03/23/audio_07b2a04be3.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 8,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/03/21/audio_50da5d4db6.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 9,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/03/07/audio_79bd0ad83e.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 10,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/02/15/audio_1e79dbf2b9.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 1,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/02/10/audio_fc48af67b2.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 2,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/01/31/audio_0f2416122a.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 3,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/01/21/audio_31743c58bd.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 4,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2022/01/20/audio_743615ade2.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 5,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2021/12/16/audio_232a4bdedf.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 6,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2021/12/16/audio_e13e329328.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 7,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2021/12/16/audio_e7d0534280.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 8,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2021/12/13/audio_b9c0dc9e48.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 9,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
+      },
+      {
+        songUrl: "https://cdn.pixabay.com/audio/2021/12/07/audio_bfabd7c12a.mp3",
+        timesPlayed: Math.floor(Math.random() * 1000),
+        previewImage: faker.image.abstract(500, 500, true),
+        userId: 10,
+        albumId: null,
+        title: faker.music.songName(),
+        description: faker.lorem.sentences(3)
       }
      ], {})
   },
