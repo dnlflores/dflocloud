@@ -108,6 +108,11 @@
     z-index: 1000;
 }
 
+.landing-nav img {
+    width: 100px;
+    height: 100px;
+}
+
 .landing-nav-btns {
     width: 15rem;
 }

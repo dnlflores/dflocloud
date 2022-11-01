@@ -8,6 +8,7 @@ import SignUpFormModal from '../SignUpFormModal';
 import Slider from '../Slider';
 import SongBox from '../Songs/SongBox';
 import SearchBar from '../SearchBar';
+import logo from '../../assets/logo/logo3.png'
 import './Landing.css';
 
 export default function LandingPage({ setIsLoaded, audioPlayer, results, setResults }) {
@@ -32,7 +33,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer, results, setResu
         <>
             <div className="flx-ctr flx-col page-container">
                 <div className="flx-ctr flx-jst-spc-btwn landing-nav">
-                    <h2 onClick={() => history.push("/")}>DFloCloud</h2>
+                    <img src={logo} alt="logo" />
                     <div className="flx-jst-spc-arnd landing-nav-btns">
                         <LoginFormModal styling="wht" />
                         <SignUpFormModal />

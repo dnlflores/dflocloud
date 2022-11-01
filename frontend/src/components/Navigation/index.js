@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import SearchBar from '../SearchBar';
+import logo from '../../assets/logo/logo4.png';
 import './Navigation.css';
 
 function Navigation({ isLoaded, results, setResults }) {
@@ -39,7 +40,7 @@ function Navigation({ isLoaded, results, setResults }) {
             <nav className="flx-ctr flx-col nav-bar" style={{ position: "fixed" }}>
                 <div className="flx-ctr flx-jst-spc-btwn nav-container">
                     <div className="nav-left">
-                        <NavLink to='/' className="nav-logo flx-ctr">DFLOCLOUD</NavLink>
+                        <NavLink to='/' className="nav-logo flx-ctr"><img src={logo} alt="logo" /></NavLink>
                         <NavLink to='/discover' className="nav flx-ctr" activeClassName="nav-active">Home</NavLink>
                         <NavLink to='/library' className="nav flx-ctr" activeClassName="nav-active">Library</NavLink>
                     </div>

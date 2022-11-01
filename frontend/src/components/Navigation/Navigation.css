@@ -30,6 +30,11 @@
     cursor: pointer;
 }
 
+.nav-logo img {
+    width: 100px;
+    height: 100px;
+}
+
 .nav {
     height: inherit;
     width: 7rem;
