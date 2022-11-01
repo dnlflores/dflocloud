@@ -2,8 +2,8 @@
 const songIDs = [];
 const playlistIDs = [];
 
-while(songIDs.length < 30){
-    const r = Math.floor(Math.random() * 30) + 1;
+while(songIDs.length < 50){
+    const r = Math.floor(Math.random() * 50) + 1;
     if(songIDs.indexOf(r) === -1) songIDs.push(r);
 }
 
@@ -15,7 +15,7 @@ while(playlistIDs.length < 50){
 const playlistSongs = [...Array(500)].map((playlist, idx) => {
 
   return {
-    songId: songIDs[idx % 30],
+    songId: songIDs[idx % 50],
     playlistId: playlistIDs[idx % 50],
     index: idx % 10,
     createdAt: new Date(),
