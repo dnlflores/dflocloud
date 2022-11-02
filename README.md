@@ -9,7 +9,7 @@ This application uses AWS S3 Buckets to store music and image files. You will ne
 
 ## 1. Backend
 
-To get the backend setup, you will need to set up the correct environment variables. You can find an example of the variables you will need in the `.envexample` file. *Change your directory to the **backend** folder.*  Create a file named `.env` and copy the variables from the `.envexample`. Once that is complete, you can run the command `npm install` and `npm install -D` to download the necessary dependencies. To create the database tables and seeders run the command `npm run db:setup`. Once that is done you can start the backend server by running the command `npm start`/
+To get the backend setup, you will need to set up the correct environment variables. You can find an example of the variables you will need in the `.envexample` file. *Change your directory to the **backend** folder.*  Create a file named `.env` and copy the variables from the `.envexample`. Once that is complete, you can run the command `npm install` and `npm install -D` to download the necessary dependencies. To create the database tables and seeders run the command `npm run db:setup`. Once that is done you can start the backend server by running the command `npm start`.
 
 ## 2. Frontend
 
