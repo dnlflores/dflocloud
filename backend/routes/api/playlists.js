@@ -111,9 +111,12 @@ router.post('/:id', requireAuth, asyncHandler(async (req, res) => {
         return res.json({ message: "Song is already in the playlist", statusCode: 403 });
     }
 
+    const playlistIndex = await PlaylistSong.max('index', { where: { playlistId } });
+
     const addSong = await PlaylistSong.create({
         songId,
-        playlistId
+        playlistId,
+        index: playlistIndex + 1
     });
 
     return res.json({ id: addSong.id, songId, playlistId, song });
