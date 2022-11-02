@@ -28,7 +28,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 // Get playlists by the current user
 router.get('/me', requireAuth, asyncHandler(async (req, res) => {
-    const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.user.id } }, include: [{ model: Song, include: [{ model: User, as: 'Artist' }] }, User] })
+    const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.user.id } }, include: [{ model: Song, include: [{ model: User, as: 'Artist' }] }, User] });
 
     const playlistsOrders = await PlaylistSong.scope('order').findAll({ order: [['index', 'ASC']] });
 

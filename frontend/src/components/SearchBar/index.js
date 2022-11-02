@@ -8,7 +8,7 @@ export default function SearchBar({ results, setResults }) {
     const [search, setSearch] = useState('');
     const [showResults, setShowResults] = useState(false);
     const srchBtn = useRef();
-    const orderedResults = [...Object.values(results.playlists || {}), ...Object.values(results.songs || {})].sort((a, b) => a.timesPlayed - b.timesPlayed);
+    const orderedResults = [...Object.values(results.playlists?.matchedPlaylists || {}), ...Object.values(results.songs || {})].sort((a, b) => a.timesPlayed - b.timesPlayed);
 
     useDebounce(() => {
         if (search !== '') fetch(`/api/search?term=${search}`).then(res => res.json().then(data => setResults(data)));

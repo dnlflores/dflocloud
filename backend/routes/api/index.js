@@ -7,7 +7,7 @@ const commentsRouter = require('./comments.js');
 const albumsRouter = require('./albums.js');
 const playlistsRouter = require('./playlists.js')
 const { restoreUser } = require('../../utils/auth.js');
-const { Song, Playlist, User } = require('../../db/models');
+const { Song, Playlist, User, PlaylistSong } = require('../../db/models');
 const { Op } = require('sequelize');
 
 router.use(restoreUser);
@@ -28,80 +28,85 @@ router.get('/search', asyncHandler(async (req, res) => {
     const { term } = req.query;
 
     const matchedSongs = process.env.NODE_ENV === 'production' ?
-    
-    await Song.findAll({
-        where: {
-            [Op.or]: [
-                {
-                    title: {
-                        [Op.iLike]: `%${term}%`
+
+        await Song.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        title: {
+                            [Op.iLike]: `%${term}%`
+                        }
+                    },
+                    {
+                        description: {
+                            [Op.iLike]: `%${term}%`
+                        }
                     }
-                },
-                {
-                    description: {
-                        [Op.iLike]: `%${term}%`
+                ]
+            },
+            include: [{ model: User, as: 'Artist' }]
+        }) :
+        await Song.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        title: {
+                            [Op.substring]: term
+                        }
+                    },
+                    {
+                        description: {
+                            [Op.substring]: term
+                        }
                     }
-                }
-            ]
-        },
-        include: [{model: User, as: 'Artist'}]
-    }) :
-    await Song.findAll({
-        where: {
-            [Op.or]: [
-                {
-                    title: {
-                        [Op.substring]: term
-                    }
-                },
-                {
-                    description: {
-                        [Op.substring]: term
-                    }
-                }
-            ]
-        },
-        include: [{model: User, as: 'Artist'}]
-    });
+                ]
+            },
+            include: [{ model: User, as: 'Artist' }]
+        });
 
     const matchedPlaylists = process.env.NODE_ENV === 'production' ?
-    
-    await Playlist.findAll({
-        where: {
-            [Op.or]: [
-                {
-                    name: {
-                        [Op.iLike]: `%${term}%`
-                    }
-                },
-                {
-                    description: {
-                        [Op.iLike]: `%${term}%`
-                    }
-                }
-            ]
-        },
-        include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
-    }) :
-    await Playlist.findAll({
-        where: {
-            [Op.or]: [
-                {
-                    name: {
-                        [Op.substring]: term
-                    }
-                },
-                {
-                    description: {
-                        [Op.substring]: term
-                    }
-                }
-            ]
-        },
-        include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
-    });
 
-    return res.json({ songs: matchedSongs, playlists: matchedPlaylists });
+        await Playlist.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        name: {
+                            [Op.iLike]: `%${term}%`
+                        }
+                    },
+                    {
+                        description: {
+                            [Op.iLike]: `%${term}%`
+                        }
+                    }
+                ]
+            },
+            include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
+        }) :
+        await Playlist.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        name: {
+                            [Op.substring]: term
+                        }
+                    },
+                    {
+                        description: {
+                            [Op.substring]: term
+                        }
+                    }
+                ]
+            },
+            include: [{ model: Song, include: { model: User, as: 'Artist' } }, User]
+        });
+
+    let playlistOrder = [];
+    if (matchedPlaylists.length) {
+        playlistOrder = await PlaylistSong.scope('order').findAll({ order: [['index', 'ASC']] });
+    }
+
+    return res.json({ songs: matchedSongs, playlists: { matchedPlaylists, order: playlistOrder } });
 }))
 
 module.exports = router;
