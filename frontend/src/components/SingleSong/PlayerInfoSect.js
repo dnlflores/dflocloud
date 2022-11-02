@@ -1,22 +1,30 @@
 import { useDispatch } from "react-redux";
 import { useNowPlaying } from "../../context/NowPlayingContext";
+import LinkedList from "../../helpers/LinkedList";
 import { songPlayed } from "../../store/songs";
 
 export default function PlayerInfoSect({ song, audioPlayer }) {
     const dispatch = useDispatch();
-    const { nowPlaying, setNowPlaying, isPlaying, queue } = useNowPlaying();
+    const { nowPlaying, setNowPlaying, isPlaying, queue, setQueue } = useNowPlaying();
 
     const handleClick = (e) => {
         e.stopPropagation();
 
         let current = queue.head;
+        console.log("this is current => ", current);
         while (current !== null) {
             if (current.element.id === song.id) break;
 
             current = current.next;
         }
 
-        if (nowPlaying.element.id !== song.id) {
+        if (current === null){
+            const newQueue = new LinkedList();
+            newQueue.add(song);
+            setNowPlaying(newQueue.head);
+            dispatch(songPlayed(song));
+            setQueue(newQueue)
+        } else if (nowPlaying.element.id !== song.id) {
             setNowPlaying(current);
             dispatch(songPlayed(song));
         } else {

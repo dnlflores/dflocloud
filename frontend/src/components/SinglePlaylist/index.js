@@ -14,7 +14,7 @@ export default function SinglePlaylist({ audioPlayer }) {
     const { playlistId } = useParams();
     const playlist = useSelector(state => state.playlists[playlistId]);
     const currentUser = useSelector(state => state.session.user);
-    const [playlistStarted, setPlaylistStarted] = useState(false);
+    const [playlistStarted, setPlaylistStarted] = useState("");
     const { nowPlaying } = useNowPlaying();
 
     useEffect(() => {
@@ -23,11 +23,11 @@ export default function SinglePlaylist({ audioPlayer }) {
 
     useEffect(() => {
         if (playlist) orderSongs();
-        if (nowPlaying.element.id) setPlaylistStarted(true);
+        if (nowPlaying.element.id) setPlaylistStarted(playlistId);
     }, [playlist])
 
     const handleRemovePlaylist = async () => {
-        await dispatch(removePlaylist(playlist.id));
+        await dispatch(removePlaylist(playlistId));
         history.push('/discover');
     };
 

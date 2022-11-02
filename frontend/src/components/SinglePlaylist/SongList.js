@@ -28,7 +28,7 @@ export default function SongList({ audioPlayer, setPlaylistStarted, playlist, so
         const newQueue = new LinkedList();
         playlist.Songs.forEach(song => newQueue.add(song));
         setQueue(newQueue);
-        setPlaylistStarted(true);
+        setPlaylistStarted(playlist.id);
         
         let current = newQueue.head;
         let count = 0;
@@ -50,7 +50,7 @@ export default function SongList({ audioPlayer, setPlaylistStarted, playlist, so
     const handleRemove = async (e, song) => {
         e.stopPropagation();
         if (song.id === nowPlaying.element.id) {
-            setPlaylistStarted(false);
+            setPlaylistStarted("");
             setIsPlaying(false);
             setNowPlaying(new Node({}));
         }

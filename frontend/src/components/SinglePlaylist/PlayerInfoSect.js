@@ -10,13 +10,13 @@ export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted,
 
     const handleClick = (e) => {
         e.stopPropagation();
-        if (!playlistStarted) {
+        if (playlistStarted !== playlist.id) {
             const newQueue = new LinkedList();
             playlist.Songs.forEach(song => newQueue.add(song));
             setQueue(newQueue);
             setNowPlaying(newQueue.head);
             dispatch(songPlayed(playlist.Songs[0]));
-            setPlaylistStarted(true)
+            setPlaylistStarted(playlist.id)
         } else {
             audioPlayer.current.togglePlay(e);
         }
@@ -29,11 +29,11 @@ export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted,
             <div className="flx-ctr play-song">
                 <span className="material-symbols-outlined play-btn flx-ctr" onClick={handleClick}>{isPlaying ? playlist.Songs.find(song => nowPlaying.element.id === song.id) ? "pause_circle" : "play_circle" : "play_circle"}</span>
                 <div className="flx-ctr flx-col song-text">
-                    <h2>{playlistStarted ? nowPlaying.element.title : playlist.name}</h2>
-                    <h2>{playlistStarted ? nowPlaying.element.Artist.username : playlist.User.username}</h2>
+                    <h2>{playlistStarted === playlist.id ? nowPlaying.element.title : playlist.name}</h2>
+                    <h2>{playlistStarted === playlist.id ? nowPlaying.element.Artist.username : playlist.User.username}</h2>
                 </div>
             </div>
-            <img src={playlistStarted ? nowPlaying.element.previewImage : playlist.previewImage} alt={nowPlaying ? nowPlaying.element.title : playlist.name} />
+            <img src={playlistStarted === playlist.id ? nowPlaying.element.previewImage : playlist.previewImage} alt={nowPlaying ? nowPlaying.element.title : playlist.name} />
         </div>
     )
 }
