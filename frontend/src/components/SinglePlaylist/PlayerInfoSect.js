@@ -33,7 +33,7 @@ export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted,
                     <h2>{playlistStarted ? nowPlaying.element.Artist.username : playlist.User.username}</h2>
                 </div>
             </div>
-            <img src={playlistStarted ? nowPlaying.element.previewImage : playlist.Songs[0].previewImage} alt={nowPlaying ? nowPlaying.element.title : playlist.Songs[0].title} />
+            <img src={playlistStarted ? nowPlaying.element.previewImage : playlist.previewImage} alt={nowPlaying ? nowPlaying.element.title : playlist.name} />
         </div>
     )
 }

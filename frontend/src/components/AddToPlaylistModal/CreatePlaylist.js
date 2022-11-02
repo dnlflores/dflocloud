@@ -13,7 +13,7 @@ export default function CreatePlaylist({ song, setTrigger, setSelected }) {
     const handleCreate = async () => {
         const data = {
             name: title,
-            description: `This is playlist created with the song ${song.title}`,
+            description: `This is ${title} created with the song ${song.title}`,
             url: song.previewImage
         }
         const createdPlaylist = await dispatch(buildPlaylist(data));

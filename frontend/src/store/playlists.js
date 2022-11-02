@@ -51,7 +51,7 @@ export const buildPlaylist = data => async dispatch => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
-    if(image) formData.append("image", image);
+    if (image) formData.append("image", image);
     else formData.append("imageUrl", url);
 
     const response = await csrfFetch(`/api/playlists/`, {
@@ -62,7 +62,7 @@ export const buildPlaylist = data => async dispatch => {
         body: formData,
     });
 
-    if(response.ok) {
+    if (response.ok) {
         const playlist = await response.json();
         dispatch(createPlaylist(playlist));
         return playlist;
@@ -82,7 +82,7 @@ export const getAllPlaylists = () => async dispatch => {
 export const getUserPlaylists = (userId) => async dispatch => {
     const response = await csrfFetch(`/api/users/${userId}/playlists`);
 
-    if(response.ok) {
+    if (response.ok) {
         const playlists = await response.json();
         dispatch(readPlaylists(playlists));
         return playlists;
@@ -92,7 +92,7 @@ export const getUserPlaylists = (userId) => async dispatch => {
 export const getMyPlaylists = () => async dispatch => {
     const response = await csrfFetch("/api/playlists/me");
 
-    if(response.ok) {
+    if (response.ok) {
         const playlists = await response.json();
         dispatch(readPlaylists(playlists));
         return playlists;
@@ -102,7 +102,7 @@ export const getMyPlaylists = () => async dispatch => {
 export const getPlaylist = id => async dispatch => {
     const response = await csrfFetch(`/api/playlists/${id}`);
 
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
         dispatch(readPlaylist(data));
         return data;
@@ -127,7 +127,7 @@ export const editPlaylist = (data, id) => async dispatch => {
         body: formData,
     });
 
-    if(response.ok) {
+    if (response.ok) {
         const playlist = await response.json();
         dispatch(updatePlaylist(playlist));
         return playlist;
@@ -139,7 +139,7 @@ export const removePlaylist = id => async dispatch => {
         method: "DELETE"
     });
 
-    if(response.ok) {
+    if (response.ok) {
         dispatch(deletePlaylist(id));
     }
 };
@@ -147,11 +147,11 @@ export const removePlaylist = id => async dispatch => {
 export const addSongToPlaylist = (songId, playlistId) => async dispatch => {
     const response = await csrfFetch(`/api/playlists/${playlistId}`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ songId })
     });
 
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
         dispatch(addToPlaylist(data.playlistId, data.song))
         return data;
@@ -161,11 +161,11 @@ export const addSongToPlaylist = (songId, playlistId) => async dispatch => {
 export const removeSongFromPlaylist = (songId, playlistId) => async dispatch => {
     const response = await csrfFetch(`/api/playlists/${playlistId}/song`, {
         method: "DELETE",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ songId })
     });
 
-    if(response.ok) {
+    if (response.ok) {
         const data = await response.json();
         dispatch(removeFromPlaylist(playlistId, songId))
         return data;
@@ -173,44 +173,51 @@ export const removeSongFromPlaylist = (songId, playlistId) => async dispatch => 
 };
 
 export default function playlistsReducer(state = {}, action) {
-    switch(action.type) {
+    switch (action.type) {
         case CREATE_PLAYLIST: {
-            const newState = {...state};
+            const newState = { ...state };
             newState[action.playlist.id] = action.playlist;
             return newState;
         }
         case READ_PLAYLISTS: {
             const newState = {};
-            action.data.playlists.forEach(playlist => newState[playlist.id] = {...playlist, order: [...action.data.orders.filter(detail => playlist.id === detail.playlistId)]});
+            action.data.playlists.forEach(playlist => newState[playlist.id] = { ...playlist, order: [...action.data.orders.filter(detail => playlist.id === detail.playlistId)] });
             return newState;
         }
         case READ_PLAYLIST: {
             const newState = {};
-            newState[action.data.playlist.id] = {...action.data.playlist, order: [...action.data.order]};
+            newState[action.data.playlist.id] = { ...action.data.playlist, order: [...action.data.order] };
             return newState;
         }
         case UPDATE_PLAYLIST: {
-            const newState = {...state};
-            newState[action.playlist.id] = {...newState[action.playlist.id], ...action.playlist};
+            const newState = { ...state };
+            newState[action.playlist.id] = { ...newState[action.playlist.id], ...action.playlist };
             return newState;
         }
         case DELETE_PLAYLIST: {
-            const newState = {...state};
+            const newState = { ...state };
             delete newState[action.playlistId]
             return newState
         }
         case ADD_TO_PLAYLIST: {
-            const newState = {...state};
+            const newState = { ...state };
             newState[action.playlistId].Songs.push(action.song);
+            let index = -1;
+            if (newState[action.playlistId].order) {
+                newState[action.playlistId].order.forEach(playlistSong => (playlistSong.index > index) ? index = playlistSong.index : '');
+                newState[action.playlistId] = { ...newState[action.playlistId], order: [...newState[action.playlistId].order, { playlistId: action.playlistId, songId: action.song.id, index }] };
+            } else {
+                newState[action.playlistId] = { ...newState[action.playlistId], order: [ { playlistId: action.playlistId, songId: action.song.id, index: 0 }] };
+            }
             return newState;
         }
         case REMOVE_FROM_PLAYLIST: {
             const newState = JSON.parse(JSON.stringify(state));
             const songs = newState[action.playlistId].Songs;
             const newSongs = [];
-            for(let i = 0; i < songs.length; i++) {
+            for (let i = 0; i < songs.length; i++) {
                 const song = songs[i];
-                if(song.id !== +action.songId) newSongs.push(song);
+                if (song.id !== +action.songId) newSongs.push(song);
             }
             newState[action.playlistId].Songs = newSongs;
             return newState;

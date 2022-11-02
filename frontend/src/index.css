@@ -115,7 +115,7 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    max-width: 50%;
+    max-width: 1075px;
 }
 
 .page-description p {
