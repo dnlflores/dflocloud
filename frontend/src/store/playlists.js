@@ -181,7 +181,7 @@ export default function playlistsReducer(state = {}, action) {
         }
         case READ_PLAYLISTS: {
             const newState = {};
-            action.data.playlists.forEach(playlist => newState[playlist.id] = {...playlist, order: [action.data.orders.filter(detail => playlist.id === detail.playlistId)]});
+            action.data.playlists.forEach(playlist => newState[playlist.id] = {...playlist, order: [...action.data.orders.filter(detail => playlist.id === detail.playlistId)]});
             return newState;
         }
         case READ_PLAYLIST: {

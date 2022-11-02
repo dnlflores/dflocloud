@@ -1,27 +1,28 @@
 'use strict';
 const songIDs = [];
-const playlistIDs = [];
+const playlistSongs = [];
 
-while(songIDs.length < 50){
-    const r = Math.floor(Math.random() * 50) + 1;
-    if(songIDs.indexOf(r) === -1) songIDs.push(r);
-}
-
-while(playlistIDs.length < 50){
+while (songIDs.length < 50) {
   const r = Math.floor(Math.random() * 50) + 1;
-  if(playlistIDs.indexOf(r) === -1) playlistIDs.push(r);
+  if (songIDs.indexOf(r) === -1) songIDs.push(r);
 }
 
-const playlistSongs = [...Array(500)].map((playlist, idx) => {
+let count = 0;
+let pID = 1;
+for (let i = 0; i < 500; i++) {
+  if (count === 10) count = 0;
+  count++;
 
-  return {
-    songId: songIDs[idx % 50],
-    playlistId: playlistIDs[idx % 50],
-    index: idx % 10,
+  const data = {
+    songId: songIDs[i % 50],
+    playlistId: ((count === 10 ? ++pID : pID) % 50) + 1,
+    index: count,
     createdAt: new Date(),
     updatedAt: new Date()
   }
-});
+
+  playlistSongs.push(data);
+}
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {

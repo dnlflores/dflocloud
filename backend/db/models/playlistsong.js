@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
           attributes: { exclude: ['createdAt', 'updatedAt'] }
         },
         order: {
-          attributes: { exclude: ['songId', 'createdAt', 'updatedAt', 'id']}
+          attributes: { exclude: ['createdAt', 'updatedAt', 'id']}
         }
       }
     }

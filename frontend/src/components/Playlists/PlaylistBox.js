@@ -8,10 +8,11 @@ export default function PlaylistBox({ playlist, audioPlayer }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { nowPlaying, setNowPlaying, isPlaying, setQueue } = useNowPlaying();
-    const firstSong = playlist.Songs[0];
+    const firstSong = playlist.Songs.find(song => song.id === playlist.order[0].songId);
 
     const handleClick = (e) => {
         e.stopPropagation();
+        console.log("first song", firstSong)
         if (nowPlaying.element.id !== firstSong.id) {
             const newQueue = new LinkedList();
             playlist.Songs.forEach(song => newQueue.add(song));
@@ -23,7 +24,7 @@ export default function PlaylistBox({ playlist, audioPlayer }) {
         }
     };
 
-    console.log("here is the playlist => ", playlist);
+    console.log(playlist)
 
     return (
         <div className="flx-col ind-song">

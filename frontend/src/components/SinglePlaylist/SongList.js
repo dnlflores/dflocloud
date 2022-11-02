@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { songPlayed } from "../../store/songs";
 import { removeSongFromPlaylist } from "../../store/playlists";
 import { useNowPlaying } from "../../context/NowPlayingContext"
 import LinkedList, { Node } from '../../helpers/LinkedList';
 
-export default function SongList({ songs, audioPlayer, setPlaylistStarted, playlist }) {
+export default function SongList({ audioPlayer, setPlaylistStarted, playlist }) {
     const dispatch = useDispatch();
     const { nowPlaying, setNowPlaying, queue, setQueue, setIsPlaying, isPlaying } = useNowPlaying();
     const currentUser = useSelector(state => state.session.user);
@@ -21,13 +20,13 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
 
     useEffect(() => {
         if (!isPlaying) audioPlayer.current.audio.current.pause();
-    }, [isPlaying])
+    }, [isPlaying, playlist])
 
     const handleClick = (e, song, songIndex) => {
         e.stopPropagation();
         // const tempQueue = songs.slice(songIndex + 1);
         const newQueue = new LinkedList();
-        songs.forEach(song => newQueue.add(song));
+        playlist.Songs.forEach(song => newQueue.add(song));
         console.log("here is the new queue => ", newQueue);
         setQueue(newQueue);
         setPlaylistStarted(true);
@@ -61,12 +60,14 @@ export default function SongList({ songs, audioPlayer, setPlaylistStarted, playl
         await dispatch(removeSongFromPlaylist(song.id, playlist.id));
     };
 
+    console.log("here is the playlist from the songs list => ", playlist)
+
     return (
         <div className="flx-ctr flx-col plylst-page-songs">
             <div className="page-description">
                 <p style={{ color: 'black' }}>{playlist.description}</p>
             </div>
-            {songs.map((song, idx) => (
+            {playlist.Songs.map((song, idx) => (
                 <div className={isPlaying ? nowPlaying.element.id === song.id ? "plylst-song-slice playing" : "plylst-song-slice" : "plylst-song-slice"} key={song.id} onClick={e => handleClick(e, song, idx)}>
                     <div className="flx-ctr">
                         <img src={song.previewImage} alt={song.title} />

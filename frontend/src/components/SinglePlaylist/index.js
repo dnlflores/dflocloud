@@ -19,9 +19,25 @@ export default function SinglePlaylist({ audioPlayer }) {
         dispatch(getPlaylist(playlistId));
     }, [dispatch, playlistId]);
 
+    useEffect(() => {
+        if (playlist) orderSongs();
+    }, [playlist])
+
     const handleRemovePlaylist = async () => {
         await dispatch(removePlaylist(playlist.id));
         history.push('/discover');
+    };
+
+    const orderSongs = () => {
+        const order = [];
+        playlist.order.sort((a, b) => a.index - b.index);
+
+        playlist.order.forEach(playlistSong => {
+            const found = playlist.Songs.find(song => song.id === playlistSong.songId);
+            if (found) order.push(found);
+        });
+
+        playlist.Songs = order;
     };
 
     if (!playlist) return null;
@@ -44,7 +60,7 @@ export default function SinglePlaylist({ audioPlayer }) {
                     <img className="song-artist-pic" src={playlist.User.profilePicUrl} alt="user" />
                     <p>{playlist.User.username}</p>
                 </div>
-                <SongList songs={playlist.Songs} audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} playlist={playlist} />
+                <SongList audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} playlist={playlist} />
             </div>
         </div>
     )
