@@ -12,12 +12,14 @@ export default function Library({ audioPlayer }) {
     const dispatch = useDispatch();
     const mySongs = useSelector(state => state.songs.allSongs);
     const myPlaylists = useSelector(state => state.playlists);
-    const { page } = useParams();
+    const currentUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(getMySongs());
         dispatch(getMyPlaylists());
     }, [dispatch])
+
+    if (!currentUser) return <Redirect to="/" />
 
     if (!window.location.href.split('/')[4]) return <Redirect to="/library/me" />
 
