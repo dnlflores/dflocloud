@@ -21,7 +21,7 @@ class LinkedList {
         if (this.tail) {
             // list is not empty
             this.tail.next = newNode;
-            newNode.previous = this.tail;
+            newNode.prev = this.tail;
             this.tail = newNode;
             return newNode;
         }

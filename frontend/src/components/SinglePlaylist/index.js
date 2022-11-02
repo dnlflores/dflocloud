@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import { getPlaylist, removePlaylist } from '../../store/playlists';
+import { useNowPlaying } from '../../context/NowPlayingContext';
 import PlayerInfoSect from './PlayerInfoSect';
 import EditPlaylistModal from '../EditPlaylistModal';
 import SongList from './SongList';
@@ -14,6 +15,7 @@ export default function SinglePlaylist({ audioPlayer }) {
     const playlist = useSelector(state => state.playlists[playlistId]);
     const currentUser = useSelector(state => state.session.user);
     const [playlistStarted, setPlaylistStarted] = useState(false);
+    const { nowPlaying } = useNowPlaying();
 
     useEffect(() => {
         dispatch(getPlaylist(playlistId));
@@ -21,6 +23,7 @@ export default function SinglePlaylist({ audioPlayer }) {
 
     useEffect(() => {
         if (playlist) orderSongs();
+        if (nowPlaying.element.id) setPlaylistStarted(true);
     }, [playlist])
 
     const handleRemovePlaylist = async () => {
@@ -38,11 +41,10 @@ export default function SinglePlaylist({ audioPlayer }) {
         });
 
         playlist.Songs = order;
+        return order;
     };
 
     if (!playlist) return null;
-
-    console.log("this is the playlist from redux on single page => ", playlist);
 
     return (
         <div className="single-page">
@@ -60,7 +62,7 @@ export default function SinglePlaylist({ audioPlayer }) {
                     <img className="song-artist-pic" src={playlist.User.profilePicUrl} alt="user" />
                     <p>{playlist.User.username}</p>
                 </div>
-                <SongList audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} playlist={playlist} />
+                <SongList audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} playlist={playlist} songs={orderSongs()} />
             </div>
         </div>
     )

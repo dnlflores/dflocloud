@@ -7,19 +7,18 @@ export default function CustomPlayer({ audioPlayer }) {
     const { nowPlaying, setNowPlaying, setIsPlaying, queue, setQueue } = useNowPlaying();
 
     const handleClickNext = () => {
-        if (!nowPlaying) return;
-
-        // const newQueue = queue;
+        if (!nowPlaying.next) return;
         const nextSong = nowPlaying.next;
-        // newQueue.head = newQueue.head.next;
-        // setQueue(newQueue);
+        setNowPlaying(nextSong);
+    };
+    
+    const handleClickPrev = () => {
+        if (!nowPlaying.prev) return;
+        const nextSong = nowPlaying.prev;
         setNowPlaying(nextSong);
     };
 
-
     let content;
-
-    console.log("now playing", nowPlaying)
 
     if (!nowPlaying.element.title) content = (<p>Nothing Selected</p>);
     else content = (
@@ -44,6 +43,7 @@ export default function CustomPlayer({ audioPlayer }) {
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
                 onClickNext={handleClickNext}
+                onClickPrevious={handleClickPrev}
                 onEnded={handleClickNext}
                 autoPlayAfterSrcChange
                 customControlsSection={

@@ -23,8 +23,6 @@ router.get('/', asyncHandler(async (req, res) => {
 
     const playlistsOrders = await PlaylistSong.scope('order').findAll({ order: [['index', 'ASC']] });
 
-    console.log("here are the orders =======> ", playlistsOrders)
-
     return res.json({ playlists, orders: playlistsOrders });
 }))
 
@@ -32,7 +30,9 @@ router.get('/', asyncHandler(async (req, res) => {
 router.get('/me', requireAuth, asyncHandler(async (req, res) => {
     const playlists = await Playlist.findAll({ where: { userId: { [Op.eq]: req.user.id } }, include: [{ model: Song, include: [{ model: User, as: 'Artist' }] }, User] })
 
-    return res.json(playlists);
+    const playlistsOrders = await PlaylistSong.scope('order').findAll({ order: [['index', 'ASC']] });
+
+    return res.json({ playlists, orders: playlistsOrders });
 }));
 
 // Get specified playlist

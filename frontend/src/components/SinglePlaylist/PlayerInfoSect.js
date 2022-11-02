@@ -7,25 +7,13 @@ import { songPlayed } from "../../store/songs";
 export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted, setPlaylistStarted }) {
     const dispatch = useDispatch();
     const { nowPlaying, setNowPlaying, isPlaying, setQueue } = useNowPlaying();
-    const [currentSongIdx, setCurrentSongIdx] = useState(0)
-
-    useEffect(() => {
-        playlist.Songs.find((song, idx) => {
-            if (song.id === nowPlaying.element.id) {
-                setCurrentSongIdx(idx);
-                return true;
-            }
-            return false;
-        })
-    }, [nowPlaying])
 
     const handleClick = (e) => {
         e.stopPropagation();
-        // const tempQueue = playlist.Songs.slice(currentSongIdx + 1);
-        const newQueue = new LinkedList();
-        playlist.Songs.forEach(song => newQueue.add(song));
-        setQueue(newQueue);
         if (!playlistStarted) {
+            const newQueue = new LinkedList();
+            playlist.Songs.forEach(song => newQueue.add(song));
+            setQueue(newQueue);
             setNowPlaying(newQueue.head);
             dispatch(songPlayed(playlist.Songs[0]));
             setPlaylistStarted(true)

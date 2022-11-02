@@ -12,7 +12,7 @@ export default function PlaylistBox({ playlist, audioPlayer }) {
 
     const handleClick = (e) => {
         e.stopPropagation();
-        console.log("first song", firstSong)
+        
         if (nowPlaying.element.id !== firstSong.id) {
             const newQueue = new LinkedList();
             playlist.Songs.forEach(song => newQueue.add(song));
@@ -23,8 +23,6 @@ export default function PlaylistBox({ playlist, audioPlayer }) {
             audioPlayer.current.togglePlay(e);
         }
     };
-
-    console.log(playlist)
 
     return (
         <div className="flx-col ind-song">
