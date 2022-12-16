@@ -11,7 +11,6 @@ export default function PlayerInfoSect({ song, audioPlayer }) {
         e.stopPropagation();
 
         let current = queue.head;
-        console.log("this is current => ", current);
         while (current !== null) {
             if (current.element.id === song.id) break;
 
