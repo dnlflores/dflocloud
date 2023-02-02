@@ -1,5 +1,5 @@
 .trending-container {
-    height: 40rem;
+    height: 45rem;
     width: inherit;
     justify-content: flex-start;
 }
@@ -57,7 +57,7 @@
 }
 
 .explore-playlists-button {
-    height: 2rem;
+    height: 20rem;
     width: 15rem;
     position: relative;
     top: 3rem;

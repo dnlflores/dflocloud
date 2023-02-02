@@ -43,7 +43,7 @@ export default function LandingPage({ setIsLoaded, audioPlayer, results, setResu
                 </div>
                 <Slider />
                 <div className="flx-ctr flx-col trending-container">
-                    <SearchBar results={results} setResults={setResults} />
+                    <SearchBar results={results} setResults={setResults} styling={{ fontSize: "18px" }} />
                     <div className="music-container flx-col flx-ctr">
                         <h2 className="trending-title">Here's What's Trending!</h2>
                         <div className="flx-ctr flx-wrp song-wrapper">
