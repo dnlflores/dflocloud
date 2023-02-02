@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignUpForm.css';
 
-function SignupForm() {
+function SignupForm({ setShowModal, setShowLogin}) {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState("");
@@ -51,14 +51,18 @@ function SignupForm() {
         if (file) setProfilePicture(file);
     };
 
+    const handleSwitch = () => {
+        setShowLogin(true)
+        setShowModal(false)
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="login-signup-form flx-ctr flx-col">
-            <h2>Sign Up!</h2>
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+        <form onSubmit={handleSubmit} className="signup-form flx-ctr flx-col">
+            <h2>Welcome to DFloCloud!</h2>
+            <p>Start by filling out your details below.</p>
+            {errors.map((error) => <p key={error} className="auth-errors">{error}</p>)}
             <input
-                className="input-forms"
+                className="auth-input"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -66,7 +70,7 @@ function SignupForm() {
                 placeholder="Your E-mail"
             />
             <input
-                className="input-forms"
+                className="auth-input"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -74,7 +78,7 @@ function SignupForm() {
                 placeholder="Your Username"
             />
             <input
-                className="input-forms"
+                className="auth-input"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -82,7 +86,7 @@ function SignupForm() {
                 placeholder="Your Password"
             />
             <input
-                className="input-forms"
+                className="auth-input"
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -96,15 +100,16 @@ function SignupForm() {
                 id="real-file-button"
                 hidden
             />
-            <div className="fake-file-input">
+            <div className="fake-file-input fake-auth-input">
                 <span id="file-name">No picture chosen!</span>
                 <button
-                    className="org-btn login-signup-btns fake-file-button"
+                    className="org-btn login-signup-btns fake-file-button fake-auth-button"
                     type="button"
                     onClick={handlePicture}
                 >Choose a Picture!</button>
             </div>
             <button className="org-btn login-signup-btns" type="submit">Sign Up</button>
+            <p>Have an account already? Log In <span className="auth-switch" onClick={handleSwitch}>Here</span>!</p>
         </form>
     );
 }

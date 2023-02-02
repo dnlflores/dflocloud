@@ -1,0 +1,16 @@
+.fake-auth-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.fake-auth-button {
+    width: 10rem;
+}
+
+.signup-form {
+    width: 30rem;
+    height: 35rem;
+}

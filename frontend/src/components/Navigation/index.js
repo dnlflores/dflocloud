@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -10,6 +10,8 @@ import './Navigation.css';
 
 function Navigation({ isLoaded, results, setResults }) {
     const sessionUser = useSelector(state => state.session.user);
+    const [showSignup, setShowSignup] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
 
     const sessionLinksStyle = {
         display: "flex",
@@ -29,8 +31,8 @@ function Navigation({ isLoaded, results, setResults }) {
     } else {
         sessionLinks = (
             <div style={sessionLinksStyle}>
-                <LoginFormModal />
-                <SignUpFormModal />
+                <LoginFormModal showModal={showLogin} setShowModal={setShowLogin} setShowSignup={setShowSignup} />
+                <SignUpFormModal showModal={showSignup} setShowModal={setShowSignup} setShowLogin={setShowLogin} />
             </div>
         );
     }

@@ -1,11 +1,33 @@
-.login-signup-form {
-    height: 85vh;
-    width: 30vw;
+.login-form {
+    height: 25rem;
+    width: 30rem;
 }
 
 .login-signup-btns {
     margin: .5rem;
-    width: 10rem;
+    width: 5rem;
     text-align: center;
     cursor: pointer;
+}
+
+.auth-input {
+    width: 50%;
+    height: 1.5rem;
+    font-size: 14px;
+    margin: 0.5rem;
+    border-radius: 5px;
+}
+
+.auth-buttons {
+    display: flex;
+}
+
+.auth-errors {
+    color: red;
+    font-size: 12px;
+}
+
+.auth-switch {
+    cursor: pointer;
+    color: orangered
 }
