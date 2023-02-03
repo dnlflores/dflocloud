@@ -58,11 +58,6 @@ h2.selected {
     border-bottom: solid 2px #FF5501;
 }
 
-.add-plylst-bckrnd label {
-    align-self: flex-start;
-    margin-left: 2rem;
-    font-size: 13px;
-}
 .add-plylst-bckrnd input {
     height: 20px;
     width: 90%;

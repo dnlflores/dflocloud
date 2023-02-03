@@ -96,7 +96,7 @@
     align-items: center;
 }
 
-.right-side div {
+/* .right-side div {
     margin: 1rem;
 }
 
@@ -108,7 +108,7 @@
 .right-side textarea {
     height: 10rem;
     font-size: 15px;
-}
+} */
 
 .upld-btns {
     width: 15rem;
