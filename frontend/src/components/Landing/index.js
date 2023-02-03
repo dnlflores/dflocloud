@@ -14,8 +14,10 @@ import './Landing.css';
 export default function LandingPage({ setIsLoaded, audioPlayer, results, setResults }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [showSignup, setShowSignup] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);
+    const [showSignupTop, setShowSignupTop] = useState(false);
+    const [showLoginTop, setShowLoginTop] = useState(false);
+    const [showSignupBott, setShowSignupBott] = useState(false);
+    const [showLoginBott, setShowLoginBott] = useState(false);
     const songsObj = useSelector(state => state.songs.allSongs);
     const loggedIn = useSelector(state => state.session.user);
     const songs = Object.values(songsObj).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
@@ -37,8 +39,8 @@ export default function LandingPage({ setIsLoaded, audioPlayer, results, setResu
                 <div className="flx-ctr flx-jst-spc-btwn landing-nav">
                     <img src={logo} alt="logo" />
                     <div className="flx-jst-spc-arnd landing-nav-btns">
-                        <LoginFormModal styling="wht" showModal={showLogin} setShowModal={setShowLogin} setShowSignup={setShowSignup} />
-                        <SignUpFormModal showModal={showSignup} setShowModal={setShowSignup} setShowLogin={setShowLogin} />
+                        <LoginFormModal styling="wht" showModal={showLoginTop} setShowModal={setShowLoginTop} setShowSignup={setShowSignupTop} />
+                        <SignUpFormModal showModal={showSignupTop} setShowModal={setShowSignupTop} setShowLogin={setShowLoginTop} />
                     </div>
                 </div>
                 <Slider />
@@ -65,10 +67,10 @@ export default function LandingPage({ setIsLoaded, audioPlayer, results, setResu
             <div className="flx-ctr flx-col landing-footer">
                 <h2>Thank you for listening! Now's the time to join us!</h2>
                 <h3>Save tracks, follow artists and build playlists. All for free.</h3>
-                <SignUpFormModal styling={{ height: "2rem", width: "10rem", textAlign: "center", cursor: "pointer" }} showModal={showSignup} setShowModal={setShowSignup} setShowLogin={setShowLogin} />
+                <SignUpFormModal styling={{ height: "2rem", width: "10rem", textAlign: "center", cursor: "pointer" }} showModal={showSignupBott} setShowModal={setShowSignupBott} setShowLogin={setShowLoginBott} />
                 <div className="flx-ctr">
                     <p style={{ fontSize: '12px', padding: '1rem' }}>Already have an account?</p>
-                    <LoginFormModal styling="gry" showModal={showLogin} setShowModal={setShowLogin} setShowSignup={setShowSignup} />
+                    <LoginFormModal styling="gry" showModal={showLoginBott} setShowModal={setShowLoginBott} setShowSignup={setShowSignupBott} />
                 </div>
             </div>
         </>

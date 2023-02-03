@@ -23,8 +23,10 @@
 }
 
 .auth-errors {
-    color: red;
+    color: #D32F2F;
     font-size: 12px;
+    margin: 0;
+    padding: 0;
 }
 
 .auth-switch {

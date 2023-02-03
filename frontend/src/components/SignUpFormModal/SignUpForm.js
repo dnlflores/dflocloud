@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import TextField from '@mui/material/TextField';
 import * as sessionActions from "../../store/session";
 import './SignUpForm.css';
 
-function SignupForm({ setShowModal, setShowLogin}) {
+function SignupForm({ setShowModal, setShowLogin }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState("");
@@ -12,11 +13,25 @@ function SignupForm({ setShowModal, setShowLogin}) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [profilePicture, setProfilePicture] = useState(null);
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
+    const inputStyle = {
+        width: "55%",
+        margin: ".5rem",
+        '& .MuiInputBase-input': {
+            fontSize: "14px",
+            fontFamily: "Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif"
+        },
+        '& .MuiInputLabel-root': {
+            fontSize: "14px",
+            fontFamily: "Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif"
+        },
+        '& .MuiFormHelperText-root': {
+            fontSize: "11px",
+            fontFamily: "Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif"
+        }
+    };
 
-
-
-    const handlePicture = event => {
+    const handlePicture = () => {
         const realBtn = document.getElementById('real-file-button');
         const fileName = document.getElementById('file-name');
         realBtn.click();
@@ -36,14 +51,14 @@ function SignupForm({ setShowModal, setShowLogin}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
-            setErrors([]);
+            setErrors({});
             return dispatch(sessionActions.signup({ email, username, password, profilePicture }))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
                 });
         }
-        return setErrors(['Confirm Password field must be the same as the Password field']);
+        setErrors({ conf: 'Confirm Password field must be the same as the Password field' });
     };
 
     const updateFile = (e) => {
@@ -60,8 +75,18 @@ function SignupForm({ setShowModal, setShowLogin}) {
         <form onSubmit={handleSubmit} className="signup-form flx-ctr flx-col">
             <h2>Welcome to DFloCloud!</h2>
             <p>Start by filling out your details below.</p>
-            {errors.map((error) => <p key={error} className="auth-errors">{error}</p>)}
-            <input
+            <TextField
+                required
+                label="E-mail"
+                helperText={errors.email}
+                error={errors.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                size="small"
+                sx={inputStyle}
+                color="warning"
+            />
+            {/* <input
                 className="auth-input"
                 type="text"
                 value={email}
@@ -69,7 +94,19 @@ function SignupForm({ setShowModal, setShowLogin}) {
                 required
                 placeholder="Your E-mail"
             />
-            <input
+            <p className="auth-errors">{errors.email}</p> */}
+            <TextField
+                required
+                label="Username"
+                helperText={errors.username}
+                error={errors.username}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                size="small"
+                sx={inputStyle}
+                color="warning"
+            />
+            {/* <input
                 className="auth-input"
                 type="text"
                 value={username}
@@ -77,7 +114,20 @@ function SignupForm({ setShowModal, setShowLogin}) {
                 required
                 placeholder="Your Username"
             />
-            <input
+            <p className="auth-errors">{errors.username}</p> */}
+            <TextField
+                required
+                label="Password"
+                helperText={errors.password}
+                error={errors.password}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                size="small"
+                sx={inputStyle}
+                type="password"
+                color="warning"
+            />
+            {/* <input
                 className="auth-input"
                 type="password"
                 value={password}
@@ -85,7 +135,20 @@ function SignupForm({ setShowModal, setShowLogin}) {
                 required
                 placeholder="Your Password"
             />
-            <input
+            <p className="auth-errors">{errors.password}</p> */}
+            <TextField
+                required
+                label="Confirm Password"
+                helperText={errors.conf}
+                error={errors.conf}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                size="small"
+                sx={inputStyle}
+                type="password"
+                color="warning"
+            />
+            {/* <input
                 className="auth-input"
                 type="password"
                 value={confirmPassword}
@@ -93,9 +156,10 @@ function SignupForm({ setShowModal, setShowLogin}) {
                 required
                 placeholder="Confirm Your Password"
             />
-            <input 
-                type="file" 
-                accept="image/jpeg, image/png" 
+            <p className="auth-errors">{errors.conf}</p> */}
+            <input
+                type="file"
+                accept="image/jpeg, image/png"
                 onChange={updateFile}
                 id="real-file-button"
                 hidden

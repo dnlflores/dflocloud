@@ -18,7 +18,7 @@ const validateSignup = [
     check('username')
         .exists({ checkFalsy: true })
         .isLength({ min: 4 })
-        .withMessage('Please provide a username with at least 4 characters.'),
+        .withMessage('Username must be 4 characters or more.'),
     check('username')
         .not()
         .isEmail()
@@ -36,8 +36,37 @@ router.post(
     '/',
     singleMulterUpload("image"),
     validateSignup,
-    asyncHandler(async (req, res) => {
+    asyncHandler(async (req, res, next) => {
         const { email, password, username } = req.body;
+
+        const existingUsername = User.findOne({
+            where: {
+                username
+            }
+        });
+
+        const existingEmail = User.findOne({
+            where: {
+                email
+            }
+        });
+
+        if (existingUsername) {
+            const err = new Error('Signup failed');
+            err.status = 401;
+            err.title = 'Signup failed';
+            err.errors = { "username": 'Username already exists.' };
+            return next(err);
+        }
+
+        if (existingEmail) {
+            const err = new Error('Signup failed');
+            err.status = 401;
+            err.title = 'Signup failed';
+            err.errors = { "email": 'E-mail already exists.' };
+            return next(err);
+        }
+
         const profilePicUrl = req.file ? await singlePublicFileUpload(req.file) : "https://cdn.pixabay.com/photo/2021/01/29/08/10/musician-5960112_960_720.jpg";
         const user = await User.signup({ email, username, password, profilePicture: profilePicUrl });
 
