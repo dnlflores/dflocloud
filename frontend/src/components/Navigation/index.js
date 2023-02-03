@@ -39,7 +39,7 @@ function Navigation({ isLoaded, results, setResults }) {
 
     return isLoaded && (
         <>
-            <nav className="flx-ctr flx-col nav-bar" style={{ position: "fixed" }}>
+            <nav className="flx-ctr flx-col nav-bar">
                 <div className="flx-ctr flx-jst-spc-btwn nav-container">
                     <div className="nav-left">
                         <NavLink to='/' className="nav-logo flx-ctr"><img src={logo} alt="logo" /></NavLink>
