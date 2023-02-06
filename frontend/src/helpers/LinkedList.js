@@ -52,7 +52,7 @@ class LinkedList {
 
     //  This method removes and returns an element from the list from the specified index 
     removeFrom(index) {
-        if (index >= this.size) throw new Error("Remove index out of bounds");
+        if (index >= this.size) throw new Error("Index is out of bounds");
 
         if (index === 0) return this.removeHead();
 
@@ -159,6 +159,19 @@ class LinkedList {
     // This method returns the size of the list
     getSize() {
         return this.size;
+    }
+
+    // This method will convert the linked list into an array data structure.
+    toArray() {
+        let current = this.head;
+        const arr = [];
+
+        while (current !== null) {
+            arr.push(current.element);
+            current = current.next;
+        }
+
+        return arr;
     }
 }
 

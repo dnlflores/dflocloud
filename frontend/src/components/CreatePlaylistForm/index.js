@@ -149,7 +149,7 @@ export default function CreatePlaylistForm({ songFiles, setSongFiles, setShowSin
             </div>
             <div className="flx-ctr flx-col playlist-songs">
                 {!!songFiles.length && songFiles.map((song, i) => (
-                    <div key={i} className="flx-ctr song-slice" onDragEnd={onDragEnd} onDragEnter={() => setDragItemIndex(i)} onDragStart={() => setDragOverItemIndex(i)} onDragOver={e => e.preventDefault()}>
+                    <div key={song.id} className="flx-ctr song-slice" onDragEnd={onDragEnd} onDragEnter={() => setDragItemIndex(i)} onDragStart={() => setDragOverItemIndex(i)} onDragOver={e => e.preventDefault()}>
                         <PlaylistSongSlice songFile={song} allSongFiles={songFiles} setSongFiles={setSongFiles} titles={titles} setTitles={setTitles} index={i} />
                     </div>
                 ))}

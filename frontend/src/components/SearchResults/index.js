@@ -31,8 +31,6 @@ export default function SearchResults({ results, audioPlayer }) {
     if (!results.songs) return <Redirect to="/discover" />
     if (!playlists[0].order) return null;
 
-    console.log("here are the results", results);
-
     return (
         <div className="flx-ctr single-page results-page">
             {!!songs.length && (

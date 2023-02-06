@@ -11,8 +11,6 @@ export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted,
     const handleClick = (e) => {
         e.stopPropagation();
 
-        console.log("playlist started variable => ", playlistStarted);
-        console.log("here is the playlist -> ", playlist);
         if (+playlistStarted !== +playlist.id) {
             const newQueue = new LinkedList();
             playlist.Songs.forEach(song => newQueue.add(song));

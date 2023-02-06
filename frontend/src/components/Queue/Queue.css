@@ -1,0 +1,70 @@
+.queue-container {
+    position: fixed;
+    background: #808080;
+    width: 30rem;
+    bottom: 5rem;
+    right: 0;
+    z-index: 99;
+    border-top-left-radius: 10px;
+    max-height: 25rem;
+    overflow: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.queue-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.queue-container {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.song-queue {
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.song-queue img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+.song-queue>* {
+    margin: 0 2rem;
+}
+
+.song-queue p {
+    text-overflow: ellipsis;
+    text-align: center;
+    max-width: 15rem;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 10rem;
+}
+
+.song-queue span {
+    cursor: pointer;
+}
+
+.song-queue span:first-child {
+    max-width: 1px;
+    margin-left: 0;
+}
+
+.fade-in,
+.fade-out {
+    opacity: 0;
+    -moz-transition: opacity 0.4s ease-in-out;
+    -o-transition: opacity 0.4s ease-in-out;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+}

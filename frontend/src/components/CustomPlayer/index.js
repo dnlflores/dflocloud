@@ -3,15 +3,15 @@ import { useNowPlaying } from '../../context/NowPlayingContext';
 import 'react-h5-audio-player/lib/styles.css';
 import './CustomPlayer.css'
 
-export default function CustomPlayer({ audioPlayer }) {
-    const { nowPlaying, setNowPlaying, setIsPlaying, queue, setQueue } = useNowPlaying();
+export default function CustomPlayer({ audioPlayer, showQueue, setShowQueue }) {
+    const { nowPlaying, setNowPlaying, setIsPlaying, queue } = useNowPlaying();
 
     const handleClickNext = () => {
         if (!nowPlaying.next) return;
         const nextSong = nowPlaying.next;
         setNowPlaying(nextSong);
     };
-    
+
     const handleClickPrev = () => {
         if (!nowPlaying.prev) return;
         const nextSong = nowPlaying.prev;
@@ -23,11 +23,14 @@ export default function CustomPlayer({ audioPlayer }) {
     if (!nowPlaying.element.title) content = (<p>Nothing Selected</p>);
     else content = (
         <>
-            <img className="now-playing-img" src={nowPlaying.element.previewImage} alt="now-playing" />
-            <div className="now-playing-title-artist">
-                <p>{nowPlaying.element.title}</p>
-                <p>{nowPlaying.element.Artist.username}</p>
+            <div style={{ display: "flex", height: "100%" }}>
+                <img className="now-playing-img" src={nowPlaying.element.previewImage} alt="now-playing" />
+                <div className="now-playing-title-artist">
+                    <p>{nowPlaying.element.title}</p>
+                    <p>{nowPlaying.element.Artist.username}</p>
+                </div>
             </div>
+            {queue.getSize() > 0 ? showQueue ? <span onClick={() => setShowQueue(false)} className="material-symbols-outlined">disabled_by_default</span> : <span onClick={() => setShowQueue(true)} className="material-symbols-outlined">list</span> : ""}
         </>
     );
 
@@ -48,7 +51,7 @@ export default function CustomPlayer({ audioPlayer }) {
                 autoPlayAfterSrcChange
                 customControlsSection={
                     [
-                        <div style={{ width: '10%'}} />,
+                        <div style={{ width: '10%' }} />,
                         RHAP_UI.MAIN_CONTROLS,
                         RHAP_UI.VOLUME_CONTROLS,
                     ]

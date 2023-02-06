@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-export default function PlaylistSongSlice({ songFile, titles, setTitles, setSongFiles, allSongFiles, index }) {
+export default function PlaylistSongSlice({ songFile, titles, setTitles, setSongFiles, allSongFiles }) {
     const [songName, setSongName] = useState(songFile.name.slice(0, songFile.name.length - 4));
 
     useEffect(() => {
