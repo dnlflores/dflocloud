@@ -15,6 +15,7 @@ export default function SinglePlaylist({ audioPlayer }) {
     const playlist = useSelector(state => state.playlists[playlistId]);
     const currentUser = useSelector(state => state.session.user);
     const [playlistStarted, setPlaylistStarted] = useState("");
+    const [errorConf, setErrorConf] = useState(false);
     const { nowPlaying } = useNowPlaying();
 
     useEffect(() => {
@@ -53,7 +54,7 @@ export default function SinglePlaylist({ audioPlayer }) {
                 {currentUser && +currentUser.id === +playlist.userId && (
                     <>
                         <EditPlaylistModal playlist={playlist} />
-                        <button className="flx-ctr" id="delete-btn" onClick={handleRemovePlaylist}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
+                        <button className="flx-ctr" id="delete-btn" onClick={() => setErrorConf(true)}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
                     </>
                 )}
             </div>
@@ -64,6 +65,15 @@ export default function SinglePlaylist({ audioPlayer }) {
                 </div>
                 <SongList audioPlayer={audioPlayer} setPlaylistStarted={setPlaylistStarted} playlist={playlist} songs={orderSongs()} />
             </div>
+            {errorConf && (
+                <div className="flx-ctr error-conf-back">
+                    <div className="flx-ctr flx-col error-conf">
+                        <h2>Are you sure you want to delete this playlist?</h2>
+                        <button className="red-btn" onClick={handleRemovePlaylist}>Delete</button>
+                        <button style={{ border: "1px solid #e5e5e5" }} className="clr-btn" onClick={() => setErrorConf(false)}>Cancel</button>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
