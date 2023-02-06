@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import { getSong, removeSong } from '../../store/songs';
@@ -15,6 +15,7 @@ export default function SingleSong({ audioPlayer }) {
     const history = useHistory();
     const song = useSelector(state => state.songs.singleSong);
     const currentUser = useSelector(state => state.session.user);
+    const [errorConf, setErrorConf] = useState(false);
 
     useEffect(() => {
         dispatch(getSong(songId));
@@ -42,7 +43,7 @@ export default function SingleSong({ audioPlayer }) {
                     {currentUser && +currentUser.id === +song.userId && (
                         <>
                             <EditSongModal song={song} />
-                            <button className="flx-ctr" id="delete-btn" onClick={handleDelete}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
+                            <button className="flx-ctr" id="delete-btn" onClick={() => setErrorConf(true)}>Delete <span className="material-symbols-outlined">delete_forever</span></button>
                         </>
                     )}
                 </div>
@@ -54,11 +55,15 @@ export default function SingleSong({ audioPlayer }) {
                 </div>
                 <Comments song={song} />
             </div>
-            <div className="flx-ctr error-conf-back">
-                <div>
-                    
+            {errorConf && (
+                <div className="flx-ctr error-conf-back">
+                    <div className="flx-ctr flx-col error-conf">
+                        <h2>Are you sure you want to delete this song?</h2>
+                        <button className="red-btn" onClick={handleDelete}>Delete</button>
+                        <button style={{ border: "1px solid #e5e5e5" }} className="clr-btn" onClick={() => setErrorConf(false)}>Cancel</button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     )
 }
