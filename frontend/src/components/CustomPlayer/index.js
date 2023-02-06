@@ -4,14 +4,12 @@ import 'react-h5-audio-player/lib/styles.css';
 import './CustomPlayer.css'
 
 export default function CustomPlayer({ audioPlayer, showQueue, setShowQueue }) {
-    const { nowPlaying, setNowPlaying, setIsPlaying, queue, setQueue } = useNowPlaying();
+    const { nowPlaying, setNowPlaying, setIsPlaying, queue } = useNowPlaying();
 
     const handleClickNext = () => {
         if (!nowPlaying.next) return;
         const nextSong = nowPlaying.next;
         setNowPlaying(nextSong);
-
-        console.log("now playing in player => ", nowPlaying)
     };
 
     const handleClickPrev = () => {
@@ -25,11 +23,14 @@ export default function CustomPlayer({ audioPlayer, showQueue, setShowQueue }) {
     if (!nowPlaying.element.title) content = (<p>Nothing Selected</p>);
     else content = (
         <>
-            <img className="now-playing-img" src={nowPlaying.element.previewImage} alt="now-playing" />
-            <div className="now-playing-title-artist">
-                <p>{nowPlaying.element.title}</p>
-                <p>{nowPlaying.element.Artist.username}</p>
+            <div style={{ display: "flex", height: "100%" }}>
+                <img className="now-playing-img" src={nowPlaying.element.previewImage} alt="now-playing" />
+                <div className="now-playing-title-artist">
+                    <p>{nowPlaying.element.title}</p>
+                    <p>{nowPlaying.element.Artist.username}</p>
+                </div>
             </div>
+            {queue.getSize() > 0 ? showQueue ? <span onClick={() => setShowQueue(false)} className="material-symbols-outlined">disabled_by_default</span> : <span onClick={() => setShowQueue(true)} className="material-symbols-outlined">list</span> : ""}
         </>
     );
 
@@ -58,7 +59,6 @@ export default function CustomPlayer({ audioPlayer, showQueue, setShowQueue }) {
             />
             <div className="flx-ctr custom-player-info">
                 {content}
-                <button onClick={() => setShowQueue(!showQueue)}>Show Queue</button>
             </div>
         </div>
     )

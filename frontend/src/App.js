@@ -26,8 +26,6 @@ function App() {
   const { queue } = useNowPlaying();
   const audioPlayer = createRef();
 
-  console.log("this is the queue => ", queue.toArray());
-
   useEffect(() => {
     dispatch(sessionActions.restoreUser());
     if (document.location.href.split('/')[3] !== '') setIsLoaded(true);

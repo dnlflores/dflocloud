@@ -13,7 +13,7 @@ export default function Queue({ queueArr, showQueue }) {
             copyQ.add(current.element);
             current = current.next;
         }
-        console.log("copy?? => ", copyQ)
+        
         copyQ.removeElement(song);
         setQueue(copyQ);
         setNowPlaying(copyQ.head)
@@ -22,10 +22,9 @@ export default function Queue({ queueArr, showQueue }) {
     return (
         <div className={"queue-container " + (showQueue ? "fade-in" : "fade-out")}>
             {queueArr.map(song => (
-                <div className="flx-ctr song-queue">
+                <div className="flx-ctr song-queue" key={song.id}>
                     <img src={song.previewImage} alt={song.title} />
                     <p>{song.title}</p>
-                    {/* <p>{song.Artist.username}</p> */}
                     <span onClick={() => handleRemove(song)} className="material-symbols-outlined">cancel</span>
                 </div>
             ))}
