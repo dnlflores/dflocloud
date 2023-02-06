@@ -2,6 +2,7 @@ import React, { useEffect, useState, createRef } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from './store/session';
+import { useNowPlaying } from './context/NowPlayingContext';
 import Navigation from './components/Navigation';
 import LandingPage from './components/Landing';
 import Songs from './components/Songs';
@@ -15,12 +16,17 @@ import Upload from './components/Upload';
 import CustomPlayer from './components/CustomPlayer';
 import Library from './components/Library';
 import SearchResults from './components/SearchResults';
+import Queue from './components/Queue';
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [results, setResults] = useState({});
+  const [showQueue, setShowQueue] = useState(false);
+  const { queue } = useNowPlaying();
   const audioPlayer = createRef();
+
+  console.log("this is the queue => ", queue.toArray());
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser());
@@ -29,6 +35,7 @@ function App() {
 
   return (
     <>
+      <Queue queueArr={queue.toArray()} showQueue={showQueue} />
       <Navigation isLoaded={isLoaded} results={results} setResults={setResults} />
       <Switch>
         <Route exact path="/">
@@ -67,7 +74,7 @@ function App() {
       </Switch>
 
       <div className="footer-div" />
-      <CustomPlayer audioPlayer={audioPlayer} />
+      <CustomPlayer audioPlayer={audioPlayer} showQueue={showQueue} setShowQueue={setShowQueue} />
     </>
   );
 }

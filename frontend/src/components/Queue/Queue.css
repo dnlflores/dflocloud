@@ -1,0 +1,42 @@
+.queue-container {
+    position: absolute;
+    background: #808080;
+    width: 30rem;
+    bottom: 5rem;
+    right: 5rem;
+    z-index: 999;
+    padding: 1rem;
+}
+
+.song-queue img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+.song-queue {
+    justify-content: space-between;
+}
+
+.song-queue > * {
+    margin: 0 2rem;
+}
+
+.song-queue p {
+    text-overflow: ellipsis;
+    text-align: center;
+    max-width: 15rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.fade-in, .fade-out {
+    opacity: 0;
+    -moz-transition: opacity 0.4s ease-in-out;
+    -o-transition: opacity 0.4s ease-in-out;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+.fade-in {
+    opacity: 1;
+}
