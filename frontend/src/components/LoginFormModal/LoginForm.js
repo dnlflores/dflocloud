@@ -92,7 +92,7 @@ function LoginForm({ setShowModal, setShowSignup}) {
                 <button className="org-btn login-signup-btns" type="submit">Log In</button>
                 <button className="org-btn login-signup-btns" onClick={handleDemo}>Demo</button>
             </div>
-            <p>Don't have an account? Sign Up <span className="auth-switch" onClick={handleSwitch}>Here</span>!</p>
+            <p>Don't have an account? Sign Up <span className="auth-switch" onClick={handleSwitch}>Here</span>.</p>
         </form>
     );
 }

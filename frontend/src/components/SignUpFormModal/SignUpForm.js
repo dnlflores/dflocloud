@@ -165,15 +165,15 @@ function SignupForm({ setShowModal, setShowLogin }) {
                 hidden
             />
             <div className="fake-file-input fake-auth-input">
-                <span id="file-name">No picture chosen!</span>
+                <span id="file-name">No picture chosen.</span>
                 <button
                     className="org-btn login-signup-btns fake-file-button fake-auth-button"
                     type="button"
                     onClick={handlePicture}
-                >Choose a Picture!</button>
+                >Choose a Picture</button>
             </div>
             <button className="org-btn login-signup-btns" type="submit">Sign Up</button>
-            <p>Have an account already? Log In <span className="auth-switch" onClick={handleSwitch}>Here</span>!</p>
+            <p>Have an account already? Log In <span className="auth-switch" onClick={handleSwitch}>Here</span>.</p>
         </form>
     );
 }

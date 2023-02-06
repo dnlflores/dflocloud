@@ -54,6 +54,11 @@ export default function SingleSong({ audioPlayer }) {
                 </div>
                 <Comments song={song} />
             </div>
+            <div className="flx-ctr error-conf-back">
+                <div>
+                    
+                </div>
+            </div>
         </div>
     )
 }
