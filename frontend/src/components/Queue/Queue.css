@@ -8,15 +8,15 @@
     border-top-left-radius: 10px;
 }
 
+.song-queue {
+    justify-content: space-between;
+    margin: 10px;
+}
+
 .song-queue img {
     height: 50px;
     width: 50px;
     object-fit: cover;
-}
-
-.song-queue {
-    justify-content: space-between;
-    margin: 10px;
 }
 
 .song-queue > * {
@@ -29,6 +29,11 @@
     max-width: 15rem;
     overflow: hidden;
     white-space: nowrap;
+    min-width: 5rem;
+}
+
+.song-queue span {
+    cursor: pointer;
 }
 
 .fade-in, .fade-out {
