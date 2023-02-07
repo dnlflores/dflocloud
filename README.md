@@ -30,7 +30,7 @@ Any user can experience the music the choose to listen to anywhere on DFloCloud.
 
 ### 7. Song Queue
 
-Using a very efficient Doubly Linked List, the queue is available to anyone who visits the app. When you click on a playlist to start listening to songs, the queue is automatically loaded up. You can add any song to the queue, as well as, rearrange the queue to your liking. You can access the queue by clicking the *queue icon* in the bottom right hand corner of the universal player.
+Using a very efficient Doubly Linked List, the queue is available to anyone who visits the app. When you click on a playlist to start listening to songs, the queue is automatically loaded up. You can add any song to the queue, as well as, rearrange the queue to your liking. You can access the queue by clicking the *queue icon* in the bottom right hand corner of the universal player. **Note: Button will only show when a song is playing on the queue.**
 
 ## *Technologies Used*
 

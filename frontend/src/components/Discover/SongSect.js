@@ -10,8 +10,8 @@ export default function SongSect({ audioPlayer, songs, sect }) {
         variableWidth: true,
         adaptiveHeight: true,
         infinite: true,
-        prevArrow: <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8iIMO7Yw051agNn2CqGGDLY5dwRgJJOrSeA&usqp=CAU" />,
-        nextArrow: <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Eo_circle_orange_arrow-right.svg/768px-Eo_circle_orange_arrow-right.svg.png" />
+        prevArrow: <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8iIMO7Yw051agNn2CqGGDLY5dwRgJJOrSeA&usqp=CAU" alt="left-arrow" />,
+        nextArrow: <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Eo_circle_orange_arrow-right.svg/768px-Eo_circle_orange_arrow-right.svg.png" alt="right-arrow" />
     };
 
     return(

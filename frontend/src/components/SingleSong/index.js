@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import { getSong, removeSong } from '../../store/songs';
 import { useNowPlaying } from '../../context/NowPlayingContext';
-import LinkedList, { Node } from '../../helpers/LinkedList';
+import LinkedList from '../../helpers/LinkedList';
 import EditSongModal from '../EditSongModal';
 import Comments from '../Comments';
 import CreateCommentForm from '../Comments/CreateCommentForm';
