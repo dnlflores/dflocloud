@@ -11,7 +11,7 @@ export default function EditSongFormModal({ song }) {
         <>
             <button className="flx-ctr" onClick={() => setShowModal(true)}>Edit <span className="material-symbols-outlined">edit</span></button>
             {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
+                <Modal onClose={() => setShowModal(false)} style={{borderRadius: "20px", boxShadow: "10px 10px 15px black"}}>
                     <EditSongForm setTrigger={setShowModal} song={song} setLoading={setLoading} />
                 </Modal>
             )}

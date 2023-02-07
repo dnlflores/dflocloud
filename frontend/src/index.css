@@ -79,6 +79,15 @@ body {
     cursor: pointer;
 }
 
+.prp-btn {
+    color: white;
+    background-color: purple;
+    border: solid 1px purple;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .clr-btn {
     padding: 5px;
     border-radius: 5px;

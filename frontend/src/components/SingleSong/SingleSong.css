@@ -66,7 +66,7 @@
 }
 
 .song-user-btns {
-    width: 16rem;
+    width: 25rem;
     justify-content: space-around;
     margin-top: 1rem;
 }
@@ -176,13 +176,13 @@
     left: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
 }
 
 .error-conf {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
     background-color: white;
     width: 600px;
     height: 500px;

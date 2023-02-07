@@ -6,6 +6,13 @@ export class Node {
     }
 }
 
+class pair{
+    constructor(first, second){
+        this.first = first
+        this.second = second
+    }
+}
+
 class LinkedList {
     constructor() {
         this.head = null;
@@ -172,6 +179,54 @@ class LinkedList {
         }
 
         return arr;
+    }
+
+    // This method will find the two elements based on the indices
+    find(a, b) {
+        let node1, node2, current = this.head, count = 0;
+
+        while (current !== null) {
+            if (count === a) node1 = current;
+            if (count === b) node2 = current;
+
+            count++;
+            current = current.next;
+        }
+
+        return new pair(node1, node2)
+    }
+
+    // This method will switch two elements in the linked list
+    switch(idx1, idx2) {
+        // Edge Cases
+        if(this.head === null || this.head.next === null || idx1 === idx2)
+            return
+ 
+        // Finding the Nodes
+        const pair = this.find(idx1, idx2)
+        let node1 = pair.first
+        let node2 = pair.second
+
+        if (node1 === this.head) this.head = node2; 
+        else if (node2 === this.head) this.head = node1;
+
+        if (node1 === this.tail) this.tail = node2;
+        else if (node2 === this.tail) this.tail = node1;
+
+        // Swapping the nodes
+        let temp = node1.next;
+        node1.next = node2.next;
+        node2.next = temp;
+
+        if(node1.next != null) node1.next.prev = node1
+        if(node2.next != null) node2.next.prev = node2
+ 
+        temp = node1.prev
+        node1.prev = node2.prev
+        node2.prev = temp
+ 
+        if(node1.prev != null) node1.prev.next = node1
+        if(node2.prev != null) node2.prev.next = node2
     }
 }
 

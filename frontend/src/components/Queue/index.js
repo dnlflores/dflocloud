@@ -4,7 +4,7 @@ import { useNowPlaying } from "../../context/NowPlayingContext";
 import "./Queue.css";
 
 export default function Queue({ queueArr, showQueue }) {
-    const { queue, setQueue, setNowPlaying } = useNowPlaying();
+    const { queue, setQueue, setNowPlaying, nowPlaying } = useNowPlaying();
     const [dragItemIndex, setDragItemIndex] = useState(-1);
     const [dragOverItemIndex, setDragOverItemIndex] = useState(-1);
 
@@ -18,8 +18,17 @@ export default function Queue({ queueArr, showQueue }) {
         }
 
         copyQ.removeElement(song);
+
+        current = copyQ.head;
+        while (current !== null) {
+            if (current.element === nowPlaying.element) nowPlaying.next = current.next;
+            current = current.next;
+        }
+
+        const newPlaying = nowPlaying.element ? nowPlaying : queue.getSize() === 0 ? copyQ.head : null;
+
         setQueue(copyQ);
-        setNowPlaying(copyQ.head)
+        setNowPlaying(newPlaying);
     };
 
     const onDragEnd = () => {
@@ -31,11 +40,18 @@ export default function Queue({ queueArr, showQueue }) {
             current = current.next;
         }
 
-        const moveElement = copyQ.removeFrom(dragItemIndex);
-        copyQ.insertAt(moveElement, dragOverItemIndex);
+        copyQ.switch(dragItemIndex, dragOverItemIndex);
+
+        current = copyQ.head;
+        while (current !== null) {
+            if(current.element === nowPlaying.element) nowPlaying.next = current.next;
+            current = current.next;
+        }
+
+        const newPlaying = nowPlaying.element ? nowPlaying : queue.getSize() === 0 ? copyQ.head : null;
 
         setQueue(copyQ);
-        setNowPlaying(copyQ.head);
+        setNowPlaying(newPlaying);
     };
 
     return (

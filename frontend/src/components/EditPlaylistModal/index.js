@@ -10,7 +10,7 @@ export default function EditPlaylistModal({ playlist }) {
         <>
             <button className="flx-ctr" onClick={() => setShowModal(true)}>Edit <span className="material-symbols-outlined">edit</span></button>
             {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
+                <Modal onClose={() => setShowModal(false)} style={{borderRadius: "20px", boxShadow: "10px 10px 15px black"}}>
                     <EditPlaylistForm setTrigger={setShowModal} playlist={playlist} setLoading={setLoading} />
                 </Modal>
             )}

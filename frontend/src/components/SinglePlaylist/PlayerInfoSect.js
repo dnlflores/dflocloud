@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { songPlayed } from "../../store/songs";
 import { useNowPlaying } from "../../context/NowPlayingContext";
 import LinkedList from "../../helpers/LinkedList";
-import { songPlayed } from "../../store/songs";
 
 export default function PlayerInfoSect({ playlist, audioPlayer, playlistStarted, setPlaylistStarted }) {
     const dispatch = useDispatch();
