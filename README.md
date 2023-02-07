@@ -28,6 +28,10 @@ If you are logged in you can create a comment on any song! Any visitor to DFloCl
 
 Any user can experience the music the choose to listen to anywhere on DFloCloud. You are not limited to being on one page to enjoy the music. If you start a playlist you can freely explore around and the playlist will continue in the order you left off. From the controls at the bottom of the page you can skip to the next song or go back to a previous song. The scrubber allows you to click and drag to any point you want in the song. The player also shows the song you are listening to and who the song is by.
 
+### 7. Song Queue
+
+Using a very efficient Doubly Linked List, the queue is available to anyone who visits the app. When you click on a playlist to start listening to songs, the queue is automatically loaded up. You can add any song to the queue, as well as, rearrange the queue to your liking. You can access the queue by clicking the *queue icon* in the bottom right hand corner of the universal player.
+
 ## *Technologies Used*
 
 1. React
