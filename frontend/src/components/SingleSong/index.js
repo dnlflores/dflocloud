@@ -133,8 +133,8 @@ export default function SingleSong({ audioPlayer }) {
                     <div className="flx-ctr flx-col error-conf">
                         <h2>Where in the Queue?</h2>
                         <div className="flx-ctr">
-                            <button className="org-btn" onClick={addToEnd}>Add Last</button>
                             <button className="prp-btn" onClick={queue.getSize() > 0 ? addNext : addToFront}>Add Next</button>
+                            <button className="org-btn" onClick={addToEnd}>Add Last</button>
                         </div>    
                         <button style={{ border: "1px solid #e5e5e5" }} className="clr-btn" onClick={() => setAddQueue(false)}>Cancel</button>
                     </div>
