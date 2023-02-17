@@ -4,7 +4,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { ModalProvider } from "./context/Modal";
+import { ModalProvider, Modal } from "./context/Modal";
 import NowPlayingProvider from "./context/NowPlayingContext";
 import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
@@ -22,15 +22,16 @@ if (process.env.NODE_ENV !== "production") {
 
 function Root() {
   return (
-    <Provider store={store}>
-      <NowPlayingProvider>
-        <ModalProvider>
+    <ModalProvider>
+      <Provider store={store}>
+        <NowPlayingProvider>
           <BrowserRouter>
             <App />
+            <Modal />
           </BrowserRouter>
-        </ModalProvider>
-      </NowPlayingProvider>
-    </Provider>
+        </NowPlayingProvider>
+      </Provider>
+    </ModalProvider>
   );
 }
 

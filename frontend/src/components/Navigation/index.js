@@ -5,6 +5,8 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignUpFormModal from '../SignUpFormModal';
 import SearchBar from '../SearchBar';
+import OpenModalButton from '../OpenModalButton';
+import LoginForm from '../LoginFormModal/LoginForm';
 import logo from '../../assets/logo/logo4.png';
 import './Navigation.css';
 
@@ -31,6 +33,7 @@ function Navigation({ isLoaded, results, setResults }) {
     } else {
         sessionLinks = (
             <div style={sessionLinksStyle}>
+                <OpenModalButton buttonText="Log in" modalComponent={<LoginForm />} />
                 <LoginFormModal showModal={showLogin} setShowModal={setShowLogin} setShowSignup={setShowSignup} />
                 <SignUpFormModal showModal={showSignup} setShowModal={setShowSignup} setShowLogin={setShowLogin} />
             </div>

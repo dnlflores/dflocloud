@@ -9,7 +9,17 @@ import Comments from '../Comments';
 import CreateCommentForm from '../Comments/CreateCommentForm';
 import PlayerInfoSect from './PlayerInfoSect';
 import AddToPlaylistModal from '../AddToPlaylistModal';
+import OpenModalButton from '../OpenModalButton';
 import './SingleSong.css';
+
+function DummyComponent() {
+    const params = useParams();
+    const { songId } = params;
+    console.log("these are the params in the dummy component => ", params)
+    return (
+        <h2>this is what the params looks like {songId}</h2>
+    )
+}
 
 export default function SingleSong({ audioPlayer }) {
     const { songId } = useParams();
@@ -60,7 +70,7 @@ export default function SingleSong({ audioPlayer }) {
 
         current = copyQ.head;
         while (current !== null) {
-            if(current.element === nowPlaying.element) nowPlaying.next = current.next;
+            if (current.element === nowPlaying.element) nowPlaying.next = current.next;
             current = current.next;
         }
 
@@ -93,6 +103,10 @@ export default function SingleSong({ audioPlayer }) {
 
     return (
         <div className="single-page">
+            <OpenModalButton
+                buttonText="Testing"
+                modalComponent={<DummyComponent />}
+            />
             <PlayerInfoSect song={song} audioPlayer={audioPlayer} />
             <div className='flx-ctr flx-col comment-create-sect'>
                 <div className="flx-ctr comment-pic-div">
@@ -135,7 +149,7 @@ export default function SingleSong({ audioPlayer }) {
                         <div className="flx-ctr">
                             <button className="prp-btn" onClick={queue.getSize() > 0 ? addNext : addToFront}>Add Next</button>
                             <button className="org-btn" onClick={addToEnd}>Add Last</button>
-                        </div>    
+                        </div>
                         <button style={{ border: "1px solid #e5e5e5" }} className="clr-btn" onClick={() => setAddQueue(false)}>Cancel</button>
                     </div>
                 </div>
